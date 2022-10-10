@@ -1,0 +1,10 @@
+<%= const sources=html.match(/<img [^>]*src="[^"]*"[^>]*>/gm)
+    .map(x => x.replace(/.*src="([^"]*)".*/, '$1'));
+    var html = '<img src="http://static2.ccn.com/ccs/2013/02/CC_1935770_challenge_accepted_pack_x3_indivisible.jpg" />';
+
+    var re = /<img[^>]+src="http:\/\/([^">]+)/g
+        var results = re.exec(html);
+
+        var source = results[1];
+        alert(source);
+%>

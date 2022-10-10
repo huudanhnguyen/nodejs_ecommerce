@@ -1,0 +1,15 @@
+<% 
+  subMenu = (listMenu, parentId = 0) => {
+    let xhtml = '';
+    listMenu.forEach(item => {
+      let link = item.slug;
+      if(item.parentId == parentId) {
+        xhtml += `<li><a href="${link}">${item.name}</a>`;
+        xhtml += subMenu(listMenu,item.id) 
+        && `<ul>${subMenu(listMenu,item.id)}</ul>`
+        xhtml += '</li>';
+      }
+    })
+    return xhtml;
+  }
+%>

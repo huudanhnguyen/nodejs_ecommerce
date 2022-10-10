@@ -1,0 +1,11 @@
+<% include ./../../helpers/rssList %>
+<% include ./../../helpers/pagination %>
+<main>
+    <%- rssList(rss) %>
+    <%- paginationHelper(paginationObj,'rss') %>
+</main>
+<script>
+  $(document).ready(function() {
+    window.scroll(0, 1);
+  })
+</script>
