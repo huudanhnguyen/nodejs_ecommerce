@@ -30,6 +30,23 @@ const folderUpload 	= `uploads/${collection}/`;
 								<div class="tab-pane fade show" id="header-settings" role="tabpanel"
 									aria-labelledby="header-settings-tab">
 
+
+
+									<div class="form-group row">
+										<label for="name" class="col-sm-2 col-form-label text-sm-right required">Phone</label>
+										<div class="col-xs-12 col-sm-8">
+											<input type="text" name="phoneHeader" value="<%= item.phoneHeader %>" class="form-control form-control-sm <%= errors.copyright && 'is-invalid' %>">
+											<span class="error invalid-feedback"><%= errors.copyright %></span>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="name" class="col-sm-2 col-form-label text-sm-right required">Thông Báo</label>
+										<div class="col-xs-12 col-sm-8">
+											<input type="text" name="notification" value="<%= item.notification %>" class="form-control form-control-sm <%= errors.copyright && 'is-invalid' %>">
+											<span class="error invalid-feedback"><%= errors.copyright %></span>
+										</div>
+									</div>
+									
 									<div class="form-group row">
 										<label for="logoHeader" class="col-sm-2 col-form-label text-sm-right required">Logo</label>
 										<div class="col-xs-12 col-sm-8">
@@ -40,7 +57,6 @@ const folderUpload 	= `uploads/${collection}/`;
 											</div>
 										</div>
 									</div>
-
 									<div class="form-group row">
 										<div class="col-sm-2 col-form-label"></div>
 										<div class="col-xs-12 col-sm-8">
@@ -59,14 +75,27 @@ const folderUpload 	= `uploads/${collection}/`;
 											<span class="error invalid-feedback"><%= errors.copyright %></span>
 										</div>
 									</div>
-
 									<div class="form-group row">
+										<label for="name" class="col-sm-2 col-form-label text-sm-right required">Email</label>
+										<div class="col-xs-12 col-sm-8">
+											<input type="text" name="email" value="<%= item.email %>" class="form-control form-control-sm <%= errors.copyright && 'is-invalid' %>">
+											<span class="error invalid-feedback"><%= errors.copyright %></span>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label for="name" class="col-sm-2 col-form-label text-sm-right required">Địa Chỉ</label>
+										<div class="col-xs-12 col-sm-8">
+											<input type="text" name="address" value="<%= item.address %>" class="form-control form-control-sm <%= errors.copyright && 'is-invalid' %>">
+											<span class="error invalid-feedback"><%= errors.copyright %></span>
+										</div>
+									</div>
+
+									<!-- <div class="form-group row">
 										<label for="description" class="col-sm-2 col-form-label text-sm-right required">Content</label>
 										<div class="col-xs-12 col-sm-8">
 											<textarea id="editor" name="content"><%= item.content %></textarea>
-											<!-- <span class="error invalid-feedback">undefined</span> -->
 										</div>
-									</div>
+									</div> -->
 
 									<div class="form-group row">
 										<label for="logoFooter" class="col-sm-2 col-form-label text-sm-right required">Logo</label>

@@ -24,14 +24,19 @@ router.get(('/'),async (req, res, next) => {
 	let errors   = null;
 	let item = await Model.findOne({});
 
-	const {copyright, content, logoFooter} = JSON.parse(item.footer);
-	const {logoHeader} = JSON.parse(item.header);
+	const {copyright, content, logoFooter,phoneFooter,email,address} = JSON.parse(item.footer);
+	const {logoHeader,phoneHeader,notification} = JSON.parse(item.header);
 	
 	item.copyright = copyright;
 	item.content = content;
+	item.address = address;
+	item.phoneFooter = phoneFooter;
+	item.email = email;
 	item.logoFooter = logoFooter;
+
+	item.phoneHeader = phoneHeader;
+	item.notification = notification;
 	item.logoHeader = logoHeader;
-	console.log(item.footer);
 	res.render(`${folderView}form`, { pageTitle: pageTitleIndex, item, errors,});
 });
 
