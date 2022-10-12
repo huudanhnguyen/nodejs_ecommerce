@@ -19,6 +19,7 @@ const pageTitleAdd   = pageTitleIndex + ' - Add';
 const pageTitleEdit  = pageTitleIndex + ' - Edit';
 const folderView	 = __path_view_admin + `pages/${Collection}/`;
 const uploadAvatar	 = FileHelpers.upload('image', Collection);
+const uploadMoreImg	 = FileHelpers.uploadFileMulti('moreImage', `${Collection}`);
 // List items
 router.get('(/status/:status)?', async (req, res, next) => {
 	let objWhere	 = {};
@@ -111,7 +112,7 @@ router.get(('/form(/:id)?'),async (req, res, next) => {
 });
 
 // SAVE = ADD EDIT
-router.post('/save',uploadAvatar,
+router.post('/save',uploadAvatar,uploadMoreImg,
 	body('name').notEmpty().withMessage(notify.ERROR_NAME_EMPTY),
 	body('categoriesId').not().isIn(['novalue']).withMessage(notify.ERROR_Category),
 	body('slug').matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).withMessage(notify.ERROR_SLUG),
@@ -130,15 +131,29 @@ router.post('/save',uploadAvatar,
 		}
 		return true;
 	}),
+	body('moreImage').custom((value,{req}) => {
+		const {image_uploaded,image_old} = req.body;
+		if(!image_uploaded && !image_old) {
+			return Promise.reject(notify.ERROR_FILE_EMPTY);
+		}
+		if(!req.file && image_uploaded) {
+				return Promise.reject(notify.ERROR_FILE_EXTENSION);
+		}
+		return true;
+	}),
 	async (req, res, next) => {
-	// uploadAvatar(req, res,async (errUpload) => {
 		const errors = validationResult(req);
+		let itemData
+			if(req.params.id != undefined){
+				itemData = await Model.getItemByID(req.params.id)
+			}
 		if (!errors.isEmpty()) {
 			let errorsMsg = {};
 			errors.errors.forEach(value => {
 				errorsMsg[value.param] = value.msg
 			});
 			req.body.image = req.body.image_old;
+			req.body.moreImage = req.body.image_old;
 			let listCategory = await UtilsHelpers.getCategory();
 			res.render(`${folderView}form`, { 
 				pageTitle: pageTitleEdit, 
@@ -153,8 +168,10 @@ router.post('/save',uploadAvatar,
 		if(item.id){	// edit	
 			if(!req.file){ // không có upload lại hình
 				item.image = item.image_old;
+				item.moreImage = item.image_old;
 			}else{
 				item.image = req.file.filename;
+				item.moreImage = req.file.filename;
 				FileHelpers.remove(`public/uploads/${Collection}/`, item.image_old);
 			}
 			
@@ -163,12 +180,14 @@ router.post('/save',uploadAvatar,
 			});
 		} else { // add
 			item.image = req.file.filename;
+			item.moreImage = req.file.filename;
 			Model.addOne(item).then(()=> {
 				req.flash('success', notify.ADD_SUCCESS, linkIndex);
 			})
 			
 		}	
 	// });
+
 });
 
 module.exports = router;

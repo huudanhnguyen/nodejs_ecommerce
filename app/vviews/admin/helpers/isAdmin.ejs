@@ -1,0 +1,16 @@
+<% 
+    isAdminHelper = (collection, isAdmin, id) => {
+        let xhtmlisAdmin = '';
+        let link       = systemConfig.prefixAdmin + '/' + collection + '/ajax/isAdmin' ;
+        if(isAdmin === "yes") {
+            xhtmlisAdmin = 'btn-success';
+        }else if (isAdmin === "no") {
+            xhtmlisAdmin = 'btn-warning';
+        }
+        return `<a href="javascript:void(0)" class="rounded-circle btn btn-sm ${xhtmlisAdmin} isAdmin" onClick="handleAjax('${linkAjax}','isAdmin','${id}',this)" data-value="${isAdmin}"><i class="fas fa-check"></i></a>`;
+    }
+%>
+
+
+
+

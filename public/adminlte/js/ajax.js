@@ -16,6 +16,10 @@ const handleAjax = (link,field,id,evt) => {
          value = $(evt).data('value') == 'active' ? 'inactive' : 'active';
          xhtml = `<a href="javascript:void(0)" class="rounded-circle btn btn-sm ${value == 'active' ? 'btn-success' : 'btn-warning'}" onClick="handleAjax('${link}','status','${id}',this)" data-value="${value}"><i class="fas fa-check"></i></a>`;
          break;
+         case 'isAdmin':
+            value = $(evt).data('value') == 'yes' ? 'no' : 'yes';
+            xhtml = `<a href="javascript:void(0)" class="rounded-circle btn btn-sm ${value == 'yes' ? 'btn-success' : 'btn-warning'}" onClick="handleAjax('${link}','isAdmin','${id}',this)" data-value="${value}"><i class="fas fa-check"></i></a>`;
+            break;
       case 'ordering':
          value = evt.value;
          if(isNaN(value)) {

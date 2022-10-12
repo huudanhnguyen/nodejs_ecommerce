@@ -3,8 +3,9 @@ const databaseConfig = require(__path_configs + 'database');
 
 var schema = new mongoose.Schema({ 
     name: String, 
-    slug: String, 
+    slug: String,
     image: String,
+    moreImage:Array,
     shortDes:String,
     description: String,
     status: String,

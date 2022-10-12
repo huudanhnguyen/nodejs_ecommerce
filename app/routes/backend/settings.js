@@ -93,7 +93,7 @@ router.post('/save',uploadAvatar,
 		if(req.files.logoHeader) FileHelpers.remove(`public/uploads/${Collection}/`, item.image_header_old);
 		if(req.files.logoFooter) FileHelpers.remove(`public/uploads/${Collection}/`, item.image_footer_old);
 		Model.update({_id:item.id},{header,footer}).then(() => {
-			req.flash('success','Cap nhat thanh cong', linkIndex);
+			req.flash('success','Cập Nhật Thành Công', linkIndex);
 		})
 });
 
