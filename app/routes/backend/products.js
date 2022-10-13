@@ -19,6 +19,8 @@ const pageTitleAdd   = pageTitleIndex + ' - Add';
 const pageTitleEdit  = pageTitleIndex + ' - Edit';
 const folderView	 = __path_view_admin + `pages/${Collection}/`;
 const uploadAvatar	 = FileHelpers.upload('image', Collection);
+const DeletePhotosHelpers = require(__path_helpers + 'deletephoto');
+const uploadImage	 = FileHelpers.upload('file', Collection);
 const uploadMoreImg	 = FileHelpers.uploadFileMulti('moreImage', `${Collection}`);
 // List items
 router.get('(/status/:status)?', async (req, res, next) => {
@@ -112,7 +114,7 @@ router.get(('/form(/:id)?'),async (req, res, next) => {
 });
 
 // SAVE = ADD EDIT
-router.post('/save',uploadAvatar,uploadMoreImg,
+router.post('/save',uploadMoreImg,
 	body('name').notEmpty().withMessage(notify.ERROR_NAME_EMPTY),
 	body('categoriesId').not().isIn(['novalue']).withMessage(notify.ERROR_Category),
 	body('slug').matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).withMessage(notify.ERROR_SLUG),
@@ -185,8 +187,78 @@ router.post('/save',uploadAvatar,uploadMoreImg,
 				req.flash('success', notify.ADD_SUCCESS, linkIndex);
 			})
 			
-		}	
+		}
+		router.post('/upload',uploadImage, async (req, res, next) => { 
+			if(!req.file) {
+				return res.status(422).send('The error message');
+			}
+			return res.status(200).send(req.file);
+		});
 	// });
+
+
+	// try {
+	// 	let item = req.body;
+	// 	let itemData
+	// 	if(req.params.id != undefined){
+	// 		itemData = await Model.getItemByID(req.params.id)
+	// 	}
+	// 	let errors = validationResult(req)
+	// 	if(!errors.isEmpty()) {
+	// 		let listCategory = await UtilsHelpers.getCategory();
+	// 		let main = {pageTitle: pageTitle,
+	// 					showError: errors.errors,
+	// 					listCategory
+	// 				}
+	// 		if(req.files != undefined) {
+	// 			req.files.forEach(value=>{
+	// 				FileHelpers.remove(`public/uploads/${Collection}/`, value.filename);
+	// 			})
+	// 		}// xóa tấm hình khi form không hợp lệ
+	// 		if (req.params.id !== undefined){
+	// 				res.render(`${folderView}form`, {
+	// 					main: main,
+	// 					item: itemData,
+	// 					id: req.params.id,
+	// 					layout,
+	// 				})
+	// 		} else {
+	// 			res.render(`${folderView}form`, {
+	// 				main: main,
+	// 				item: req.body,
+	// 				layout,
+	// 			})
+	// 		}
+	// 		return
+	// 	} else {
+	// 		if (req.params.id && item.image_delete){ 
+	// 			itemData.moreImage = await DeletePhotosHelpers.deletePhoto(req.params.id, item.image_delete, Collection)
+	// 		}
+	// 		if(req.files.length == 0){ //không có upload lại hình
+	// 			item.moreImage = itemData.moreImage;
+	// 		}else {
+	// 			if(itemData != undefined){
+	// 				item.moreImage = req.files.map(obj => obj.filename).concat(itemData.moreImage);
+	// 			} else{
+	// 				item.moreImage = req.files.map(obj => obj.filename);
+	// 			}
+	// 		}
+	// 	}
+	// 		if (req.params.id !== undefined) {
+	// 			await Model.updateOne(req.params.id, item)
+	// 			req.flash('success', notify.EDIT_SUCCESS);
+	// 			res.redirect(linkIndex);
+	// 		} else {
+	// 			item.category = req.body.categoryId
+	// 			let data = await Model.addOne(item)
+	// 			req.flash('success', notify.ADD_SUCCESS);
+	// 			res.redirect(linkIndex);
+	// 		}
+	// 	} catch (error) {
+	// 		console.log(error)
+	// 		req.flash('success', "Có lỗi xảy ra");
+	// 		res.redirect(linkIndex);
+	// 	}
 
 });
 

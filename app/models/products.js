@@ -22,9 +22,9 @@ module.exports = {
 		return Model.updateMany({_id: {[operator]: cid }}, {[field]: value,...restParams});
 	},
 	async addOne(obj){
-		let product = await Model(obj).save();
+		let article = await Model(obj).save();
 		let Category = await CategoriesModel.findById(obj.categoriesId);
-		Category.products.push(product._id);
+		Category.articles.push(article._id);
 		return Category.save();
 	},
 	deleteOne(id,field = null){

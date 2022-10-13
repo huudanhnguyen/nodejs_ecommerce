@@ -1,12 +1,15 @@
 <% include ./../../helpers/image %>
 <% include ./../../helpers/selectCategory %>
+<script>
+  import { Dropzone } from "dropzone";
+const dropzone = new Dropzone("div#myId", { url: "/file/post" });
+</script>
 <% const collection="products" ; const linkPrefix=systemConfig.prefixAdmin + `/${collection}/`; errors=errors ??
 			{}; const folderUpload=`uploads/${collection}/`; %>
 
 <div class="card card-info card-outline">
   <form action="<%= linkPrefix %>save/" method="POST" class="mb-0" name="form-upload" enctype="multipart/form-data">
     <div class="card-body">
-
       <div class="form-group row">
         <label for="name" class="col-sm-2 col-form-label text-sm-right required">Name</label>
         <div class="col-xs-12 col-sm-8">
@@ -17,7 +20,6 @@
           <%- `<span class="error invalid-feedback">${errors.name}</span>` %>
         </div>
       </div>
-
       <div class="form-group row">
         <label for="slug" class="col-sm-2 col-form-label text-sm-right required">Slug</label>
         <div class="col-xs-12 col-sm-8">
@@ -51,7 +53,7 @@
       </div>
 
       <!-- Image -->
-      <div class="form-group row">
+      <!-- <div class="form-group row">
         <label for="image" class="col-sm-2 col-form-label text-sm-right required">Image</label>
         <div class="col-xs-12 col-sm-8">
           <div class="custom-file">
@@ -66,27 +68,36 @@
         <div class="col-xs-12 col-sm-8">
           <%- imageHelper(folderUpload, item.image, item.name,'200','200'); %>
         </div>
+      </div> -->
+      <div class="form-group row">
+        <label for="image" class="col-sm-2 col-form-label text-sm-right required">Image</label>
+        <div class="col-xs-12 col-sm-8">
+          <div class="card">
+						<div class="card-header">
+							<h3 class="card-title">Hình Ảnh Sản Phẩm</h3>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="form-group col-md-12">
+									<div class="dropzone" id="myDropzone" data-url="<%= linkPrefix %>upload/">
+										<div class="fallback">
+											<input name="file" type="file"  multiple/>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+        </div>
       </div>
+      <div class="form-group row">
+        <div class="col-sm-2 col-form-label"></div>
+
+      </div>
+
 
       <!-- More Image -->
 
-      <!-- <div class="form-group row">
-        <label for="moreImage" class="col-sm-2 col-form-label text-sm-right required">More Image</label>
-        <div class="col-xs-12 col-sm-8">
-          <div class="custom-file">
-            <input id="moreImgInp" class="form-control custom-file-input <%= errors.moreImage && 'is-invalid' %>" type="file" name="moreImage">
-            <label class="custom-file-label" for="moreImgInp">Choose file</label>
-            <%- `<span class="error invalid-feedback">${errors.moreImage}</span>` %>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <div class="col-sm-2 col-form-label"></div>
-        <div class="col-xs-12 col-sm-8">
-          <%- moreImageHelper(folderUpload, item.moreImage, item.name,'200','200'); %>
-        </div>
-      </div> -->
 
 
       <div class="form-group row">
@@ -122,29 +133,53 @@
   </form>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
-  ClassicEditor
-    .create(document.querySelector('#editor'))
-    .catch(error => {
-      console.error(error);
-    });
+	ClassicEditor
+		.create(document.querySelector('#editor'))
+		.catch(error => {
+			console.error(error);
+		});
 
-  imgInp.onchange = evt => {
-    const [file] = imgInp.files
-    if (file) {
-      showImage.src = URL.createObjectURL(file)
-      image_uploaded.setAttribute('value', 'uploaded')
-    }
-  }
-  moreImgInp.onchange = evt => {
-    const [file] = moreImgInp.files
-    if (file) {
-      showImage.src = URL.createObjectURL(file)
-      image_uploaded.setAttribute('value', 'uploaded')
-    }
-  }
+	// imgInp.onchange = evt => {
+	// 	const [file] = imgInp.files
+	// 	if (file) {
+	// 		showImage.src = URL.createObjectURL(file)
+	// 		image_uploaded.setAttribute('value', 'uploaded')
+	// 	}
+	// }
 
-  function notImage(e, folder) {
-    e.setAttribute('src', folder + 'no-avatar.png')
-  }
+	function notImage(e, folder) {
+		e.setAttribute('src', folder + 'no-avatar.png')
+	}
+</script>
+<script>
+	$(document).ready(function() {
+		$('.add-more').click(function(e) {
+			e.preventDefault();
+			$('#infomation div.add').append(
+				`<div class="row mb-3">
+						<div class="col-md-4">
+							<input type="text" class="form-control" placeholder="info" name="infoName">
+						</div>
+						<div class="col-md-7">
+							<input type="text" class="form-control" placeholder="value" name="infoValue">
+						</div>
+						<div class="col-md-1">
+							<button type="button" class="btn btn-danger" onClick="closeInfo(this)">
+								<i class="fas fa-times"></i>
+							</button>
+						</div>
+					</div>
+			`);
+		});
+	})
+	function closeInfo(obj) {
+		$(obj).parent().parent().remove();
+	}
+	let myDropzone = new Dropzone("#myDropzone", { 
+		url: $("#myDropzone").data('url'),
+		autoProcessQueue: true,
+		addRemoveLinks: true,
+	});
 </script>

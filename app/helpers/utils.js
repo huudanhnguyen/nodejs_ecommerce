@@ -9,7 +9,11 @@ let createFilterStatus =  async (currentStatus,collection) => {
     let statusFilter = [
 		{name: 'All', value: 'all', count: 0, class: 'default'},
 		{name: 'Active', value: 'active',  count: 0, class: 'default'},
-		{name: 'InActive', value: 'inactive',  count: 0, class: 'default'}
+		{name: 'InActive', value: 'inactive',  count: 0, class: 'default'},
+		{name: 'Is Admin', value: 'yes',  count: 0, class: 'default'},
+		{name: 'No Admin', value: 'no',  count: 0, class: 'default'},
+
+
 	];
 
 	for(let index = 0; index < statusFilter.length; index++) {
