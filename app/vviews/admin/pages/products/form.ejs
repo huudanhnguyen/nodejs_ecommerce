@@ -79,7 +79,7 @@ const dropzone = new Dropzone("div#myId", { url: "/file/post" });
 						<div class="card-body">
 							<div class="row">
 								<div class="form-group col-md-12">
-									<div class="dropzone" id="myDropzone" data-url="<%= linkPrefix %>upload/">
+									<div class="dropzone" id="myDropzone">
 										<div class="fallback">
 											<input name="file" type="file"  multiple/>
 										</div>
@@ -132,54 +132,3 @@ const dropzone = new Dropzone("div#myId", { url: "/file/post" });
     </div>
   </form>
 </div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script>
-	ClassicEditor
-		.create(document.querySelector('#editor'))
-		.catch(error => {
-			console.error(error);
-		});
-
-	// imgInp.onchange = evt => {
-	// 	const [file] = imgInp.files
-	// 	if (file) {
-	// 		showImage.src = URL.createObjectURL(file)
-	// 		image_uploaded.setAttribute('value', 'uploaded')
-	// 	}
-	// }
-
-	function notImage(e, folder) {
-		e.setAttribute('src', folder + 'no-avatar.png')
-	}
-</script>
-<script>
-	$(document).ready(function() {
-		$('.add-more').click(function(e) {
-			e.preventDefault();
-			$('#infomation div.add').append(
-				`<div class="row mb-3">
-						<div class="col-md-4">
-							<input type="text" class="form-control" placeholder="info" name="infoName">
-						</div>
-						<div class="col-md-7">
-							<input type="text" class="form-control" placeholder="value" name="infoValue">
-						</div>
-						<div class="col-md-1">
-							<button type="button" class="btn btn-danger" onClick="closeInfo(this)">
-								<i class="fas fa-times"></i>
-							</button>
-						</div>
-					</div>
-			`);
-		});
-	})
-	function closeInfo(obj) {
-		$(obj).parent().parent().remove();
-	}
-	let myDropzone = new Dropzone("#myDropzone", { 
-		url: $("#myDropzone").data('url'),
-		autoProcessQueue: true,
-		addRemoveLinks: true,
-	});
-</script>

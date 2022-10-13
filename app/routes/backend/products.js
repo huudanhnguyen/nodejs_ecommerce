@@ -188,12 +188,6 @@ router.post('/save',uploadMoreImg,
 			})
 			
 		}
-		router.post('/upload',uploadImage, async (req, res, next) => { 
-			if(!req.file) {
-				return res.status(422).send('The error message');
-			}
-			return res.status(200).send(req.file);
-		});
 	// });
 
 
