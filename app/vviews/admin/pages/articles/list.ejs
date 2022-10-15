@@ -60,7 +60,7 @@
 
 			<!-- List Content -->
 		
-			<table class="table table-bordered table-hover text-nowrap btn-table mb-0">
+			<table class="table table-bordered table-hover text-word-break btn-table mb-0">
 				<thead>
 					<tr>
 						<th class="text-center">
@@ -70,6 +70,7 @@
 							</div>
 						</th>
 						<th class="text-center">#</a></th>
+						<th class="text-center">Image</a></th>
 						<th class="text-center sort">
 							<%- sortField(linkPrefix,'Title','title',sort) %>
 						</th>
@@ -82,7 +83,7 @@
 							<%- sortField(linkPrefix,'Ordering','ordering',sort) %>
 						</th>
 						<th class="text-center">Created</a></th>
-						<!-- <th class="text-center">Modified</a></th> -->
+						<th class="text-center">Modified</a></th>
 						<th class="text-center">Action</th>
 					</tr>
 				</thead>
@@ -98,14 +99,14 @@
 						
 						</td>
 						<td class="text-center"><%= index+1 %></td>
+						<td class="text-center"><%- imageHelper(folderUpload, item.thumbnail, item.slug); %></td>
 						<td class="text-center"><%- highlightHelper(item.title, keyword) %></td>
 						<td class="text-center position-relative"><%- selectCategory(listCategory,item.categoriesId,'list',null,linkAjax,item.id) %></td>
-						<!-- <td class="text-center"><%# imageHelper(folderUpload, item.thumbnail, item.slug); %></td> -->
 						<td class="text-center position-relative" id="<%= item.id %>-status">
 							<%- statusHelper(collection, item.status, item.id) %>
 						</td>
 						
-						<td class="text-center position-relative">
+						<td class="text-center position-relative"  style="height:20%">
 							<input type="number" value="<%= item.ordering %>" class="text-center ordering" onChange="handleAjax(
 								'<%= linkAjax %>',
 								'ordering',
@@ -116,9 +117,9 @@
 						<td class="text-center">
 							<%- showUserTimeInfo(item.createdAt) %>
 						</td>
-						<!-- <td class="text-center">
-							<%# showUserTimeInfo(item.updatedAt) %>
-						</td> -->
+						<td class="text-center">
+							<%- showUserTimeInfo(item.updatedAt) %>
+						</td>
 						<td class="text-center">
 							<a href="<%= linkPrefix %>form/<%= item.id %>" class="rounded-circle btn btn-sm btn-info" title="Edit">
 								<i class="fas fa-pencil-alt"></i>

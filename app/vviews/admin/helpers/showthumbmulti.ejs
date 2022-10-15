@@ -1,0 +1,17 @@
+<%
+  showThumbMulti = (id, array, linkThumb) => {
+    let html=''
+    array.forEach(value=>{
+        let name = value.split(".")[0]
+        html += `
+        <div id="img-${name}" data-name="${value}" class="image-area">
+          <img style="width: 100%" src="${linkThumb}/${value}" 
+          alt="thumb" 
+          onerror="this.onerror=null;this.src='${linkThumb}/no-image-found.jpg'">
+          <a class="remove-image" href="javascript:deletePhoto('${name}');" style="display: inline;">&#215;</a>
+        </div>
+        `
+    })
+    return html
+  }
+%>
