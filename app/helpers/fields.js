@@ -5,7 +5,7 @@ const fs    = require('fs');
 
 const notify  		= require(__path_configs + 'notify');
 
-let uploadFile = (field, folderDes = 'users', fileNameLength = 10, fileSizeMb = 1, fileExtension = 'jpeg|jpg|png|gif|svg') => {
+let uploadFile = (field, folderDes = 'users', fileNameLength = 10, fileSizeMb = 1, fileExtension = 'jpeg|jpg|png|gif') => {
 	const storage = multer.diskStorage({
 		destination: (req, file, cb) => {
 			cb(null, __path_uploads + folderDes + '/')

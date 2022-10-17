@@ -6,17 +6,6 @@
 	errors=errors ?? {};
 	const folderUpload=`uploads/${collection}/`; 
 %>
-<style>
-	#myDropzone {
-    background: white;
-    border-radius: 5px;
-    border: 2px dashed rgb(0, 135, 247);
-    border-image: none;
-    max-width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-}
-</style>
 <div class="card card-info card-outline">
 	<form action="<%= linkPrefix %>save/" method="POST" class="mb-0" name="form-upload"
 		enctype="multipart/form-data">
@@ -67,6 +56,35 @@
                                   <%- `<span class="error invalid-feedback">${errors.ordering}</span>` %>
                                 </div>
                               </div>
+							  <div class="form-group row">
+								<label for="status" class="col-sm-2 col-form-label text-sm-right required">Status</label>
+								<div class="col-xs-12 col-sm-8">
+									<select id="form[status]" name="status" class="custom-select custom-select-sm <%= errors.status && 'is-invalid' %>">
+										<option value="novalue">Choose Status</option>
+										<option value="active" <%= (item.status == "active") ? 'selected="selected"' : '' %> >Active</option>
+										<option value="inactive" <%= (item.status == "inactive") ? 'selected="selected"' : '' %> >Inactive</option>
+									</select>
+									<%- `<span class="error invalid-feedback">${errors.status}</span>` %>
+								</div>
+							</div>
+			<!-- Avatar -->
+			<div class="form-group row">
+				<label for="image" class="col-sm-2 col-form-label text-sm-right required">Image</label>
+				<div class="col-xs-12 col-sm-8">
+					<div class="custom-file">
+						<input id="imgInp" class="form-control custom-file-input <%= errors.image && 'is-invalid' %>" type="file" name="image">
+						<label class="custom-file-label" for="imgInp">Choose file</label>
+						<%- `<span class="error invalid-feedback">${errors.image}</span>` %>
+					</div>
+				</div>
+			</div>
+
+				<div class="form-group row">
+					<div class="col-sm-2 col-form-label"></div>
+					<div class="col-xs-12 col-sm-8">
+					<%- imageHelper(folderUpload, item.image, item.name,'200','200'); %>
+					</div>
+				</div>
 							<div class="form-group row">
 								<label for="name" class="col-sm-2 col-form-label text-sm-right required">Hình ảnh Sản Phẩm</label>
 								<div class="col-xs-12 col-sm-8">
@@ -86,10 +104,19 @@
 								</div>
 							</div>
 
-							<div class="form-group">
-								<label>Description</label>
-								<textarea id="editor" name="description"><%= item.description %></textarea>
-							</div>	
+							<div class="form-group row">
+                                <label for="shortDes" class="col-sm-2 col-form-label text-sm-right required">Mô Tả Ngắn</label>
+                                <div class="col-xs-12 col-sm-8">
+                                  <input type="text" name="shortDes" value="<%= item.shortDes %>" class="form-control form-control-sm <%= errors.shortDes && 'is-invalid' %>">
+                                  <%- `<span class="error invalid-feedback">${errors.price}</span>` %>
+                                </div>
+                              </div>
+							<div class="form-group row">
+								<label for="name" class="col-sm-2 col-form-label text-sm-right required">Mô Tả Chi Tiết</label>
+								<div class="col-xs-12 col-sm-8">
+									<textarea id="editor" name="description"><%= item.description %></textarea>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -100,8 +127,9 @@
 					<input name="image_old" value="<%= item.thumbnail %>" type="hidden" />
 					<input name="image_uploaded" value="" type="hidden" id="image_uploaded" />
 					<input name="imagesMulti" value="" type="hidden" />
-					<button type="button" name="saveImages" class="btn btn-sm btn-success mr-1" disabled> Save Images</button>
-					<button type="submit" class="btn btn-sm btn-success mr-1" disabled> Submit</button>
+					<!-- <button type="button" name="saveImages" class="btn btn-sm btn-success mr-1" disabled> Save Images</button> -->
+					<!-- <button type="submit" class="btn btn-sm btn-success mr-1" disabled> Submit</button> -->
+					<button type="submit" class="btn btn-sm btn-success mr-1"> Submit</button>
 					<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
 				</div>
 			</div>
@@ -112,39 +140,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 <script>
 	ClassicEditor
-		.create(document.querySelector('#editor'))
-		.catch(error => {
-			console.error(error);
-		});
-	function notImage(e, folder) {
-		e.setAttribute('src', folder + 'no-avatar.png')
-	}
+    .create( document.querySelector( '#editor' ) )
+    .catch( error => {
+            console.error( error );
+    } );
+		
+		imgInp.onchange = evt => {
+			const [file] = imgInp.files
+			if (file) {
+				showImage.src = URL.createObjectURL(file)
+				image_uploaded.setAttribute('value','uploaded')
+			}
+		}
+		function notImage(e,folder) {
+				e.setAttribute('src',folder+'no-avatar.png')
+		}
 </script>
 
 <script>
-	$(document).ready(function() {
-		$('.add-more').click(function(e) {
-			e.preventDefault();
-			$('#infomation div.add').append(
-				`<div class="row mb-3">
-						<div class="col-md-4">
-							<input type="text" class="form-control" placeholder="info" name="infoName">
-						</div>
-						<div class="col-md-7">
-							<input type="text" class="form-control" placeholder="value" name="infoValue">
-						</div>
-						<div class="col-md-1">
-							<button type="button" class="btn btn-danger" onClick="closeInfo(this)">
-								<i class="fas fa-times"></i>
-							</button>
-						</div>
-					</div>
-			`);
-		});
-	})
-	function closeInfo(obj) {
-		$(obj).parent().parent().remove();
-	}
 	$('#myDropzone').sortable({
  	  update: function( event, ui ) {
 			let value = '';
@@ -164,32 +177,32 @@
 		addRemoveLinks: true,
 		maxFiles:10,
 		parallelUploads:10,
-		init: function() {
-			var myDropzone = this;
-				$("button[name='saveImages']").click((e) => {
-					$("button[name='saveImages']").prop("disabled", true)
-					$("button[type='submit']").prop("disabled", false)
-					myDropzone.processQueue();
-			});
-			myDropzone.on("addedfile", file => {
-				$("button[name='saveImages']").prop("disabled", false)
-				$("button[type='submit']").prop("disabled", true)
-			});
-			myDropzone.on("success",(file, res) => {
-				$('.dz-filename span').each((index,element) => {
-					let fileName = $(element).text();
-					if(fileName == res.originalname) {
-						$(element).attr('data-filename',res.filename);
-					}
-				});
-				let value = '';
-				$('.dz-filename span').each((index,element) => {
-					value += $(element).data('filename') + ','
-				})
-				if(value) {
-					$("input[name='imagesMulti']").val(value.substr(0,value.length - 1))
-				}
-			})
-		}
+		// init: function() {
+		// 	var myDropzone = this;
+		// 		$("button[name='saveImages']").click((e) => {
+		// 			$("button[name='saveImages']").prop("disabled", true)
+		// 			$("button[type='submit']").prop("disabled", false)
+		// 			myDropzone.processQueue();
+		// 	});
+		// 	myDropzone.on("addedfile", file => {
+		// 		$("button[name='saveImages']").prop("disabled", false)
+		// 		$("button[type='submit']").prop("disabled", true)
+		// 	});
+		// 	myDropzone.on("success",(file, res) => {
+		// 		$('.dz-filename span').each((index,element) => {
+		// 			let fileName = $(element).text();
+		// 			if(fileName == res.originalname) {
+		// 				$(element).attr('data-filename',res.filename);
+		// 			}
+		// 		});
+		// 		let value = '';
+		// 		$('.dz-filename span').each((index,element) => {
+		// 			value += $(element).data('filename') + ','
+		// 		})
+		// 		if(value) {
+		// 			$("input[name='imagesMulti']").val(value.substr(0,value.length - 1))
+		// 		}
+		// 	})
+		// }
 	});
 </script>

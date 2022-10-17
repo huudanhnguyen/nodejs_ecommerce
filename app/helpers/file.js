@@ -46,45 +46,8 @@ let removeFile = (folder, fileName) => {
 		if (fs.existsSync(path))  fs.unlink(path, (err) => {if (err) throw err;});
 	}
 }
-///
-let uploadFileMulti = (field, folderDes = 'users', fileNameLength = 10, fileSizeMb = 1, fileExtension = 'jpeg|jpg|png|gif') => {
-	const subFolder = randomstring.generate(fileNameLength) + Date.now()
-	const storage = multer.diskStorage({
-		destination: (req, file, cb) => {
-			cb(null, __path_uploads + folderDes + '/')
-		},
-		filename: (req, file, cb) =>  {
-			cb(null,  randomstring.generate(fileNameLength) + Date.now() + path.extname(file.originalname));
-		}
-	});
-
-const upload = multer({ 
-	storage: storage,
-	limits: {
-		fileSize: fileSizeMb * 1024 * 1024,
-	},
-	fileFilter: (req, file, cb) => {
-	
-		const filetypes = new RegExp(fileExtension);
-		const extname 	= filetypes.test(path.extname(file.originalname).toLowerCase());
-		const mimetype  = filetypes.test(file.mimetype);
-
-		if(mimetype && extname){
-			return cb(null,true);
-		}
-		else {
-			cb(notify.ERROR_FILE_EXTENSION);
-		}	
-		return cb(null,false);		
-	}
-}).array(field);
-
-return upload;
-}
 
 module.exports = {
 	upload: uploadFile,
-	remove: removeFile,
-	uploadFileMulti: uploadFileMulti,
-
+	remove: removeFile
 }

@@ -73,20 +73,20 @@ app.use(`/${systemConfig.prefixAdmin}`, require(__path_routers + 'backend/index'
 app.use('/', require(__path_routers + 'frontend/index'));
 
 // catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
+});
 
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-  res.status(err.status || 500);
-  res.render(__path_view_admin +  'pages/error', { pageTitle   : 'Page Not Found ' });
-  // res.render(__path_view_blog +  'pages/error', { pageTitle   : 'Page Not Found ' });
-  
+    res.status(err.status || 500);
+    res.render(__path_view_admin +  'pages/error', { pageTitle   : 'Page Not Found ' });
+    // res.render(__path_view_blog +  'pages/error', { pageTitle   : 'Page Not Found ' });
+
 });
 
-app.use(function(req, res, next) {
-  next(createError(404));
-});
 module.exports = app;
 

@@ -8,6 +8,7 @@ const Collection = 'products';
 const systemConfig  = require(__path_configs + 'system');
 const notify  		= require(__path_configs + 'notify');
 const Model 		= require(__path_models + Collection);
+const SlidersModel 	= require(__path_schemas + Collection);
 const UtilsHelpers 	= require(__path_helpers + 'utils');
 const ParamsHelpers = require(__path_helpers + 'params');
 const FileHelpers = require(__path_helpers + 'file');
@@ -18,9 +19,6 @@ const pageTitleAdd   = pageTitleIndex + ' - Add';
 const pageTitleEdit  = pageTitleIndex + ' - Edit';
 const folderView	 = __path_view_admin + `pages/${Collection}/`;
 const uploadAvatar	 = FileHelpers.upload('image', Collection);
-const DeletePhotosHelpers = require(__path_helpers + 'deletephoto');
-const uploadImage	 = FileHelpers.upload('file', Collection);
-const uploadThumb	 = FileHelpers.uploadFileMulti('thumb', `${Collection}`);
 // List items
 router.get('(/status/:status)?', async (req, res, next) => {
 	let objWhere	 = {};
@@ -113,7 +111,7 @@ router.get(('/form(/:id)?'),async (req, res, next) => {
 });
 
 // SAVE = ADD EDIT
-router.post('/save',uploadThumb,
+router.post('/save',uploadAvatar,
 	body('name').notEmpty().withMessage(notify.ERROR_NAME_EMPTY),
 	body('categoriesId').not().isIn(['novalue']).withMessage(notify.ERROR_Category),
 	body('slug').matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).withMessage(notify.ERROR_SLUG),
@@ -122,7 +120,7 @@ router.post('/save',uploadThumb,
 	// body('color').not().isIn(['novalue']).withMessage(notify.ERROR_COLOR),
 	// body('size').not().isIn(['novalue']).withMessage(notify.ERROR_SIZE),
 	body('price').isNumeric().withMessage(notify.ERROR_PRICE),
-	body('thumbnail').custom((value,{req}) => {
+	body('image').custom((value,{req}) => {
 		const {image_uploaded,image_old} = req.body;
 		if(!image_uploaded && !image_old) {
 			return Promise.reject(notify.ERROR_FILE_EMPTY);
@@ -132,129 +130,45 @@ router.post('/save',uploadThumb,
 		}
 		return true;
 	}),
-	body('images').custom((value,{req}) => {
-		const {image_uploaded,image_old} = req.body;
-		if(!image_uploaded && !image_old) {
-			return Promise.reject(notify.ERROR_FILE_EMPTY);
-		}
-		if(!req.file && image_uploaded) {
-				return Promise.reject(notify.ERROR_FILE_EXTENSION);
-		}
-		return true;
-	}),
-// 	async (req, res, next) => {
-// 		const errors = validationResult(req);
-// 		let itemData
-// 			if(req.params.id != undefined){
-// 				itemData = await Model.getItemByID(req.params.id)
-// 			}
-// 		if (!errors.isEmpty()) {
-// 			let errorsMsg = {};
-// 			errors.errors.forEach(value => {
-// 				errorsMsg[value.param] = value.msg
-// 			});
-// 			req.body.image = req.body.image_old;
-// 			let listCategory = await UtilsHelpers.getCategory();
-// 			res.render(`${folderView}form`, { 
-// 				pageTitle: pageTitleEdit, 
-// 				item: req.body,
-// 				errors: errorsMsg,
-// 				listCategory
-// 			});
-// 			return;
-// 		} 
-// 		let item = req.body;
-		
-// 		if(item.id){	// edit	
-// 			if(!req.file){ // không có upload lại hình
-// 				item.image = item.image_old;
-// 				item.moreImage = item.image_old;
-// 			}else{
-// 				item.image = req.file.filename;
-// 				item.moreImage = req.file.filename;
-// 				FileHelpers.remove(`public/uploads/${Collection}/`, item.image_old);
-// 			}
-			
-// 			Model.updateOne(item).then(() => {
-// 				req.flash('success', notify.EDIT_SUCCESS, linkIndex);
-// 			});
-// 		} else { // add
-// 			item.image = req.file.filename;
-// 			item.moreImage = req.file.filename;
-// 			Model.addOne(item).then(()=> {
-// 				req.flash('success', notify.ADD_SUCCESS, linkIndex);
-// 			})
-			
-// 		}
-// 	// });
-
-// });
-async function (req, res) { // Finds the validation errors in this request and wraps them in an object with handy functions
-	try {
-		let item = req.body;
-		let itemData
-		if(req.params.id != undefined){
-			itemData = await Model.getItemByID(req.params.id)
-		}
+	async (req, res, next) => {
+	// uploadAvatar(req, res,async (errUpload) => {
+		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
-						let errorsMsg = {};
-						errors.errors.forEach(value => {
-							errorsMsg[value.param] = value.msg
-						});
+			let errorsMsg = {};
+			errors.errors.forEach(value => {
+				errorsMsg[value.param] = value.msg
+			});
+			req.body.image = req.body.image_old;
 			let listCategory = await UtilsHelpers.getCategory();
-			let main = {pageTitle: pageTitle,
-						errors: errorsMsg,
-						listCategory
-					}
-			if(req.files != undefined) {
-				req.files.forEach(value=>{
-					FileHelpers.remove(`public/uploads/${Collection}/`, value.filename);
-				})
-			}// xóa tấm hình khi form không hợp lệ
-			if (req.params.id !== undefined){
-					res.render(`${folderView}form`, {
-						main: main,
-						item: itemData,
-						id: req.params.id,
-						layout,
-					})
-			} else {
-				res.render(`${folderView}form`, {
-					main: main,
-					item: req.body,
-					layout,
-				})
+			res.render(`${folderView}form`, { 
+				pageTitle: pageTitleEdit, 
+				item: req.body,
+				errors: errorsMsg,
+				listCategory
+			});
+			return;
+		} 
+		let item = req.body;
+		
+		if(item.id){	// edit	
+			if(!req.file){ // không có upload lại hình
+				item.image = item.image_old;
+			}else{
+				item.image = req.file.filename;
+				FileHelpers.remove(`public/uploads/${Collection}/`, item.image_old);
 			}
-			return
-		} else {
-			if (req.params.id && item.image_delete){ 
-				itemData.thumb = await DeletePhotosHelpers.deletePhoto(req.params.id, item.image_delete, Collection)
-			}
-			if(req.files.length == 0){ //không có upload lại hình
-				item.thumb = itemData.thumb;
-			}else {
-				if(itemData != undefined){
-					item.thumb = req.files.map(obj => obj.filename).concat(itemData.thumb);
-				} else{
-					item.thumb = req.files.map(obj => obj.filename);
-				}
-			}
-		}
-			if (req.params.id !== undefined) {
-				await Model.editItem(req.params.id, item)
-				req.flash('success', notify.EDIT_SUCCESS);
-				res.redirect(linkIndex);
-			} else {
-				item.categories = req.body.categoriesId
-				let data = await Model.addOne(item)
-				req.flash('success', notify.ADD_SUCCESS);
-				res.redirect(linkIndex);
-			}
-		} catch (error) {
-			console.log(error)
-			req.flash('success', "Có lỗi xảy ra");
-			res.redirect(linkIndex);
-		}
+			
+			Model.updateOne(item).then(() => {
+				req.flash('success', notify.EDIT_SUCCESS, linkIndex);
+			});
+		} else { // add
+			item.image = req.file.filename;
+			Model.addOne(item).then(()=> {
+				req.flash('success', notify.ADD_SUCCESS, linkIndex);
+			})
+			
+		}	
+	// });
 });
 
 module.exports = router;
