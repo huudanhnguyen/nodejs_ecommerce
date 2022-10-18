@@ -8,7 +8,7 @@ const sliderModel 		= require(__path_schemas + col_sliders);
 const categoryModel 		= require(__path_schemas + col_categories);
 const Model 		= require(__path_models + 'products');
 const menuModel 		= require(__path_schemas + col_menu);
-const folderView	 = __path_view_ecommerce + 'pages/category/';
+const folderView	 = __path_view_ecommerce + 'pages/product/';
 const layout	     = __path_view_ecommerce+ 'frontend';
 /* GET home page. */
 router.get('/(:slug)?',async (req, res, next) => {

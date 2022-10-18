@@ -1,5 +1,9 @@
+<% 
+	const collection = "settings";
+	const folderUpload 	= `uploads/${collection}/`;
+%>
 <div class="notification-bar mobilehide">
-  <a href="#" class="notification-bar__message">20% off your very first purchase, use promo code: belle fashion</a>
+  <a href="#" class="notification-bar__message"><%= item.notification %> </a>
   <span class="close-announcement">×</span>
 </div>
 <!--End Promotion Bar-->
@@ -39,19 +43,19 @@
                             <li class="">French</li>
                         </ul>
                     </div> -->
-        <p class="phone-no"><i class="anm anm-phone-s"></i> +440 0(111) 044 833</p>
+        <p class="phone-no"><i class="anm anm-phone-s"></i>   <%= item.phoneHeader %> </p>
       </div>
       <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-none d-md-block d-lg-block">
         <div class="text-center">
-          <p class="top-header_middle-text"> Worldwide Express Shipping</p>
+          <p class="top-header_middle-text"> Giao Hàng Tốc Hành Trong Thành Phố</p>
         </div>
       </div>
       <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
         <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
         <ul class="customer-links list-inline">
-          <li><a href="login.html">Login</a></li>
-          <li><a href="register.html">Create Account</a></li>
-          <li><a href="wishlist.html">Wishlist</a></li>
+          <li><a href="">Đăng Nhập</a></li>
+          <li><a href="">Đăng Ký</a></li>
+          <!-- <li><a href="">Wishlist</a></li> -->
         </ul>
       </div>
     </div>
@@ -64,7 +68,7 @@
     <div class="row align-items-center">
       <!--Desktop Logo-->
       <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
-        <a href="index.html">
+        <a href="">
           <img src="frontend/assets/images/logo.svg" alt="Belle Multipurpose Html Template"
             title="Belle Multipurpose Html Template" />
         </a>
@@ -81,14 +85,22 @@
         <nav class="grid__item" id="AccessibleNav">
           <!-- for mobile -->
           <ul id="siteNav" class="site-nav medium center hidearrow">
-            <li class="lvl1 parent megamenu"><a href="#">Home <i class="anm anm-angle-down-l"></i></a>
+            <li class="lvl1 parent megamenu"><a href="#">Trang Chủ <i class="anm anm-angle-down-l"></i></a>
             </li>
-            <li class="lvl1 parent megamenu"><a href="#">Shop <i class="anm anm-angle-down-l"></i></a>
-
             </li>
-            <li class="lvl1 parent megamenu"><a href="#">Product <i class="anm anm-angle-down-l"></i></a>
+            <li class="lvl1 parent megamenu"><a href="#">Sản Phẩm <i class="anm anm-angle-down-l"></i></a>
             </li>
-            <li class="lvl1 parent dropdown"><a href="#">Pages <i class="anm anm-angle-down-l"></i></a>
+            <li class="lvl1 parent dropdown"><a href="#">Danh Mục<i class="anm anm-angle-down-l"></i></a>
+              <ul class="dropdown">
+                <% listCategory.forEach((category)=> { %>
+                  <li><a href="category/<%= category.slug %> " class="site-nav"><%= category.name %></a></li>
+                <%})%>
+              </ul>
+            </li>
+            <% listMenu.forEach((Menu)=> { %>
+              <li class="lvl1 parent megamenu"><a href="/<%= Menu.slug %>"><%= Menu.name %><i class="anm anm-angle-down-l"></i></a>
+              <%})%>
+            <!-- <li class="lvl1 parent dropdown"><a href="#">Pages <i class="anm anm-angle-down-l"></i></a>
               <ul class="dropdown">
                 <li><a href="cart-variant1.html" class="site-nav">Cart Page <i class="anm anm-angle-right-l"></i></a>
                   <ul class="dropdown">
@@ -117,16 +129,7 @@
                 <li><a href="coming-soon.html" class="site-nav">Coming soon <span class="lbl nm_label1">New</span> </a>
                 </li>
               </ul>
-            </li>
-            <li class="lvl1 parent dropdown"><a href="#">Blog <i class="anm anm-angle-down-l"></i></a>
-              <ul class="dropdown">
-                <li><a href="blog-left-sidebar.html" class="site-nav">Left Sidebar</a></li>
-                <li><a href="blog-right-sidebar.html" class="site-nav">Right Sidebar</a></li>
-                <li><a href="blog-fullwidth.html" class="site-nav">Fullwidth</a></li>
-                <li><a href="blog-grid-view.html" class="site-nav">Gridview</a></li>
-                <li><a href="blog-article.html" class="site-nav">Article</a></li>
-              </ul>
-            </li>
+            </li> -->
           </ul>
         </nav>
         <!--End Desktop Menu-->

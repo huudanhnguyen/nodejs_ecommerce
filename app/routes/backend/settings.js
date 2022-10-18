@@ -84,10 +84,15 @@ router.post('/save',uploadAvatar,
 		let item = req.body;
 		let footer = JSON.stringify({
 			copyright: item.copyright,
+			address: item.address,
 			content: item.content,
+			phoneFooter: item.phoneFooter,
+			email: item.email,
 			logoFooter: !req.files.logoFooter ? item.image_footer_old : req.files.logoFooter[0].filename
 		})
 		let header = JSON.stringify({
+			phoneHeader: item.phoneHeader,
+			notification: item.notification,
 			logoHeader:!req.files.logoHeader ? item.image_header_old : req.files.logoHeader[0].filename
 		});
 		if(req.files.logoHeader) FileHelpers.remove(`public/uploads/${Collection}/`, item.image_header_old);
