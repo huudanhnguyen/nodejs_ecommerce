@@ -6,6 +6,7 @@
 	const linkPrefix=systemConfig.prefixAdmin + `/${collection}/`; 
 	errors=errors ?? {};
 	const folderUpload=`uploads/${collection}/`; 
+	let information = item.information ? JSON.parse(item.information) : null;
 %>
 <style>
 	#myDropzone {
@@ -31,12 +32,12 @@
 				<div class="col-md-6">
 					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title">Nhập Thông Tin</h3>
+							<h3 class="card-title">Details</h3>
 						</div>
 						<div class="card-body">
 
 							<div class="form-group">
-								<label for="name">Tên Sản Phẩm</label>
+								<label for="name">Name</label>
 								<input type="text" name="name" value="<%= item.name %>" class="form-control form-control-sm <%= errors.name && 'is-invalid' %>" onKeyUp="handleSlug(
 								'<%= linkPrefix %>',
 								this,
@@ -50,21 +51,21 @@
 							</div>
 							<div class="form-group">
 								<label for="slug">Giá</label>
-								<input type="number" name="price" value="<%= item.price %>" class="form-control form-control-sm <%= errors.slug && 'is-invalid' %>">
-								<%- `<span class="error invalid-feedback">${errors.slug}</span>` %>
+								<input type="number" name="price" value="<%= item.price %>" class="form-control form-control-sm <%= errors.price && 'is-invalid' %>">
+								<%- `<span class="error invalid-feedback">${errors.price}</span>` %>
 							</div>
 							<div class="form-group">
-								<label>Danh Mục</label>
+								<label>Category</label>
 										<%- selectCategory(listCategory,item.categoriesId,'',errors.categoriesId) %>
 									</select>
 							</div>
 							<div class="form-group">
-								<label>Thứ tự Sản Phẩm</label>
+								<label>Ordering</label>
 								<input type="text" name="ordering" value="<%= item.ordering ?? 0 %>" class="form-control form-control-sm <%= errors.ordering && 'is-invalid' %>">
 								<%- `<span class="error invalid-feedback">${errors.ordering}</span>` %>
 							</div>
 							<div class="form-group">
-								<label>Trạng Thái</label>
+								<label>Status</label>
 								<select id="form[status]" name="status" class="custom-select custom-select-sm <%= errors.status && 'is-invalid' %>">
 									<option value="novalue">Choose Status</option>
 									<option value="active" <%= (item.status == "active") ? 'selected="selected"' : '' %> >Active</option>
@@ -73,12 +74,7 @@
 								<%- `<span class="error invalid-feedback">${errors.status}</span>` %>
 							</div>
 							<div class="form-group">
-								<label for="slug">Mô Tả Ngắn</label>
-								<input type="text" name="shortDes" value="<%= item.shortDes %>" class="form-control form-control-sm <%= errors.slug && 'is-invalid' %>">
-								<%- `<span class="error invalid-feedback">${errors.slug}</span>` %>
-							</div>
-							<div class="form-group">
-								<label>Mô Tả Chi Tiết</label>
+								<label>Description</label>
 								<textarea id="editor" name="description"><%= item.description %></textarea>
 							</div>	
 						</div>
@@ -87,7 +83,7 @@
 				<div class="col-md-6">
 					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title">Thêm Thuộc Tính Sản Phẩm</h3>
+							<h3 class="card-title">Atributes</h3>
 						</div>
 						<div class="card-body">
 							<div class="row">
@@ -104,30 +100,7 @@
 					</div>
 					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title">Hình Ảnh Đại Diện</h3>
-						</div>					
-					</div>
-						<div class="form-group row">
-							<label for="image" class="col-sm-2 col-form-label text-sm-right required">Thumbnail</label>
-							<div class="col-xs-12 col-sm-8">
-								<div class="custom-file">
-									<input id="imgInp" class="form-control custom-file-input <%= errors.image && 'is-invalid' %>" type="file" name="image">
-									<label class="custom-file-label" for="imgInp">Choose file</label>
-									<%- `<span class="error invalid-feedback">${errors.image}</span>` %>
-								</div>
-							</div>
-						</div>
-
-				<div class="form-group row">
-					<div class="col-sm-2 col-form-label"></div>
-					<div class="col-xs-12 col-sm-8">
-					<%- imageHelper(folderUpload, item.image, item.name,'200','200'); %>
-					</div>
-				</div>
-						
-					<div class="card card-primary">
-						<div class="card-header">
-							<h3 class="card-title">Hình Ảnh Thêm</h3>
+							<h3 class="card-title">Images</h3>
 						</div>
 						<div class="card-body">
 							<div class="row">
@@ -143,9 +116,9 @@
 				
 							<div class="card card-success">
 								<div class="card-header">
-									<h3 class="card-title">Sắp Xếp</h3>
+									<h3 class="card-title">Sortable</h3>
 									<div class="card-tools">
-										<button type="button" class="btn btn-tool" data-card-widget="collapse"></i>
+										<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
 									</button>
 									</div>						
 								</div>
@@ -156,9 +129,9 @@
 
 							<div class="card card-danger">
 								<div class="card-header">
-									<h3 class="card-title">Kéo Ảnh vào Đây Để Xóa</h3>
+									<h3 class="card-title">Delete</h3>
 									<div class="card-tools">
-										<button type="button" class="btn btn-tool" data-card-widget="collapse"></i>
+										<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
 									</button>
 									</div>						
 								</div>
@@ -195,17 +168,17 @@
 			console.error(error);
 		});
 
-	imgInp.onchange = evt => {
-		const [file] = imgInp.files
-		if (file) {
-			showImage.src = URL.createObjectURL(file)
-			image_uploaded.setAttribute('value', 'uploaded')
-		}
-	}
+	// imgInp.onchange = evt => {
+	// 	const [file] = imgInp.files
+	// 	if (file) {
+	// 		showImage.src = URL.createObjectURL(file)
+	// 		image_uploaded.setAttribute('value', 'uploaded')
+	// 	}
+	// }
 
-	function notImage(e, folder) {
-		e.setAttribute('src', folder + 'no-avatar.png')
-	}
+	// function notImage(e, folder) {
+	// 	e.setAttribute('src', folder + 'no-avatar.png')
+	// }
 </script>
 
 <script>

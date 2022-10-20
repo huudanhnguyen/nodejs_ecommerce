@@ -19,7 +19,6 @@ const pageTitleIndex = UtilsHelpers.firstLetterUppercase(Collection) + ' Managem
 const pageTitleAdd   = pageTitleIndex + ' - Add';
 const pageTitleEdit  = pageTitleIndex + ' - Edit';
 const folderView	 = __path_view_admin + `pages/${Collection}/`;
-const uploadAvatar	 = FileHelpers.upload('image', Collection);
 const uploadImage	 = FileHelpers.upload('fileMulti', Collection);
 
 // List items
@@ -131,33 +130,13 @@ router.get(('/form(/:id)?'),async (req, res, next) => {
 });
 
 // SAVE = ADD EDIT
-router.post('/save',uploadAvatar,uploadImage,
+router.post('/save',uploadImage,
 	body('name').notEmpty().withMessage(notify.ERROR_TITLE_EMPTY),
 	body('categoriesId').not().isIn(['novalue']).withMessage(notify.ERROR_Category),
 	body('slug').matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).withMessage(notify.ERROR_SLUG),
 	body('ordering').isNumeric().withMessage(notify.ERROR_ORDERING),
-	body('status').not().isIn(['novalue']).withMessage(notify.ERROR_STATUS),
 	body('price').isNumeric().withMessage(notify.ERROR_PRICE),
-	body('image').custom((value,{req}) => {
-		const {image_uploaded,image_old} = req.body;
-		if(!image_uploaded && !image_old) {
-			return Promise.reject(notify.ERROR_FILE_EMPTY);
-		}
-		if(!req.file && image_uploaded) {
-				return Promise.reject(notify.ERROR_FILE_EXTENSION);
-		}
-		return true;
-	}),
-	body('images').custom((value,{req}) => {
-		const {image_uploaded,image_old} = req.body;
-		if(!image_uploaded && !image_old) {
-			return Promise.reject(notify.ERROR_FILE_EMPTY);
-		}
-		if(!req.file && image_uploaded) {
-				return Promise.reject(notify.ERROR_FILE_EXTENSION);
-		}
-		return true;
-	}),
+	body('status').not().isIn(['novalue']).withMessage(notify.ERROR_STATUS),
 	async (req, res, next) => {
 
 		const errors = validationResult(req);
@@ -167,7 +146,7 @@ router.post('/save',uploadAvatar,uploadImage,
 				errorsMsg[value.param] = value.msg
 			});
 			let item = req.body;
-			// item.information = UtilsHelpers.mappingInfomation(item);
+			item.information = UtilsHelpers.mappingInfomation(item);
 			let listCategory = await UtilsHelpers.getCategory();
 			let listAttributes = await attributeModel.find({status: 'active'}).select('name id');
 
@@ -184,18 +163,10 @@ router.post('/save',uploadAvatar,uploadImage,
 		let item = req.body;
 		// item.information = UtilsHelpers.mappingInfomation(item);
 		if(item.id){	// edit	
-			if(!req.file){ // không có upload lại hình
-				item.image = item.image_old;
-			}else{
-				item.image = req.file.filename;
-				FileHelpers.remove(`public/uploads/${Collection}/`, item.image_old);
-			}
-			
 			Model.updateOne(item).then(() => {
 				req.flash('success', notify.EDIT_SUCCESS, linkIndex);
 			});
 		} else { // add
-			item.image = req.file.filename;
 			Model.addOne(item).then(()=> {
 				req.flash('success', notify.ADD_SUCCESS, linkIndex);
 			})
@@ -203,7 +174,7 @@ router.post('/save',uploadAvatar,uploadImage,
 		}	
 	// });
 });
-router.post('/upload',uploadImage,uploadAvatar, async (req, res, next) => { 
+router.post('/upload',uploadImage, async (req, res, next) => { 
 	if(!req.file) {
 		return res.status(422).send('File không hợp lệ');
 	} else {
