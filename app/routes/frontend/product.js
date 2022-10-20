@@ -58,7 +58,7 @@ router.get('/(:slug)?',async (req, res, next) => {
     // itemsSpecial,
     // itemsEcommerce,
     listCategory,
-    top_post:true
+    slider:false
   });
 });
 

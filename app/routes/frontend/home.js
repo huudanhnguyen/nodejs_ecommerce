@@ -58,7 +58,7 @@ router.get('/',async (req, res, next) => {
     // itemsSpecial,
     // itemsEcommerce,
     listCategory,
-    top_post:true
+    slider:true
   });
 });
 

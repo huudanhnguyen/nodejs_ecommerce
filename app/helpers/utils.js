@@ -105,6 +105,19 @@ const checkTimeValid = (minutes,req) => {
 		return false;
 	}
 }
+const mappingAttributes = (item) => {
+	let attribute = item.attrName.map((value,index) => {
+		if(value && item.attrValue[index]) {
+			let obj = {};
+			obj['name'] = value;
+			obj['price'] = item.attrValue[index];
+			return obj;
+		}
+	});
+	let result = attribute.filter(x => x);
+	if(result.length == 0) return null;
+	else return JSON.stringify(result);
+}
 
 module.exports = {
     createFilterStatus: createFilterStatus,
@@ -112,5 +125,6 @@ module.exports = {
 		countCollection,
 		getCategory,
 		getRss,
-		mapRssPagination
+		mapRssPagination,
+		mappingAttributes,
 }

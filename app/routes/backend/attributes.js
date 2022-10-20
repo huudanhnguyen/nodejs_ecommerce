@@ -4,12 +4,11 @@ const util = require('util');
 const { body, validationResult } = require('express-validator');
 var slug = require('slug');
 
-const Collection = 'products';
+const Collection = 'attributes';
 const systemConfig  = require(__path_configs + 'system');
 const notify  		= require(__path_configs + 'notify');
 const Model 		= require(__path_models + Collection);
-const attributeModel  = require(__path_schemas + 'attributes');
-
+const attributeModel  = require(__path_schemas + Collection);
 const UtilsHelpers 	= require(__path_helpers + 'utils');
 const ParamsHelpers = require(__path_helpers + 'params');
 const FileHelpers = require(__path_helpers + 'file');
@@ -19,9 +18,7 @@ const pageTitleIndex = UtilsHelpers.firstLetterUppercase(Collection) + ' Managem
 const pageTitleAdd   = pageTitleIndex + ' - Add';
 const pageTitleEdit  = pageTitleIndex + ' - Edit';
 const folderView	 = __path_view_admin + `pages/${Collection}/`;
-const uploadAvatar	 = FileHelpers.upload('image', Collection);
-const uploadImage	 = FileHelpers.upload('fileMulti', Collection);
-
+const uploadAvatar	 = FileHelpers.upload('avatar', Collection);
 // List items
 router.get('(/status/:status)?', async (req, res, next) => {
 	let objWhere	 = {};
@@ -29,10 +26,9 @@ router.get('(/status/:status)?', async (req, res, next) => {
 	let currentStatus= ParamsHelpers.getParam(req.params, 'status', 'all'); 
 	let statusFilter = await UtilsHelpers.createFilterStatus(currentStatus,Collection);
 	let sort = req.session;
-	let listCategory = await UtilsHelpers.getCategory();
 	let pagination 	 = {
 		totalItems		 : 1,
-		totalItemsPerPage: 10,
+		totalItemsPerPage: 4,
 		currentPage		 : parseInt(ParamsHelpers.getParam(req.query, 'page', 1)),
 		pageRanges		 : 3
 	};
@@ -51,8 +47,7 @@ router.get('(/status/:status)?', async (req, res, next) => {
 				pagination,
 				currentStatus,
 				keyword,
-				sort,
-				listCategory
+				sort
 			});
 		});
 });
@@ -82,28 +77,28 @@ router.get('/sort/:field/:type', (req, res, next) => {
 	res.redirect(linkIndex)
 });
 // Change ordering - Multi
-// router.post('/change-ordering', (req, res, next) => {
-// 	let cids 		= req.body.cid;
-// 	let orderings 	= req.body.ordering;
+router.post('/change-ordering', (req, res, next) => {
+	let cids 		= req.body.cid;
+	let orderings 	= req.body.ordering;
 	
-// 	if(Array.isArray(cids)) {
-// 		cids.forEach((item, index) => {
-// 			SlidersModel.updateOne({_id: item}, {ordering: parseInt(orderings[index])}, (err, result) => {});
-// 		})
-// 	}else{ 
-// 		SlidersModel.updateOne({_id: cids}, {ordering: parseInt(orderings)}, (err, result) => {});
-// 	}
+	if(Array.isArray(cids)) {
+		cids.forEach((item, index) => {
+			SlidersModel.updateOne({_id: item}, {ordering: parseInt(orderings[index])}, (err, result) => {});
+		})
+	}else{ 
+		SlidersModel.updateOne({_id: cids}, {ordering: parseInt(orderings)}, (err, result) => {});
+	}
 
-// 	req.flash('success', notify.CHANGE_ORDERING_SUCCESS, false);
-// 	res.redirect(linkIndex);
-// });
+	req.flash('success', notify.CHANGE_ORDERING_SUCCESS, false);
+	res.redirect(linkIndex);
+});
 
 // Delete
 router.get('/delete/:id', (req, res, next) => {
 	let id				= ParamsHelpers.getParam(req.params, 'id', ''); 	
 	
 	
-	Model.deleteOne(id,'thumbnail').then((result, err) => {
+	Model.deleteOne(id,'avatar').then((result, err) => {
 		req.flash('success', notify.DELETE_SUCCESS, linkIndex);
 	});
 });
@@ -116,98 +111,53 @@ router.post('/delete', (req, res, next) => {
 });
 
 // FORM
-router.get(('/form(/:id)?'),async (req, res, next) => {
+router.get(('/form(/:id)?'), (req, res, next) => {
 	let id		= ParamsHelpers.getParam(req.params, 'id', '');
+	let item	= {name: '', ordering: 0, status: 'novalue'};
 	let errors   = null;
-	let listCategory = await UtilsHelpers.getCategory();
-	let listAttributes = await attributeModel.find({status: 'active'}).select('name id');
 	if(id === '') { // ADD
-		res.render(`${folderView}form`, { pageTitle: pageTitleAdd, item : {attributes: ''}, errors,listCategory,listAttributes});
+		res.render(`${folderView}form`, { pageTitle: pageTitleAdd, item, errors});
 	}else { // EDIT
 		Model.findById(id).then((item) => {
-			res.render(`${folderView}form`, { pageTitle: pageTitleEdit, item, errors,listCategory,listAttributes});
+			res.render(`${folderView}form`, { pageTitle: pageTitleEdit, item, errors});
 		})
 	}
 });
 
 // SAVE = ADD EDIT
-router.post('/save',uploadAvatar,uploadImage,
-	body('name').notEmpty().withMessage(notify.ERROR_TITLE_EMPTY),
-	body('categoriesId').not().isIn(['novalue']).withMessage(notify.ERROR_Category),
-	body('slug').matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).withMessage(notify.ERROR_SLUG),
+router.post('/save',uploadAvatar,
+	body('name').isLength({ min: 1 ,max:20}).withMessage(util.format(notify.ERROR_NAME,1,20)),
 	body('ordering').isNumeric().withMessage(notify.ERROR_ORDERING),
 	body('status').not().isIn(['novalue']).withMessage(notify.ERROR_STATUS),
-	body('price').isNumeric().withMessage(notify.ERROR_PRICE),
-	body('image').custom((value,{req}) => {
-		const {image_uploaded,image_old} = req.body;
-		if(!image_uploaded && !image_old) {
-			return Promise.reject(notify.ERROR_FILE_EMPTY);
-		}
-		if(!req.file && image_uploaded) {
-				return Promise.reject(notify.ERROR_FILE_EXTENSION);
-		}
-		return true;
-	}),
-	body('images').custom((value,{req}) => {
-		const {image_uploaded,image_old} = req.body;
-		if(!image_uploaded && !image_old) {
-			return Promise.reject(notify.ERROR_FILE_EMPTY);
-		}
-		if(!req.file && image_uploaded) {
-				return Promise.reject(notify.ERROR_FILE_EXTENSION);
-		}
-		return true;
-	}),
-	async (req, res, next) => {
-
+	body('attrValue').isNumeric().withMessage(notify.ERROR_ATTRIBUTES),
+	(req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			let errorsMsg = {};
 			errors.errors.forEach(value => {
 				errorsMsg[value.param] = value.msg
 			});
-			let item = req.body;
-			// item.information = UtilsHelpers.mappingInfomation(item);
-			let listCategory = await UtilsHelpers.getCategory();
-			let listAttributes = await attributeModel.find({status: 'active'}).select('name id');
-
+			let item = req.body
+			item.attribute = UtilsHelpers.mappingAttributes(item);
 			res.render(`${folderView}form`, { 
 				pageTitle: pageTitleEdit, 
 				item,
-				errors: errorsMsg,
-				listCategory,
-				listAttributes
+				errors: errorsMsg
 			});
 			return;
 		} 
-
 		let item = req.body;
-		// item.information = UtilsHelpers.mappingInfomation(item);
+		item.attribute = UtilsHelpers.mappingAttributes(item);
+
 		if(item.id){	// edit	
-			if(!req.file){ // không có upload lại hình
-				item.image = item.image_old;
-			}else{
-				item.image = req.file.filename;
-				FileHelpers.remove(`public/uploads/${Collection}/`, item.image_old);
-			}
-			
 			Model.updateOne(item).then(() => {
 				req.flash('success', notify.EDIT_SUCCESS, linkIndex);
 			});
 		} else { // add
-			item.image = req.file.filename;
 			Model.addOne(item).then(()=> {
 				req.flash('success', notify.ADD_SUCCESS, linkIndex);
 			})
-			
 		}	
-	// });
 });
-router.post('/upload',uploadImage,uploadAvatar, async (req, res, next) => { 
-	if(!req.file) {
-		return res.status(422).send('File không hợp lệ');
-	} else {
-		return res.status(200).send(req.file);
-	}	
-});
+
 module.exports = router;

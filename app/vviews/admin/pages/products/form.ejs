@@ -1,83 +1,122 @@
 <% include ./../../helpers/image %>
 <% include ./../../helpers/selectCategory %>
+<% include ./../../helpers/image %>
 <% 
 	const collection="products" ; 
 	const linkPrefix=systemConfig.prefixAdmin + `/${collection}/`; 
 	errors=errors ?? {};
 	const folderUpload=`uploads/${collection}/`; 
 %>
+<style>
+	#myDropzone {
+    background: white;
+    border-radius: 5px;
+    border: 2px dashed rgb(0, 135, 247);
+    border-image: none;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+	.showImage img {
+			cursor: move;
+	}
+	
+
+</style>
 <div class="card card-info card-outline">
 	<form action="<%= linkPrefix %>save/" method="POST" class="mb-0" name="form-upload"
 		enctype="multipart/form-data">
 		<div class="card-body">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-6">
 					<div class="card card-primary">
+						<div class="card-header">
+							<h3 class="card-title">Nhập Thông Tin</h3>
+						</div>
 						<div class="card-body">
 
-                            <div class="form-group row">
-                                <label for="name" class="col-sm-2 col-form-label text-sm-right required">Name</label>
-                                <div class="col-xs-12 col-sm-8">
-                                  <input type="text" name="name" value="<%= item.name %>" class="form-control form-control-sm <%= errors.name && 'is-invalid' %>" onKeyUp="handleSlug(
-                                                '<%= linkPrefix %>',
-                                                this,
-                                                )">
-                                  <%- `<span class="error invalid-feedback">${errors.name}</span>` %>
-                                </div>
-                              </div>
-                              <div class="form-group row">
-                                <label for="slug" class="col-sm-2 col-form-label text-sm-right required">Slug</label>
-                                <div class="col-xs-12 col-sm-8">
-                                  <input type="text" name="slug" value="<%= item.slug %>" class="form-control form-control-sm <%= errors.slug && 'is-invalid' %>">
-                                  <%- `<span class="error invalid-feedback">${errors.slug}</span>` %>
-                                </div>
-                              </div>
-                              <div class="form-group row">
-                                <label for="price" class="col-sm-2 col-form-label text-sm-right required">Price</label>
-                                <div class="col-xs-12 col-sm-8">
-                                  <input type="text" name="price" value="<%= item.price %>" class="form-control form-control-sm <%= errors.price && 'is-invalid' %>">
-                                  <%- `<span class="error invalid-feedback">${errors.price}</span>` %>
-                                </div>
-                              </div>
-                        
-                        
-                              <div class="form-group row">
-                                <label for="name" class="col-sm-2 col-form-label text-sm-right required">Category</label>
-                                <div class="col-xs-12 col-sm-8">
-                                  <%- selectCategory(listCategory,item.categoriesId,'',errors.categoriesId) %>
-                                  </select>
-                                </div>
-                              </div>
-                        
-                              <div class="form-group row">
-                                <label for="name" class="col-sm-2 col-form-label text-sm-right required">Ordering</label>
-                                <div class="col-xs-12 col-sm-8">
-                                  <input type="text" name="ordering" value="<%= item.ordering ?? 0 %>" class="form-control form-control-sm <%= errors.ordering && 'is-invalid' %>">
-                                  <%- `<span class="error invalid-feedback">${errors.ordering}</span>` %>
-                                </div>
-                              </div>
-							  <div class="form-group row">
-								<label for="status" class="col-sm-2 col-form-label text-sm-right required">Status</label>
-								<div class="col-xs-12 col-sm-8">
-									<select id="form[status]" name="status" class="custom-select custom-select-sm <%= errors.status && 'is-invalid' %>">
-										<option value="novalue">Choose Status</option>
-										<option value="active" <%= (item.status == "active") ? 'selected="selected"' : '' %> >Active</option>
-										<option value="inactive" <%= (item.status == "inactive") ? 'selected="selected"' : '' %> >Inactive</option>
-									</select>
-									<%- `<span class="error invalid-feedback">${errors.status}</span>` %>
-								</div>
+							<div class="form-group">
+								<label for="name">Tên Sản Phẩm</label>
+								<input type="text" name="name" value="<%= item.name %>" class="form-control form-control-sm <%= errors.name && 'is-invalid' %>" onKeyUp="handleSlug(
+								'<%= linkPrefix %>',
+								this,
+								)">
+							<%- `<span class="error invalid-feedback">${errors.name}</span>` %>
 							</div>
-			<!-- Avatar -->
-			<div class="form-group row">
-				<label for="image" class="col-sm-2 col-form-label text-sm-right required">Image</label>
-				<div class="col-xs-12 col-sm-8">
-					<div class="custom-file">
-						<input id="imgInp" class="form-control custom-file-input <%= errors.image && 'is-invalid' %>" type="file" name="image">
-						<label class="custom-file-label" for="imgInp">Choose file</label>
-						<%- `<span class="error invalid-feedback">${errors.image}</span>` %>
+							<div class="form-group">
+								<label for="slug">Slug</label>
+								<input type="text" name="slug" value="<%= item.slug %>" class="form-control form-control-sm <%= errors.slug && 'is-invalid' %>">
+								<%- `<span class="error invalid-feedback">${errors.slug}</span>` %>
+							</div>
+							<div class="form-group">
+								<label for="slug">Giá</label>
+								<input type="number" name="price" value="<%= item.price %>" class="form-control form-control-sm <%= errors.slug && 'is-invalid' %>">
+								<%- `<span class="error invalid-feedback">${errors.slug}</span>` %>
+							</div>
+							<div class="form-group">
+								<label>Danh Mục</label>
+										<%- selectCategory(listCategory,item.categoriesId,'',errors.categoriesId) %>
+									</select>
+							</div>
+							<div class="form-group">
+								<label>Thứ tự Sản Phẩm</label>
+								<input type="text" name="ordering" value="<%= item.ordering ?? 0 %>" class="form-control form-control-sm <%= errors.ordering && 'is-invalid' %>">
+								<%- `<span class="error invalid-feedback">${errors.ordering}</span>` %>
+							</div>
+							<div class="form-group">
+								<label>Trạng Thái</label>
+								<select id="form[status]" name="status" class="custom-select custom-select-sm <%= errors.status && 'is-invalid' %>">
+									<option value="novalue">Choose Status</option>
+									<option value="active" <%= (item.status == "active") ? 'selected="selected"' : '' %> >Active</option>
+									<option value="inactive" <%= (item.status == "inactive") ? 'selected="selected"' : '' %> >Inactive</option>
+								</select>
+								<%- `<span class="error invalid-feedback">${errors.status}</span>` %>
+							</div>
+							<div class="form-group">
+								<label for="slug">Mô Tả Ngắn</label>
+								<input type="text" name="shortDes" value="<%= item.shortDes %>" class="form-control form-control-sm <%= errors.slug && 'is-invalid' %>">
+								<%- `<span class="error invalid-feedback">${errors.slug}</span>` %>
+							</div>
+							<div class="form-group">
+								<label>Mô Tả Chi Tiết</label>
+								<textarea id="editor" name="description"><%= item.description %></textarea>
+							</div>	
+						</div>
 					</div>
 				</div>
-			</div>
+				<div class="col-md-6">
+					<div class="card card-primary">
+						<div class="card-header">
+							<h3 class="card-title">Thêm Thuộc Tính Sản Phẩm</h3>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="form-group">
+									<% listAttributes.forEach(value => { %>
+										<div class="custom-control custom-checkbox">
+											<input class="custom-control-input" name="attributes" type="checkbox" id="<%= value.id %>" value="<%= value.id %>" <%= item.attributes.includes(value.id) ? 'checked' : '' %> >
+											<label for="<%= value.id %>" class="custom-control-label"><%= value.name %></label>
+										</div>
+									<% }) %>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card card-primary">
+						<div class="card-header">
+							<h3 class="card-title">Hình Ảnh Đại Diện</h3>
+						</div>					
+					</div>
+						<div class="form-group row">
+							<label for="image" class="col-sm-2 col-form-label text-sm-right required">Thumbnail</label>
+							<div class="col-xs-12 col-sm-8">
+								<div class="custom-file">
+									<input id="imgInp" class="form-control custom-file-input <%= errors.image && 'is-invalid' %>" type="file" name="image">
+									<label class="custom-file-label" for="imgInp">Choose file</label>
+									<%- `<span class="error invalid-feedback">${errors.image}</span>` %>
+								</div>
+							</div>
+						</div>
 
 				<div class="form-group row">
 					<div class="col-sm-2 col-form-label"></div>
@@ -85,39 +124,51 @@
 					<%- imageHelper(folderUpload, item.image, item.name,'200','200'); %>
 					</div>
 				</div>
-							<div class="form-group row">
-								<label for="name" class="col-sm-2 col-form-label text-sm-right required">Hình ảnh Sản Phẩm</label>
-								<div class="col-xs-12 col-sm-8">
-									<div class="card card-primary">
-										<div class="card-body">
-											<div class="row">
-												<div class="form-group col-md-12">
-													<div class="dropzone" id="myDropzone" data-url="<%= linkPrefix %>upload/">
-														<div class="fallback">
-															<input name="fileMulti" type="file" multiple/>
-														</div>
-													</div>
-												</div>
-											</div>
+						
+					<div class="card card-primary">
+						<div class="card-header">
+							<h3 class="card-title">Hình Ảnh Thêm</h3>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="form-group col-md-12">
+									<div class="dropzone" id="myDropzone" data-url="<%= linkPrefix %>upload/">
+										<div class="fallback">
+											<input name="fileMulti" type="file" multiple/>
 										</div>
 									</div>
 								</div>
 							</div>
-
-							<div class="form-group row">
-                                <label for="shortDes" class="col-sm-2 col-form-label text-sm-right required">Mô Tả Ngắn</label>
-                                <div class="col-xs-12 col-sm-8">
-                                  <input type="text" name="shortDes" value="<%= item.shortDes %>" class="form-control form-control-sm <%= errors.shortDes && 'is-invalid' %>">
-                                  <%- `<span class="error invalid-feedback">${errors.price}</span>` %>
-                                </div>
-                              </div>
-							<div class="form-group row">
-								<label for="name" class="col-sm-2 col-form-label text-sm-right required">Mô Tả Chi Tiết</label>
-								<div class="col-xs-12 col-sm-8">
-									<textarea id="editor" name="description"><%= item.description %></textarea>
+							<% if(item.id) { %>
+				
+							<div class="card card-success">
+								<div class="card-header">
+									<h3 class="card-title">Sắp Xếp</h3>
+									<div class="card-tools">
+										<button type="button" class="btn btn-tool" data-card-widget="collapse"></i>
+									</button>
+									</div>						
+								</div>
+								<div class="card-body showImage connectedSort d-flex" style="display: block;">
+									<%- imageMulti(item.images,folderUpload) %>
 								</div>
 							</div>
+
+							<div class="card card-danger">
+								<div class="card-header">
+									<h3 class="card-title">Kéo Ảnh vào Đây Để Xóa</h3>
+									<div class="card-tools">
+										<button type="button" class="btn btn-tool" data-card-widget="collapse"></i>
+									</button>
+									</div>						
+								</div>
+								<div id="trash" class="card-body connectedSort d-flex" style="display: block;">
+									
+								</div>
+							</div>
+							<% } %>
 						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -126,10 +177,9 @@
 					<input class="form-control" name="id" value="<%= item.id %>" type="hidden">
 					<input name="image_old" value="<%= item.thumbnail %>" type="hidden" />
 					<input name="image_uploaded" value="" type="hidden" id="image_uploaded" />
-					<input name="imagesMulti" value="" type="hidden" />
-					<!-- <button type="button" name="saveImages" class="btn btn-sm btn-success mr-1" disabled> Save Images</button> -->
-					<!-- <button type="submit" class="btn btn-sm btn-success mr-1" disabled> Submit</button> -->
-					<button type="submit" class="btn btn-sm btn-success mr-1"> Submit</button>
+					<input name="images" value="<%= item.images %>" type="hidden" />
+					<button type="button" name="saveImages" class="btn btn-sm btn-success mr-1" disabled> Save Images</button>
+					<button type="submit" class="btn btn-sm btn-success mr-1" disabled> Submit</button>
 					<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
 				</div>
 			</div>
@@ -140,33 +190,68 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
 <script>
 	ClassicEditor
-    .create( document.querySelector( '#editor' ) )
-    .catch( error => {
-            console.error( error );
-    } );
-		
-		imgInp.onchange = evt => {
-			const [file] = imgInp.files
-			if (file) {
-				showImage.src = URL.createObjectURL(file)
-				image_uploaded.setAttribute('value','uploaded')
-			}
+		.create(document.querySelector('#editor'))
+		.catch(error => {
+			console.error(error);
+		});
+
+	imgInp.onchange = evt => {
+		const [file] = imgInp.files
+		if (file) {
+			showImage.src = URL.createObjectURL(file)
+			image_uploaded.setAttribute('value', 'uploaded')
 		}
-		function notImage(e,folder) {
-				e.setAttribute('src',folder+'no-avatar.png')
-		}
+	}
+
+	function notImage(e, folder) {
+		e.setAttribute('src', folder + 'no-avatar.png')
+	}
 </script>
 
 <script>
-	$('#myDropzone').sortable({
- 	  update: function( event, ui ) {
-			let value = '';
-			$('.dz-filename span').each((index,element) => {
-				value += $(element).data('filename') + ','
+	if($('input[name="id"]').val()) {
+		$("button[type='submit']").prop("disabled", false)
+	}
+	$('.add-more').click(function(e) {
+		e.preventDefault();
+		$('#information div.add').append(
+			`<div class="row mb-3">
+					<div class="col-md-4">
+						<input type="text" class="form-control" placeholder="info" name="infoName">
+					</div>
+					<div class="col-md-7">
+						<input type="text" class="form-control" placeholder="value" name="infoValue">
+					</div>
+					<div class="col-md-1">
+						<button type="button" class="btn btn-danger" onClick="closeInfo(this)">
+							<i class="fas fa-times"></i>
+						</button>
+					</div>
+				</div>
+		`).children(':last').hide().fadeIn();;
+	});
+
+	function closeInfo(obj) {
+		$(obj).parent().parent().fadeOut(350, function() {
+			$(this).remove();
+		});
+	}
+
+	function setValueImagesHidden(arrElement = ['.dz-filename span','.showImage img']) {
+		let value = '';
+		arrElement.forEach(element => {
+			$(element).each((index,elm) => {
+				console.log(index,elm)
+				value += $(elm).data('filename') + ','
 			})
 			if(value) {
-				$("input[name='imagesMulti']").val(value.substr(0,value.length - 1))
+				$("input[name='images']").val(value.substr(0,value.length - 1))
 			}
+		})
+	}
+	$('#myDropzone').sortable({
+ 	  update: function( event, ui ) {
+			setValueImagesHidden()
 		}
 	});
 
@@ -175,34 +260,39 @@
 		paramName: 'fileMulti',
 		autoProcessQueue:false,
 		addRemoveLinks: true,
-		maxFiles:10,
+  	maxFiles:10,
 		parallelUploads:10,
-		// init: function() {
-		// 	var myDropzone = this;
-		// 		$("button[name='saveImages']").click((e) => {
-		// 			$("button[name='saveImages']").prop("disabled", true)
-		// 			$("button[type='submit']").prop("disabled", false)
-		// 			myDropzone.processQueue();
-		// 	});
-		// 	myDropzone.on("addedfile", file => {
-		// 		$("button[name='saveImages']").prop("disabled", false)
-		// 		$("button[type='submit']").prop("disabled", true)
-		// 	});
-		// 	myDropzone.on("success",(file, res) => {
-		// 		$('.dz-filename span').each((index,element) => {
-		// 			let fileName = $(element).text();
-		// 			if(fileName == res.originalname) {
-		// 				$(element).attr('data-filename',res.filename);
-		// 			}
-		// 		});
-		// 		let value = '';
-		// 		$('.dz-filename span').each((index,element) => {
-		// 			value += $(element).data('filename') + ','
-		// 		})
-		// 		if(value) {
-		// 			$("input[name='imagesMulti']").val(value.substr(0,value.length - 1))
-		// 		}
-		// 	})
-		// }
+		init: function() {
+			var myDropzone = this;
+				$("button[name='saveImages']").click((e) => {
+					$("button[name='saveImages']").prop("disabled", true)
+					$("button[type='submit']").prop("disabled", false)
+					myDropzone.processQueue();
+			});
+			myDropzone.on("addedfile", file => {
+				$("button[name='saveImages']").prop("disabled", false)
+				$("button[type='submit']").prop("disabled", true)
+			});
+			myDropzone.on("success",(file, res) => {
+				$('.dz-filename span').each((index,element) => {
+					let fileName = $(element).text();
+					if(fileName == res.originalname) {
+						$(element).attr('data-filename',res.filename);
+					}
+				});
+				setValueImagesHidden()
+			})
+		}
 	});
+
+	let $gallery = $('.showImage');
+	let $trash = $( "#trash" );
+
+	$('.showImage,#trash').sortable({
+		connectWith: ".connectedSort",
+		update: function( event, ui ) {
+			setValueImagesHidden()
+		},
+	});
+
 </script>
