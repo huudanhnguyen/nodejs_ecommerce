@@ -13,11 +13,11 @@ const folderProductUpload 	= "uploads/products/";
                             <div class="display-table">
                                 <div class="display-table-cell footer-newsletter">
                                     <div class="section-header text-center">
-                                        <label class="h2"><span>sign up for </span>newsletter</label>
+                                        <label class="h2"><span>Đăng Ký Để nhận </span>Thông Tin Từ Cửa Hàng</label>
                                     </div>
                                     <form action="#" method="post">
                                         <div class="input-group">
-                                            <input type="email" class="input-group__field newsletter__input" name="EMAIL" value="" placeholder="Email address" required="">
+                                            <input type="email" class="input-group__field newsletter__input" name="EMAIL" value="" placeholder="Địa Chỉ Email" required="">
                                             <span class="input-group__btn">
                                                 <button type="submit" class="btn newsletter__submit" name="commit" id="Subscribe"><span class="newsletter__submit-text--large">Subscribe</span></button>
                                             </span>
@@ -47,27 +47,24 @@ const folderProductUpload 	= "uploads/products/";
      			<!--Footer Links-->
             	<div class="footer-top">
                 	<div class="row">
-                    	<div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
-                        	<h4 class="h4">Quick Shop</h4>
+                    	<div class="col-12 col-sm-12 col-md-4 col-lg-4 footer-links">
+                        	<h4 class="h4">Danh Mục</h4>
                             <ul>
-                            	<li><a href="#">Women</a></li>
-                                <li><a href="#">Men</a></li>
-                                <li><a href="#">Kids</a></li>
-                                <li><a href="#">Sportswear</a></li>
-                                <li><a href="#">Sale</a></li>
+                                <% listCategory.slice(0,4).forEach((category)=> { %>
+                                    <li><a href="category/<%= category.slug %> "><%= category.name %></a></li>
+                                <%})%>
                             </ul>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
-                        	<h4 class="h4">Informations</h4>
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 footer-links">
+                        	<h4 class="h4">Thông Tin</h4>
                             <ul>
-                            	<li><a href="#">About us</a></li>
-                                <li><a href="#">Careers</a></li>
-                                <li><a href="#">Privacy policy</a></li>
-                                <li><a href="#">Terms &amp; condition</a></li>
-                                <li><a href="#">My Account</a></li>
+                            	<li><a href="#">Về Chúng Tôi</a></li>
+                                <li><a href="#">Chính Sách Bảo Mật</a></li>
+                                <li><a href="#">Điều Khoản &amp; Điều Lệ</a></li>
+                                <li><a href="#">Tài Khoản Của Bạn</a></li>
                             </ul>
                         </div>
-                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
+                        <!-- <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
                         	<h4 class="h4">Customer Services</h4>
                             <ul>
                             	<li><a href="#">Request Personal Data</a></li>
@@ -76,8 +73,8 @@ const folderProductUpload 	= "uploads/products/";
                                 <li><a href="#">Orders and Returns</a></li>
                                 <li><a href="#">Support Center</a></li>
                             </ul>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
+                        </div> -->
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 footer-links">
                         	<h4 class="h4">Liên Hệ Với Chúng Tôi</h4>
                             <ul>
                             	<li><i class="icon anm anm-map-marker-al"></i><a href="#"> <%= item.address %> </a></li>
@@ -92,7 +89,9 @@ const folderProductUpload 	= "uploads/products/";
                 <div class="footer-bottom">
                 	<div class="row">
                     	<!--Footer Copyright-->
-	                	<div class="col-12 col-sm-12 col-md-12 col-lg-12 order-1 order-md-0 order-lg-0 order-sm-1 copyright text-center"><span></span> <a href="templateshub.net">Templates Hub</a></div>
+	                	<div class="col-12 col-sm-12 col-md-12 col-lg-12 order-1 order-md-0 order-lg-0 order-sm-1 copyright text-center"><strong>Copyright © 2022 <a href=""><%= item.copyright %> </a>.</strong>
+                            
+                        <!-- <span></span> <a href="">Templates Hub</a></div> -->
                         <!--End Footer Copyright-->
                     </div>
                 </div>
@@ -230,7 +229,7 @@ const folderProductUpload 	= "uploads/products/";
         <a class="btn closepopup"><i class="icon icon anm anm-times-l"></i></a>
         <!-- Modal content-->
         <div class="display-table splash-bg">
-          <div class="display-table-cell width40"><img src="frontend/assets/images/newsletter-img.jpg" alt="Join Our Mailing List" title="Join Our Mailing List" /> </div>
+          <div class="display-table-cell width40"><img src="/frontend/assets/images/newsletter-img.jpg" alt="Join Our Mailing List" title="Join Our Mailing List" /> </div>
           <div class="display-table-cell width60 text-center">
             <div class="newsletter-left">
               <h2>Join Our Mailing List</h2>

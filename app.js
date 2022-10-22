@@ -59,7 +59,6 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 // app.set('layout', __path_views + 'backend');
 app.set('layout', __path_view_admin + 'admin');
-// app.set('layout', __path_view_blog + 'frontend');
 // app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -72,10 +71,7 @@ app.locals.dayjs = dayjs;
 app.use(`/${systemConfig.prefixAdmin}`, require(__path_routers + 'backend/index'));
 app.use('/', require(__path_routers + 'frontend/index'));
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -84,8 +80,11 @@ app.use(function(err, req, res, next) {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
     res.status(err.status || 500);
     res.render(__path_view_admin +  'pages/error', { pageTitle   : 'Page Not Found ' });
-    // res.render(__path_view_blog +  'pages/error', { pageTitle   : 'Page Not Found ' });
 
+});
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
 });
 
 module.exports = app;
