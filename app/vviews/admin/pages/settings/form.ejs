@@ -23,6 +23,11 @@ const folderUpload 	= `uploads/${collection}/`;
 										href="#footer-settings" role="tab" aria-controls="footer-settings"
 										aria-selected="false">Footer</a>
 								</li>
+								<li class="nav-item" data-name="link">
+									<a class="nav-link" id="link-settings-tab" data-toggle="pill"
+										href="#link-settings" role="tab" aria-controls="link-settings"
+										aria-selected="false">Link</a>
+								</li>
 							</ul>
 						</div>
 						<div class="card-body">
@@ -123,6 +128,24 @@ const folderUpload 	= `uploads/${collection}/`;
 									</div>
 
 								</div>
+								<div class="tab-pane fade" id="link-settings" role="tabpanel"
+								aria-labelledby="link-settings-tab">
+								
+								<div class="form-group row">
+									<label for="name" class="col-sm-2 col-form-label text-sm-right required">Facebook</label>
+									<div class="col-xs-12 col-sm-8">
+										<input type="text" name="linkfacebook" value="<%= item.linkfacebook %>" class="form-control form-control-sm <%= errors.copyright && 'is-invalid' %>">
+										<span class="error invalid-feedback"><%= errors.copyright %></span>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label for="name" class="col-sm-2 col-form-label text-sm-right required">Youtube</label>
+									<div class="col-xs-12 col-sm-8">
+										<input type="text" name="linkyoutube" value="<%= item.linkyoutube %>" class="form-control form-control-sm <%= errors.copyright && 'is-invalid' %>">
+										<span class="error invalid-feedback"><%= errors.copyright %></span>
+									</div>
+								</div>
+							</div>
 							</div>
 						</div>
 

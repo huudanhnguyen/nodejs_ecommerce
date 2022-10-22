@@ -31,7 +31,7 @@ router.get('/',async (req, res, next) => {
   // });
   let item = await settingsModel.findOne({});
 
-	const {copyright, content, logoFooter,phoneFooter,email,address} = JSON.parse(item.footer);
+	const {copyright, content, logoFooter,phoneFooter,email,address,linkfacebook,linkyoutube} = JSON.parse(item.footer);
 	const {logoHeader,phoneHeader,notification} = JSON.parse(item.header);
 	
 	item.copyright = copyright;
@@ -40,6 +40,8 @@ router.get('/',async (req, res, next) => {
 	item.phoneFooter = phoneFooter;
 	item.email = email;
 	item.logoFooter = logoFooter;
+	item.linkfacebook=linkfacebook;
+	item.linkyoutube=linkyoutube;
 
 	item.phoneHeader = phoneHeader;
 	item.notification = notification;

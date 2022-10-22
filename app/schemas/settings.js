@@ -3,7 +3,8 @@ const databaseConfig = require(__path_configs + 'database');
 
 var schema = new mongoose.Schema({ 
     footer: String, 
-    header: String, 
+    header: String,
+    link:String,
 },{ timestamps: true });
 
 module.exports = mongoose.model(databaseConfig.col_settings, schema );

@@ -24,7 +24,7 @@ router.get(('/'),async (req, res, next) => {
 	let errors   = null;
 	let item = await Model.findOne({});
 
-	const {copyright, content, logoFooter,phoneFooter,email,address} = JSON.parse(item.footer);
+	const {copyright, content, logoFooter,phoneFooter,email,address,linkfacebook,linkyoutube} = JSON.parse(item.footer);
 	const {logoHeader,phoneHeader,notification} = JSON.parse(item.header);
 	
 	item.copyright = copyright;
@@ -33,10 +33,13 @@ router.get(('/'),async (req, res, next) => {
 	item.phoneFooter = phoneFooter;
 	item.email = email;
 	item.logoFooter = logoFooter;
+	item.linkfacebook=linkfacebook;
+	item.linkyoutube=linkyoutube;
 
 	item.phoneHeader = phoneHeader;
 	item.notification = notification;
 	item.logoHeader = logoHeader;
+
 	res.render(`${folderView}form`, { pageTitle: pageTitleIndex, item, errors,});
 });
 
@@ -88,6 +91,9 @@ router.post('/save',uploadAvatar,
 			content: item.content,
 			phoneFooter: item.phoneFooter,
 			email: item.email,
+			linkfacebook:item.linkfacebook,
+			linkyoutube:item.linkyoutube,
+			// instagram:item.instagram,
 			logoFooter: !req.files.logoFooter ? item.image_footer_old : req.files.logoFooter[0].filename
 		})
 		let header = JSON.stringify({
@@ -95,6 +101,11 @@ router.post('/save',uploadAvatar,
 			notification: item.notification,
 			logoHeader:!req.files.logoHeader ? item.image_header_old : req.files.logoHeader[0].filename
 		});
+		// let link=JSON.stringify({
+		// 	facebook:item.facebook,
+		// 	youtube:item.youtube,
+		// 	instagram:item.instagram
+		// });
 		if(req.files.logoHeader) FileHelpers.remove(`public/uploads/${Collection}/`, item.image_header_old);
 		if(req.files.logoFooter) FileHelpers.remove(`public/uploads/${Collection}/`, item.image_footer_old);
 		Model.update({_id:item.id},{header,footer}).then(() => {
