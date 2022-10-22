@@ -50,18 +50,9 @@ const folderProductUpload 	= "uploads/products/";
                     	<div class="col-12 col-sm-12 col-md-4 col-lg-4 footer-links">
                         	<h4 class="h4">Danh Mục</h4>
                             <ul>
-                                <% listCategory.slice(0,4).forEach((category)=> { %>
+                                <% listCategory.slice(1,4).forEach((category)=> { %>
                                     <li><a href="category/<%= category.slug %> "><%= category.name %></a></li>
                                 <%})%>
-                            </ul>
-                        </div>
-                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 footer-links">
-                        	<h4 class="h4">Thông Tin</h4>
-                            <ul>
-                            	<li><a href="/lien-he">Về Chúng Tôi</a></li>
-                                <li><a href="#">Chính Sách Bảo Mật</a></li>
-                                <li><a href="#">Điều Khoản &amp; Điều Lệ</a></li>
-                                <li><a href="#">Tài Khoản Của Bạn</a></li>
                             </ul>
                         </div>
                         <!-- <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-links">
@@ -80,6 +71,15 @@ const folderProductUpload 	= "uploads/products/";
                             	<li><i class="icon anm anm-map-marker-al"></i><a href="#"> <%= item.address %> </a></li>
                             	<li><i class="icon anm anm-phone-s"></i><a href="#"> <%= item.phoneHeader %> </a></li>
                             	<li><i class="icon anm anm-envelope-l"></i><a href="#"> <%= item.email %> </a></li>
+                            </ul>
+                        </div>
+                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 footer-links">
+                        	<h4 class="h4">Thông Tin</h4>
+                            <ul>
+                            	<li><a href="/gioi-thieu">Về Chúng Tôi</a></li>
+                                <li><a href="/lien-he">Liên Hệ</a></li>
+                                <!-- <li><a href="">Chính Sách Bảo Mật</a></li>
+                                <li><a href="">Tài Khoản Của Bạn</a></li> -->
                             </ul>
                         </div>
                     </div>

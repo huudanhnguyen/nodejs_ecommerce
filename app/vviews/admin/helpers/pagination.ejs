@@ -52,10 +52,10 @@
         }
 
         return `
-            <p>Number of entries on the page:<span>${totalItemsPerPage}</span></p>
-            <p>Showing<span> ${from} </span> to<span> ${to}</span> of<span> ${totalItems}</span> entries</p>
-            <span class="label label-warning">Total pages: ${totalPages}</span>
-                    <span class="label label-danger">Total entries: ${totalItems}</span>
+            <p>Số Phần Tử Trên 1 Trang:<span>${totalItemsPerPage}</span></p>
+            <p>Đang Hiển Thị Từ<span> ${from} </span> Tới<span> ${to}</span> Của<span> ${totalItems}</span> Phần Tử</p>
+            <span class="label label-warning">Tổng Số Trang: ${totalPages}</span>
+                    <span class="label label-danger">Tổng Số Phần Tủ: ${totalItems}</span>
         ${xhtmlPagination}
        `;
     }
