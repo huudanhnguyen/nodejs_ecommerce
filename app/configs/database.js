@@ -12,5 +12,7 @@ module.exports = {
     col_menu: 'menu',
     col_rss: 'rss',
     col_settings: 'settings',
-    col_attributes: 'attributes'
+    col_attributes: 'attributes',
+    col_blogArticle: "blogArticle",
+    col_blogCategory: "blogCategory",
 };

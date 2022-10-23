@@ -47,7 +47,9 @@ router.get('/',async (req, res, next) => {
 	item.notification = notification;
 	item.logoHeader = logoHeader;
 
-  const listProducts = await productsModel.find({}).limit(4);
+  const listProducts = await productsModel.find({});
+  const listProductBestSeller = await productsModel.find({bestseller:true,status:'active'});
+  const listProductNewArrivals = await productsModel.find({newarrivals:true,status:'active'});
   const listMenu = await menuModel.find({status:'active'}).sort({ordering: 'desc'});
   const listSliders = await sliderModel.find({status:'active'});
   const listCategory = await categoryModel.find({}).sort({ ordering: "desc" });
@@ -57,8 +59,8 @@ router.get('/',async (req, res, next) => {
     listSliders,
     listMenu,
     item,
-    // itemsSpecial,
-    // itemsEcommerce,
+    listProductBestSeller,
+    listProductNewArrivals,
     listCategory,
     slider:true
   });

@@ -1,10 +1,10 @@
 <%  
     let arrMenu = [
         {name: 'Bảng Điều Khiển', icon: 'fa-tachometer-alt', link: `${systemConfig.prefixAdmin}/dashboard`},
-        {name: 'Sản Phẩm', icon: 'fas fa-shopping-cart', link: `${systemConfig.prefixAdmin}/products`},
-        {name: 'Danh Mục', icon: 'fa-window-restore', link: `${systemConfig.prefixAdmin}/categories`},
+        // {name: 'Sản Phẩm', icon: 'fas fa-shopping-cart', link: `${systemConfig.prefixAdmin}/products`},
+        // {name: 'Danh Mục', icon: 'fa-window-restore', link: `${systemConfig.prefixAdmin}/categories`},
         {name: 'Thuộc Tính', icon: 'fas fa-tags', link: `${systemConfig.prefixAdmin}/attributes`},
-        {name: 'Bài Viết', icon: 'fa-newspaper', link: `${systemConfig.prefixAdmin}/articles`},
+        // {name: 'Bài Viết', icon: 'fa-newspaper', link: `${systemConfig.prefixAdmin}/articles`},
         {name: 'Sliders', icon: 'fa-images', link: `${systemConfig.prefixAdmin}/sliders`},
         {name: 'Menu', icon: 'fas fa-bars', link: `${systemConfig.prefixAdmin}/menu`},
         // {name: 'Rss', icon: 'fas fa-rss', link: `${systemConfig.prefixAdmin}/rss`},
@@ -15,6 +15,38 @@
     let xhtmlMenu = '';
     arrMenu.forEach(menu => {
         xhtmlMenu += `<li class="nav-item">
+                    <a href="${menu.link}" class="nav-link" data-active="${menu.name.toLowerCase()}">
+                        <i class="nav-icon fas ${menu.icon}"></i>
+                        <p>${menu.name}</p>
+                    </a>
+                </li>`;
+    });  
+%>
+<%  
+    let arrMenuSettings = [
+    {name: 'Bài Viết', icon: 'fa-newspaper', link: `${systemConfig.prefixAdmin}/blogArticle`},
+    {name: 'Danh Mục Bài Viết', icon: 'fa-window-restore', link: `${systemConfig.prefixAdmin}/blogCategory`},
+    ];
+
+    let xhtmlMenuSettings = '';
+    arrMenuSettings.forEach(menu => {
+      xhtmlMenuSettings += `<li class="nav-item">
+                    <a href="${menu.link}" class="nav-link" data-active="${menu.name.toLowerCase()}">
+                        <i class="nav-icon fas ${menu.icon}"></i>
+                        <p>${menu.name}</p>
+                    </a>
+                </li>`;
+    });   
+%>
+<%  
+    let arrProductSettings = [
+    {name: 'Sản Phẩm', icon: 'fas fa-shopping-cart', link: `${systemConfig.prefixAdmin}/products`},
+    {name: 'Danh Mục Sản Phẩm', icon: 'fa-window-restore', link: `${systemConfig.prefixAdmin}/categories`},
+    ];
+
+    let xhtmlProductSettings = '';
+    arrProductSettings.forEach(menu => {
+        xhtmlProductSettings += `<li class="nav-item">
                     <a href="${menu.link}" class="nav-link" data-active="${menu.name.toLowerCase()}">
                         <i class="nav-icon fas ${menu.icon}"></i>
                         <p>${menu.name}</p>
@@ -46,6 +78,32 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <%- xhtmlMenu %>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-newspaper"></i>
+                      <p>
+                        Quản Lý Bài Viết
+                        <i class="fas fa-angle-left right"></i>
+                        <span class="badge badge-info right">2</span>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <%- xhtmlMenuSettings %>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link">
+                      <i class="nav-icon fas fa-shopping-cart"></i>
+                      <p>
+                        Quản Lý Sản Phẩm
+                        <i class="fas fa-angle-left right"></i>
+                        <span class="badge badge-info right">2</span>
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                      <%- xhtmlProductSettings %>
+                    </ul>
+                  </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

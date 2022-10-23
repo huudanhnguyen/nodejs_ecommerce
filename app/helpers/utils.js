@@ -42,6 +42,11 @@ const getCategory = async () => {
 	const listCategory = await Model.find({status: 'active'});
 	return listCategory;
 }
+const getBlogCategory = async () => {
+	const Model = require(__path_schemas + databaseConfig.col_blogCategory);
+	const listBlogCategory = await Model.find({status: 'active'});
+	return listBlogCategory;
+}
 const mapDataRss = async (listRss) => {
 		return await Promise.all (listRss.map(async item => {
 		let category = item.name;
@@ -124,6 +129,7 @@ module.exports = {
 		firstLetterUppercase,
 		countCollection,
 		getCategory,
+		getBlogCategory,
 		getRss,
 		mapRssPagination,
 		mappingAttributes,

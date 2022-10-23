@@ -31,7 +31,7 @@ module.exports = {
         }
 
         if (options.task == 'items-in-category'){
-            select = 'title thumbnail description';
+            select = 'name price images description';
             find = {status:'active', 'categoriesId': params.id};
         }
 
@@ -54,7 +54,7 @@ module.exports = {
     },
 	getItemFrontend: (id, options = null) => {
         return Model.findById(id)
-            .select('title slug image images price shortDes description ');
+            .select('name slug image images price shortDes description ');
     },	
 	countRow(objWhere) {
 		return Model.count(objWhere).then(data => data);
@@ -69,7 +69,7 @@ module.exports = {
 	async addOne(obj){
 		let article = await Model(obj).save();
 		let Category = await CategoriesModel.findById(obj.categoriesId);
-		Category.articles.push(article._id);
+		Category.products.push(article._id);
 		return Category.save();
 	},
 	deleteOne(id,field = null){

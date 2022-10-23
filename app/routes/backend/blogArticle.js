@@ -3,25 +3,21 @@ var router 	= express.Router();
 const util = require('util');
 const { body, validationResult } = require('express-validator');
 var slug = require('slug');
-const { models } = require('mongoose');
 
-const Collection = 'products';
+const Collection = 'blogArticle';
 const systemConfig  = require(__path_configs + 'system');
 const notify  		= require(__path_configs + 'notify');
 const Model 		= require(__path_models + Collection);
-const attributeModel  = require(__path_schemas + 'attributes');
-
 const UtilsHelpers 	= require(__path_helpers + 'utils');
 const ParamsHelpers = require(__path_helpers + 'params');
 const FileHelpers = require(__path_helpers + 'file');
 
 const linkIndex		 = '/' + systemConfig.prefixAdmin + `/${Collection}/`;
-const pageTitleIndex = 'Quản Lý Sản Phẩm';
-const pageTitleAdd   = pageTitleIndex + ' - Thêm';
-const pageTitleEdit  = pageTitleIndex + ' - Sửa';
+const pageTitleIndex = UtilsHelpers.firstLetterUppercase(Collection) + ' Management';
+const pageTitleAdd   = pageTitleIndex + ' - Add';
+const pageTitleEdit  = pageTitleIndex + ' - Edit';
 const folderView	 = __path_view_admin + `pages/${Collection}/`;
-const uploadImage	 = FileHelpers.upload('fileMulti', Collection);
-
+const uploadAvatar	 = FileHelpers.upload('thumbnail', Collection);
 // List items
 router.get('(/status/:status)?', async (req, res, next) => {
 	let objWhere	 = {};
@@ -29,7 +25,7 @@ router.get('(/status/:status)?', async (req, res, next) => {
 	let currentStatus= ParamsHelpers.getParam(req.params, 'status', 'all'); 
 	let statusFilter = await UtilsHelpers.createFilterStatus(currentStatus,Collection);
 	let sort = req.session;
-	let listCategory = await UtilsHelpers.getCategory();
+	let listBlogCategory = await UtilsHelpers.getBlogCategory();
 	let pagination 	 = {
 		totalItems		 : 1,
 		totalItemsPerPage: 10,
@@ -52,7 +48,7 @@ router.get('(/status/:status)?', async (req, res, next) => {
 				currentStatus,
 				keyword,
 				sort,
-				listCategory
+				listBlogCategory
 			});
 		});
 });
@@ -81,16 +77,6 @@ router.get('/sort/:field/:type', (req, res, next) => {
 	req.session.sortType = req.params.type;
 	res.redirect(linkIndex)
 });
-router.post('(/option)', async (req, res, next) => {
-	try {
-		console.log( req.body)
-		let {id, field, isCheck} = req.body
-		let data = await Model.changeOption(id, field, isCheck)
-		res.send({success: true})
-	} catch (error) {
-		res.send({success: false})
-	}
-})
 // Change ordering - Multi
 // router.post('/change-ordering', (req, res, next) => {
 // 	let cids 		= req.body.cid;
@@ -129,57 +115,66 @@ router.post('/delete', (req, res, next) => {
 router.get(('/form(/:id)?'),async (req, res, next) => {
 	let id		= ParamsHelpers.getParam(req.params, 'id', '');
 	let errors   = null;
-	let listCategory = await UtilsHelpers.getCategory();
-	let listAttributes = await attributeModel.find({status: 'active'}).select('name id');
+	let listBlogCategory = await UtilsHelpers.getBlogCategory();
 	if(id === '') { // ADD
-		res.render(`${folderView}form`, { pageTitle: pageTitleAdd, item : {attributes: ''}, errors,listCategory,listAttributes});
+		res.render(`${folderView}form`, { pageTitle: pageTitleAdd, item : {}, errors,listBlogCategory});
 	}else { // EDIT
 		Model.findById(id).then((item) => {
-			res.render(`${folderView}form`, { pageTitle: pageTitleEdit, item, errors,listCategory,listAttributes});
+			res.render(`${folderView}form`, { pageTitle: pageTitleEdit, item, errors,listBlogCategory});
 		})
 	}
 });
 
 // SAVE = ADD EDIT
-router.post('/save',uploadImage,
-	body('name').notEmpty().withMessage(notify.ERROR_TITLE_EMPTY),
+router.post('/save',uploadAvatar,
+	body('title').notEmpty().withMessage(notify.ERROR_TITLE_EMPTY),
 	body('categoriesId').not().isIn(['novalue']).withMessage(notify.ERROR_Category),
 	body('slug').matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).withMessage(notify.ERROR_SLUG),
 	body('ordering').isNumeric().withMessage(notify.ERROR_ORDERING),
-	body('price').isNumeric().withMessage(notify.ERROR_PRICE),
 	body('status').not().isIn(['novalue']).withMessage(notify.ERROR_STATUS),
+	body('thumbnail').custom((value,{req}) => {
+		const {image_uploaded,image_old} = req.body;
+		if(!image_uploaded && !image_old) {
+			return Promise.reject(notify.ERROR_FILE_EMPTY);
+		}
+		if(!req.file && image_uploaded) {
+				return Promise.reject(notify.ERROR_FILE_EXTENSION);
+		}
+		return true;
+	}),
 	async (req, res, next) => {
-
+	// uploadAvatar(req, res,async (errUpload) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			let errorsMsg = {};
 			errors.errors.forEach(value => {
 				errorsMsg[value.param] = value.msg
 			});
-			let item = req.body;
-			item.bestseller = !item.bestseller ? false : true
-			item.newarrivals = !item.newarrivals ? false : true
-			// item.information = UtilsHelpers.mappingInfomation(item);
-			let listCategory = await UtilsHelpers.getCategory();
-			let listAttributes = await attributeModel.find({status: 'active'}).select('name id');
-
+			req.body.thumbnail = req.body.image_old;
+			let listBlogCategory = await UtilsHelpers.getBlogCategory();
 			res.render(`${folderView}form`, { 
 				pageTitle: pageTitleEdit, 
-				item,
+				item: req.body,
 				errors: errorsMsg,
-				listCategory,
-				listAttributes
+				listBlogCategory
 			});
 			return;
 		} 
-
 		let item = req.body;
-		// item.information = UtilsHelpers.mappingInfomation(item);
+		
 		if(item.id){	// edit	
+			if(!req.file){ // không có upload lại hình
+				item.thumbnail = item.image_old;
+			}else{
+				item.thumbnail = req.file.filename;
+				FileHelpers.remove(`public/uploads/${Collection}/`, item.image_old);
+			}
+			
 			Model.updateOne(item).then(() => {
 				req.flash('success', notify.EDIT_SUCCESS, linkIndex);
 			});
 		} else { // add
+			item.thumbnail = req.file.filename;
 			Model.addOne(item).then(()=> {
 				req.flash('success', notify.ADD_SUCCESS, linkIndex);
 			})
@@ -187,11 +182,5 @@ router.post('/save',uploadImage,
 		}	
 	// });
 });
-router.post('/upload',uploadImage, async (req, res, next) => { 
-	if(!req.file) {
-		return res.status(422).send('File không hợp lệ');
-	} else {
-		return res.status(200).send(req.file);
-	}	
-});
+
 module.exports = router;

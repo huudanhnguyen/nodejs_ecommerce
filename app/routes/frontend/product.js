@@ -6,12 +6,20 @@ const productsModel 		= require(__path_schemas + col_products);
 const settingsModel 		= require(__path_schemas + col_settings);
 const sliderModel 		= require(__path_schemas + col_sliders);
 const categoryModel 		= require(__path_schemas + col_categories);
+const ParamsHelpers = require(__path_helpers + "params");
 const Model 		= require(__path_models + 'products');
 const menuModel 		= require(__path_schemas + col_menu);
 const folderView	 = __path_view_ecommerce + 'pages/product/';
 const layout	     = __path_view_ecommerce+ 'frontend';
 /* GET home page. */
-router.get('/(:slug)?',async (req, res, next) => {
+// router.get('/(:slug)?',async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
+  let idProduct = ParamsHelpers.getParam(req.params, 'id', '');
+  let itemProduct = {};
+  await Model.getItemFrontend(idProduct, null).then((itemPro) => {
+    itemProduct = itemPro;
+  });
+
   // let itemsSpecial 	= [];
   // await Model.listItemsFrontend(null, {task: 'items-special'} ).then( (items) => { itemsSpecial = items;
   //   items.map(async i=>{
@@ -57,6 +65,7 @@ router.get('/(:slug)?',async (req, res, next) => {
     listSliders,
     listMenu,
     item,
+    itemProduct,
     // itemsSpecial,
     // itemsEcommerce,
     listCategory,

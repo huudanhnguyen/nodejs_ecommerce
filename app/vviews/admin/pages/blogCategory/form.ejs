@@ -1,7 +1,7 @@
 <% include ./../../helpers/image %>
-<% include ./../../helpers/selectCategory %>
+<% include ./../../helpers/selectBlogCategory %>
 <% 
-	const collection = "categories";
+	const collection = "blogCategory";
 	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`;
 	errors = errors ?? {};
 %>
@@ -11,7 +11,7 @@
 		<div class="card-body">
 		
 			<div class="form-group row">
-				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Tên</label>
+				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Name</label>
 				<div class="col-xs-12 col-sm-8">
 					<input type="text" name="name" value="<%= item.name %>" class="form-control form-control-sm <%= errors.name && 'is-invalid' %>" onKeyUp="handleSlug(
 						'<%= linkPrefix %>',
@@ -30,15 +30,15 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Chọn Danh Mục</label>
+				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Parent Category</label>
 				<div class="col-xs-12 col-sm-8">
-						<%- selectCategory(listCategory,item.parentId,'form',errors.parentId,null,null,'parentId') %>
+						<%- selectBlogCategory(listBlogCategory,item.parentId,'form',errors.parentId,null,null,'parentId') %>
 					</select>
 				</div>
 			</div>
 
 			<div class="form-group row">
-				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Thứ Tự</label>
+				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Ordering</label>
 				<div class="col-xs-12 col-sm-8">
 					<input type="text" name="ordering" value="<%= item.ordering %>" class="form-control form-control-sm <%= errors.ordering && 'is-invalid' %>">
 					<%- `<span class="error invalid-feedback">${errors.ordering}</span>` %>
@@ -46,10 +46,10 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="status" class="col-sm-2 col-form-label text-sm-right required">Trạng Thái</label>
+				<label for="status" class="col-sm-2 col-form-label text-sm-right required">Status</label>
 				<div class="col-xs-12 col-sm-8">
 					<select id="form[status]" name="status" class="custom-select custom-select-sm <%= errors.status && 'is-invalid' %>">
-						<option value="novalue">Chọn Trạng Thái</option>
+						<option value="novalue">Choose Status</option>
 						<option value="active" <%= (item.status == "active") ? 'selected="selected"' : '' %> >Active</option>
 						<option value="inactive" <%= (item.status == "inactive") ? 'selected="selected"' : '' %> >Inactive</option>
 					</select>
@@ -63,8 +63,8 @@
 				<input class="form-control" name="id" value="<%= item.id %>" type="hidden" >
 				<input name="image_old" value="<%= item.avatar %>" type="hidden"  />
 				<input name="image_uploaded" value="" type="hidden" id="image_uploaded"  />
-				<button type="submit" class="btn btn-sm btn-success mr-1"> Lưu</button>
-				<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Trở Lại</a>
+				<button type="submit" class="btn btn-sm btn-success mr-1"> Submit</button>
+				<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
 			</div>
 		</div>
 	</form>

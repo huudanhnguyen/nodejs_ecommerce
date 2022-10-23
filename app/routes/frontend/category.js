@@ -6,12 +6,15 @@ const productsModel 		= require(__path_schemas + col_products);
 const settingsModel 		= require(__path_schemas + col_settings);
 const sliderModel 		= require(__path_schemas + col_sliders);
 const categoryModel 		= require(__path_schemas + col_categories);
+const ParamsHelpers = require(__path_helpers + "params");
 const Model 		= require(__path_models + 'products');
 const menuModel 		= require(__path_schemas + col_menu);
 const folderView	 = __path_view_ecommerce + 'pages/category/';
 const layout	     = __path_view_ecommerce+ 'frontend';
 /* GET home page. */
-router.get('/(:slug)?',async (req, res, next) => {
+// router.get('/(:slug)?',async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
+
   // let itemsSpecial 	= [];
   // await Model.listItemsFrontend(null, {task: 'items-special'} ).then( (items) => { itemsSpecial = items;
   //   items.map(async i=>{
@@ -29,6 +32,7 @@ router.get('/(:slug)?',async (req, res, next) => {
   //     })
   //     itemsEcommerce=items; 
   // });
+  
   let item = await settingsModel.findOne({});
 
 	const {copyright, content, logoFooter,phoneFooter,email,address,linkfacebook,linkyoutube} = JSON.parse(item.footer);
@@ -47,6 +51,11 @@ router.get('/(:slug)?',async (req, res, next) => {
 	item.notification = notification;
 	item.logoHeader = logoHeader;
 
+  let idCategory 		= ParamsHelpers.getParam(req.params, 'id', '');
+
+  let itemsInCategory	= [];
+  await Model.listItemsFrontend({id: idCategory}, {task: 'items-in-category'} ).then( (items) => { itemsInCategory = items; });
+
   const listProducts = await productsModel.find({}).limit(4);
   const listMenu = await menuModel.find({status:'active'}).sort({ordering: 'desc'});
   const listSliders = await sliderModel.find({status:'active'});
@@ -57,8 +66,7 @@ router.get('/(:slug)?',async (req, res, next) => {
     listSliders,
     listMenu,
     item,
-    // itemsSpecial,
-    // itemsEcommerce,
+    itemsInCategory,
     listCategory,
     slider:false
   });

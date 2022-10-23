@@ -11,12 +11,12 @@
                     <p>Các sản phẩm phổ biến nhất của cửa hàng dựa trên doanh số bán hàng</p>
                 </div>
                 <div class="productSlider grid-products">
-                    <% listProducts.forEach((items)=> { %>
+                    <% listProductBestSeller.forEach((items)=> { %>
                         <div class="col-12 item">
                             <!-- start product image -->
                             <div class="product-image">
                                 <!-- start product image -->
-                                <a href="product/<%= items.slug %>" class="grid-view-item__link">
+                                <a href="product/<%= items.id %>" class="grid-view-item__link">
                                     <!-- image -->
                                     <img class="primary blur-up lazyload"
                                         data-src="<%= folderUpload + items.image %>"
@@ -66,7 +66,7 @@
                             <div class="product-details text-center">
                                 <!-- product name -->
                                 <div class="product-name">
-                                    <a href="/product/<%= items.slug %>"><%= items.name %> </a>
+                                    <a href="/product/<%= items.id %>"><%= items.name %> </a>
                                 </div>
                                 <!-- End product name -->
                                 <!-- product price -->

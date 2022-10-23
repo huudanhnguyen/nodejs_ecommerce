@@ -6,16 +6,19 @@
 <% include ./../../helpers/userTimeInfo %>
 <% include ./../../helpers/sortField %>
 <% include ./../../helpers/image %>
+<% include ./../../helpers/selectBlogCategory %>
+<% include ./../../helpers/getStringLength %>
 <% 
-	const collection = "categories";
+	const collection = "blogArticle";
 	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`;
 	const linkAjax = linkPrefix + 'ajax/';
+	const folderUpload 	= `uploads/${collection}/`;
 %>
 
 <%- locals.flash %>
 <div class="card card-info card-outline">
 	<div class="card-header">
-		<h6 class="card-title">Tìm Kiếm & Lọc</h6>
+		<h6 class="card-title">Search & Filter</h6>
 		<div class="card-tools">
 			<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
 				<i class="fas fa-minus"></i></button>
@@ -32,8 +35,8 @@
 					<div class="input-group">
 						<input type="text" class="form-control form-control-sm" name="keyword" value="<%= keyword %>" style="min-width: 300px">
 						<div class="input-group-append">
-							<a type="button" class="btn btn-sm btn-danger"  href="<%= linkPrefix %>status/<%= currentStatus %>">Xóa</a>
-							<button type="submit" class="btn btn-sm btn-info" id="btn-search">Tìm Kiếm</button>
+							<a type="button" class="btn btn-sm btn-danger"  href="<%= linkPrefix %>status/<%= currentStatus %>">Clear</a>
+							<button type="submit" class="btn btn-sm btn-info" id="btn-search">Search</button>
 						</div>
 					</div>
 				</form>
@@ -44,7 +47,7 @@
 
 <div class="card card-info card-outline">
 	<div class="card-header">
-		<h4 class="card-title">Danh Sách</h4>
+		<h4 class="card-title">List</h4>
 		<div class="card-tools">
 			<a href="#" class="btn btn-tool"><i class="fas fa-sync"></i></a>
 			<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
@@ -68,15 +71,19 @@
 						</th>
 						<th class="text-center">#</a></th>
 						<th class="text-center sort">
-							<%- sortField(linkPrefix,'Tên','name',sort) %>
+							<%- sortField(linkPrefix,'Title','title',sort) %>
 						</th>
-						<th class="text-center">Trạng Thái</a></th>
 						<th class="text-center sort">
-							<%- sortField(linkPrefix,'Thứ Tự','ordering',sort) %>
+							<%- sortField(linkPrefix,'Categories','categories',sort) %>
 						</th>
-						<th class="text-center">Đã Tạo</a></th>
-						<th class="text-center">Chỉnh Sửa</a></th>
-						<th class="text-center">Thao Tác</th>
+						<!-- <th class="text-center">Image</th> -->
+						<th class="text-center">Status</a></th>
+						<th class="text-center sort">
+							<%- sortField(linkPrefix,'Ordering','ordering',sort) %>
+						</th>
+						<th class="text-center">Created</a></th>
+						<!-- <th class="text-center">Modified</a></th> -->
+						<th class="text-center">Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -91,7 +98,9 @@
 						
 						</td>
 						<td class="text-center"><%= index+1 %></td>
-						<td class="text-center"><%- highlightHelper(item.name, keyword) %></td>
+						<td class="text-center"><%- highlightHelper(item.title, keyword) %></td>
+						<td class="text-center position-relative"><%- selectBlogCategory(listBlogCategory,item.categoriesId,'list',null,linkAjax,item.id) %></td>
+						<!-- <td class="text-center"><%# imageHelper(folderUpload, item.thumbnail, item.slug); %></td> -->
 						<td class="text-center position-relative" id="<%= item.id %>-status">
 							<%- statusHelper(collection, item.status, item.id) %>
 						</td>
@@ -107,9 +116,9 @@
 						<td class="text-center">
 							<%- showUserTimeInfo(item.createdAt) %>
 						</td>
-						<td class="text-center">
-							<%- showUserTimeInfo(item.updatedAt) %>
-						</td>
+						<!-- <td class="text-center">
+							<%# showUserTimeInfo(item.updatedAt) %>
+						</td> -->
 						<td class="text-center">
 							<a href="<%= linkPrefix %>form/<%= item.id %>" class="rounded-circle btn btn-sm btn-info" title="Edit">
 								<i class="fas fa-pencil-alt"></i>

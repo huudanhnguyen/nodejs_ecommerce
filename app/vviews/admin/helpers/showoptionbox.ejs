@@ -1,0 +1,34 @@
+<% 
+    showOptionBox = (id, bestseller, newarrivals) => {
+        let isChecked = (param) =>{
+            if (param == true) return 'checked'
+            return
+        }
+        let html = ''
+        if(id !== undefined){
+            html = `
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" name="bestseller-${id}" id="bestseller-${id}" value="true" ${isChecked(bestseller)}>
+                <label for="bestseller-${id}" class="custom-control-label">Hiện Bán Chạy</label>
+                </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" name="newarrivals-${id}" id="newarrivals-${id}" value="true" ${isChecked(newarrivals)}>
+                <label for="newarrivals-${id}" class="custom-control-label">Hiện Hàng Mới Về</label>
+            </div>
+            `
+        } else{
+            html = `
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" name="bestseller" id="bestseller" value="true" >
+                <label for="bestseller" class="custom-control-label">Show Daily Deals</label>
+                </div>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" name="newarrivals" id="newarrivals" value="true" >
+                <label for="newarrivals" class="custom-control-label">Show Feartured Product</label>
+            </div>
+            `
+        }
+       
+        return html; 
+    }
+%>

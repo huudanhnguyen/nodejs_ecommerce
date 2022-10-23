@@ -7,6 +7,7 @@
 <% include ./../../helpers/sortField %>
 <% include ./../../helpers/image %>
 <% include ./../../helpers/selectCategory %>
+<% include ./../../helpers/showOptionBox %>
 <% include ./../../helpers/getStringLength %>
 <% 
 	const collection = "products";
@@ -18,7 +19,7 @@
 <%- locals.flash %>
 <div class="card card-info card-outline">
 	<div class="card-header">
-		<h6 class="card-title">Search & Filter</h6>
+		<h6 class="card-title">Tìm Kiếm & Lọc</h6>
 		<div class="card-tools">
 			<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
 				<i class="fas fa-minus"></i></button>
@@ -35,8 +36,8 @@
 					<div class="input-group">
 						<input type="text" class="form-control form-control-sm" name="keyword" value="<%= keyword %>" style="min-width: 300px">
 						<div class="input-group-append">
-							<a type="button" class="btn btn-sm btn-danger"  href="<%= linkPrefix %>status/<%= currentStatus %>">Clear</a>
-							<button type="submit" class="btn btn-sm btn-info" id="btn-search">Search</button>
+							<a type="button" class="btn btn-sm btn-danger"  href="<%= linkPrefix %>status/<%= currentStatus %>">Xóa</a>
+							<button type="submit" class="btn btn-sm btn-info" id="btn-search">Tìm Kiếm</button>
 						</div>
 					</div>
 				</form>
@@ -47,7 +48,7 @@
 
 <div class="card card-info card-outline">
 	<div class="card-header">
-		<h4 class="card-title">List</h4>
+		<h4 class="card-title">Danh Sách</h4>
 		<div class="card-tools">
 			<a href="#" class="btn btn-tool"><i class="fas fa-sync"></i></a>
 			<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
@@ -71,22 +72,23 @@
 						</th>
 						<th class="text-center">#</a></th>
 						<th class="text-center sort">
-							<%- sortField(linkPrefix,'Name','name',sort) %>
+							<%- sortField(linkPrefix,'Tên','name',sort) %>
 						</th>
 						</th>
 						<th class="text-center sort">
-							<%- sortField(linkPrefix,'Categories','categories',sort) %>
+							<%- sortField(linkPrefix,'Danh Mục','categories',sort) %>
 						</th>
 						<!-- <th class="text-center">Image</th> -->
-						<th class="text-center">Image</a></th>
-						<th class="text-center">Price</a></th>
-						<th class="text-center">Status</a></th>
+						<th class="text-center">Hình Ảnh</a></th>
+						<th class="text-center">Giá</a></th>
+						<th class="text-center">Trạng Thái</a></th>
+						<!-- <th class="text-center">Option</a></th> -->
 						<th class="text-center sort">
-							<%- sortField(linkPrefix,'Ordering','ordering',sort) %>
+							<%- sortField(linkPrefix,'Thứ Tự','ordering',sort) %>
 						</th>
-						<th class="text-center">Created</a></th>
-						<th class="text-center">Modified</a></th>
-						<th class="text-center">Action</th>
+						<!-- <th class="text-center">Created</a></th> -->
+						<th class="text-center">Chỉnh Sửa</a></th>
+						<th class="text-center">Thao Tác</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -103,11 +105,16 @@
 						<td class="text-center"><%= index+1 %></td>
 						<td class="text-center"><%- highlightHelper(item.name, keyword) %></td>
 						<td class="text-center position-relative"><%- selectCategory(listCategory,item.categoriesId,'list',null,linkAjax,item.id) %></td>
-						<td class="text-center"><%- imageHelper(folderUpload, item.image, item.slug); %></td>
-						<td class="text-center"><%- highlightHelper(item.price.toLocaleString(), keyword) %>VND</td>
+						<td class="text-center"><%- imageMulti(folderUpload, item.images[0], item.slug); %></td>
+						<td class="text-center"><%- highlightHelper(item.price.toLocaleString(), keyword) %> ₫</td>
 						<td class="text-center position-relative" id="<%= item.id %>-status">
 							<%- statusHelper(collection, item.status, item.id) %>
 						</td>
+						<!-- <td class="text-center position-relative">
+							<div class="option">
+							<%- showOptionBox(item.id, item.bestseller, item.newarrivals)  %>
+							</div>
+						</td> -->
 						
 						<td class="text-center position-relative">
 							<input type="number" value="<%= item.ordering %>" class="text-center ordering" onChange="handleAjax(
@@ -117,9 +124,9 @@
 								this
 								)">
 						</td>
-						<td class="text-center">
+						<!-- <td class="text-center">
 							<%- showUserTimeInfo(item.createdAt) %>
-						</td>
+						</td> -->
 						<td class="text-center">
 							<%- showUserTimeInfo(item.updatedAt) %>
 						</td>
@@ -164,3 +171,91 @@
     </div>
   </div>
 </div>
+<script>
+	if($('input[name="id"]').val()) {
+		$("button[type='submit']").prop("disabled", false)
+	}
+	$('.add-more').click(function(e) {
+		e.preventDefault();
+		$('#information div.add').append(
+			`<div class="row mb-3">
+					<div class="col-md-4">
+						<input type="text" class="form-control" placeholder="info" name="infoName">
+					</div>
+					<div class="col-md-7">
+						<input type="text" class="form-control" placeholder="value" name="infoValue">
+					</div>
+					<div class="col-md-1">
+						<button type="button" class="btn btn-danger" onClick="closeInfo(this)">
+							<i class="fas fa-times"></i>
+						</button>
+					</div>
+				</div>
+		`).children(':last').hide().fadeIn();;
+	});
+
+	function closeInfo(obj) {
+		$(obj).parent().parent().fadeOut(350, function() {
+			$(this).remove();
+		});
+	}
+
+	function setValueImagesHidden(arrElement = ['.dz-filename span','.showImage img']) {
+		let value = '';
+		arrElement.forEach(element => {
+			$(element).each((index,elm) => {
+				console.log(index,elm)
+				value += $(elm).data('filename') + ','
+			})
+			if(value) {
+				$("input[name='images']").val(value.substr(0,value.length - 1))
+			}
+		})
+	}
+	$('#myDropzone').sortable({
+ 	  update: function( event, ui ) {
+			setValueImagesHidden()
+		}
+	});
+
+	let myDropzone = new Dropzone("#myDropzone", { 
+		url: $("#myDropzone").data('url'),
+		paramName: 'fileMulti',
+		autoProcessQueue:false,
+		addRemoveLinks: true,
+		maxFiles:10,
+		parallelUploads:10,
+		init: function() {
+			var myDropzone = this;
+				$("button[name='saveImages']").click((e) => {
+					$("button[name='saveImages']").prop("disabled", true)
+					$("button[type='submit']").prop("disabled", false)
+					myDropzone.processQueue();
+			});
+			myDropzone.on("addedfile", file => {
+				$("button[name='saveImages']").prop("disabled", false)
+				$("button[type='submit']").prop("disabled", true)
+			});
+			myDropzone.on("success",(file, res) => {
+				$('.dz-filename span').each((index,element) => {
+					let fileName = $(element).text();
+					if(fileName == res.originalname) {
+						$(element).attr('data-filename',res.filename);
+					}
+				});
+				setValueImagesHidden()
+			})
+		}
+	});
+
+	let $gallery = $('.showImage');
+	let $trash = $( "#trash" );
+
+	$('.showImage,#trash').sortable({
+		connectWith: ".connectedSort",
+		update: function( event, ui ) {
+			setValueImagesHidden()
+		},
+	});
+
+</script>

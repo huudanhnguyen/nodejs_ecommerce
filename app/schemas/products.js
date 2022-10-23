@@ -12,6 +12,14 @@ var schema = new mongoose.Schema({
     ordering: Number,
     size: { type: Array },
     color: { type: Array },
+    bestseller: {
+        type: Boolean,
+        default: false
+    },
+    newarrivals: {
+        type: Boolean,
+        default: false
+    },
     price: { type: Number, required: true },
     categoriesId: { 
         type: mongoose.Schema.Types.ObjectId, 
