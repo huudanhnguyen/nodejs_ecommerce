@@ -1,3 +1,4 @@
+<%- include('../helpers/showProduct'); -%>
 <% 
 	const collection = "products";
 	const folderUpload 	= `uploads/${collection}/`;
@@ -15,30 +16,9 @@
                         <div class="col-12 item">
                             <!-- start product image -->
                             <div class="product-image">
-                                <!-- start product image -->
-                                <a href="product/<%= items.id %>" class="grid-view-item__link">
-                                    <!-- image -->
-                                    <img class="primary blur-up lazyload"
-                                        data-src="<%= folderUpload + items.image %>"
-                                        src="<%= folderUpload + items.image %>" alt="image"
-                                        title="product">
-                                    <!-- End image -->
-                                    <!-- Hover image -->
-                                    <img class="hover blur-up lazyload"
-                                        data-src="<%= folderUpload + items.image %>"
-                                        src="<%= folderUpload + items.image %>" alt="image"
-                                        title="product">
-                                    <!-- End hover image -->
-                                    <!-- Variant Image-->
-                                    <img class="grid-view-item__image hover variantImg"
-                                        src="<%= folderUpload + items.image %>" alt="image"
-                                        title="product">
-                                    <!-- Variant Image-->
-                                </a>
-                                <!-- end product image -->
-    
+                                <%- imageMulti(items.images, folderUpload) %>  
                                 <!-- Start product button -->
-                                <form class="variants add" action="#" onclick="window.location.href='cart.html'"
+                                <form class="variants add" action="#" onclick="window.location.href=''"
                                     method="post">
                                     <button class="btn btn-addto-cart" type="button" tabindex="0">ADD TO CARD</button>
                                 </form>

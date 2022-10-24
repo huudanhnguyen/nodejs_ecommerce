@@ -105,7 +105,7 @@
 						<td class="text-center"><%= index+1 %></td>
 						<td class="text-center"><%- highlightHelper(item.name, keyword) %></td>
 						<td class="text-center position-relative"><%- selectCategory(listCategory,item.categoriesId,'list',null,linkAjax,item.id) %></td>
-						<td class="text-center"><%- imageMulti(folderUpload, item.images[0], item.slug); %></td>
+						<td class="text-center"><%- imageHelper(folderUpload, item.images, item.slug); %></td>
 						<td class="text-center"><%- highlightHelper(item.price.toLocaleString(), keyword) %> ₫</td>
 						<td class="text-center position-relative" id="<%= item.id %>-status">
 							<%- statusHelper(collection, item.status, item.id) %>

@@ -2,6 +2,7 @@
 	const collection = "products";
 	const folderUpload 	= `uploads/${collection}/`;
 %>
+<% include ../../../admin/helpers/image %>
 <div id="page-content">
 	<!--MainContent-->
 	<div id="MainContent" class="main-content" role="main">
@@ -22,7 +23,7 @@
 						<div class="product-details-img">
 							<div class="product-thumb">
 								<div id="gallery" class="product-dec-slider-2 product-tab-left">
-									<a data-image="/frontend/assets/images/product-detail-page/cape-dress-1.jpg" data-zoom-image="/frontend/assets/images/product-detail-page/cape-dress-1.jpg" class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" tabindex="-1">
+									<a data-image="<%= folderUpload + itemProduct.images[1] %>" data-zoom-image="/frontend/assets/images/product-detail-page/cape-dress-1.jpg" class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" tabindex="-1">
 										<img class="blur-up lazyload" src="/frontend/assets/images/product-detail-page/cape-dress-1.jpg" alt="" />
 									</a>
 									<a data-image="/frontend/assets/images/product-detail-page/cape-dress-2.jpg" data-zoom-image="/frontend/assets/images/product-detail-page/cape-dress-2.jpg" class="slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" tabindex="-1">
