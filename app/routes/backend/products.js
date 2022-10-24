@@ -91,22 +91,6 @@ router.post('(/option)', async (req, res, next) => {
 		res.send({success: false})
 	}
 })
-// Change ordering - Multi
-// router.post('/change-ordering', (req, res, next) => {
-// 	let cids 		= req.body.cid;
-// 	let orderings 	= req.body.ordering;
-	
-// 	if(Array.isArray(cids)) {
-// 		cids.forEach((item, index) => {
-// 			SlidersModel.updateOne({_id: item}, {ordering: parseInt(orderings[index])}, (err, result) => {});
-// 		})
-// 	}else{ 
-// 		SlidersModel.updateOne({_id: cids}, {ordering: parseInt(orderings)}, (err, result) => {});
-// 	}
-
-// 	req.flash('success', notify.CHANGE_ORDERING_SUCCESS, false);
-// 	res.redirect(linkIndex);
-// });
 
 // Delete
 router.get('/delete/:id', (req, res, next) => {

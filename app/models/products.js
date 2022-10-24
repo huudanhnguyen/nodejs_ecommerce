@@ -69,7 +69,7 @@ module.exports = {
 	async addOne(obj){
 		let article = await Model(obj).save();
 		let Category = await CategoriesModel.findById(obj.categoriesId);
-		Category.products.push(article._id);
+		Category.articles.push(article._id);
 		return Category.save();
 	},
 	deleteOne(id,field = null){
