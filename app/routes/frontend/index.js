@@ -10,5 +10,6 @@ router.use('/product', require('./product'));
 router.use('/tat-ca-san-pham', require('./listProduct'));
 router.use('/dang-nhap', require('./login'));
 router.use('/dang-ky', require('./register'));
+router.use('/search', require('./search'));
 
 module.exports = router;
