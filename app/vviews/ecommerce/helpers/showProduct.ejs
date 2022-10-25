@@ -5,17 +5,13 @@
         let arr = images.split(',');
         arr.forEach(value => {
             xhtml += `
-                <a href="product/<%= items.id %>" class="grid-view-item__link">
                                     <!-- image -->
                                     <img class="primary blur-up lazyload"
-                                    
-                                        data-src="${value}"
                                         src="${folderUpload + value}" alt="image"
                                         title="product">
                                     <!-- End image -->
                                     <!-- Hover image -->
                                     <img class="hover blur-up lazyload"
-                                        data-src="${value}"
                                         src="${folderUpload + value}" alt="image"
                                         title="product">
                                     <!-- End hover image -->
@@ -24,11 +20,11 @@
                                         src="${folderUpload + value}" alt="image"
                                         title="product">
                                     <!-- Variant Image-->
-                                </a>
             `;
         })
         return xhtml;
         
     }
 %>
+
 

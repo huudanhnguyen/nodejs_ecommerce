@@ -1,4 +1,4 @@
-<%- include('../helpers/showProduct'); -%>
+<% include ./../helpers/showProduct %>
 <% 
 	const collection = "products";
 	const folderUpload 	= `uploads/${collection}/`;
@@ -16,7 +16,9 @@
                         <div class="col-12 item">
                             <!-- start product image -->
                             <div class="product-image">
-                                <%- imageMulti(items.images, folderUpload) %>  
+                                <a href="product/<%= items.id %>" class="grid-view-item__link">
+                                    <%- imageMulti(items.images, folderUpload) %>  
+                                </a>
                                 <!-- Start product button -->
                                 <form class="variants add" action="#" onclick="window.location.href=''"
                                     method="post">
@@ -57,19 +59,18 @@
                                 <!-- Color Variant -->
                                 <!-- <ul class="swatches">
                                     <li class="swatch small rounded black"
-                                        rel="frontend/assets/images/product-images/product-image2.jpg"></li>
+                                        rel="frontend//frontend/assets/images/product-images/product-image2.jpg"></li>
                                     <li class="swatch small rounded navy"
-                                        rel="frontend/assets/images/product-images/product-image-swt2.jpg"></li>
+                                        rel="frontend//frontend/assets/images/product-images/product-image-swt2.jpg"></li>
                                     <li class="swatch small rounded purple"
-                                        rel="frontend/assets/images/product-images/product-image-swt2-1.jpg"></li>
+                                        rel="frontend//frontend/assets/images/product-images/product-image-swt2-1.jpg"></li>
                                     <li class="swatch small rounded teal"
-                                        rel="frontend/assets/images/product-images/product-image-swt2-2.jpg"></li>
+                                        rel="frontend//frontend/assets/images/product-images/product-image-swt2-2.jpg"></li>
                                 </ul> -->
                                 <!-- End Variant -->
                             </div>
                             <!-- End product details -->
                         </div>
-
                     <%})%>
                 </div>
             </div>

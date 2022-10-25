@@ -15,4 +15,5 @@ module.exports = {
     col_attributes: 'attributes',
     col_blogArticle: "blogArticle",
     col_blogCategory: "blogCategory",
+    col_contact: 'contact',
 };

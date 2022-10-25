@@ -47,7 +47,7 @@ router.get('/(:slug)?',async (req, res, next) => {
 	item.notification = notification;
 	item.logoHeader = logoHeader;
 
-  const listProducts = await productsModel.find({}).limit(9);
+  const listProducts = await productsModel.find({status:'active'}).limit();
   const listProductNewArrivals = await productsModel.find({newarrivals:true,status:'active'});
   const listMenu = await menuModel.find({status:'active'}).sort({ordering: 'desc'});
   const listSliders = await sliderModel.find({status:'active'});

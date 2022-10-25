@@ -31,7 +31,7 @@ module.exports = {
         }
 
         if (options.task == 'items-in-category'){
-            select = 'name price images description';
+            select = 'name price image images description';
             find = {status:'active', 'categoriesId': params.id};
         }
 

@@ -1,5 +1,8 @@
-<% const collection="products" ; const folderUpload=`uploads/${collection}/`; %>
-<% include ../../../admin/helpers/userTimeInfo %>
+<% include ../../helpers/showProductCategory %>
+<% 
+	const collection = "products";
+	const folderUpload 	= `uploads/${collection}/`;
+%>
 <div id="page-content">
     <br>
     <div class="container">
@@ -282,11 +285,13 @@
                                         <!-- start product image -->
                                         <a href="/product/<%= items.id %>">
                                             <!-- image -->
-                                            <img class="primary blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image21.jpg" src="/frontend/assets/images/product-images/product-image21.jpg" alt="image" title="product" />
+                                            <!-- <img class="primary blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image21.jpg" src="/frontend/assets/images/product-images/product-image21.jpg" alt="image" title="product" /> -->
                                             <!-- End image -->
                                             <!-- Hover image -->
-                                            <img class="hover blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image21-1.jpg" src="/frontend/assets/images/product-images/product-image21-1.jpg" alt="image" title="product" />
+                                            <!-- <img class="hover blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image21-1.jpg" src="/frontend/assets/images/product-images/product-image21-1.jpg" alt="image" title="product" /> -->
                                             <!-- End hover image -->
+                                            <%- imageMulti(items.images, folderUpload) %>  
+
                                         </a>
                                         <!-- end product image -->
     

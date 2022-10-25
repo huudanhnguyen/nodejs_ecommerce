@@ -2,7 +2,7 @@
 	const collection = "products";
 	const folderUpload 	= `uploads/${collection}/`;
 %>
-<% include ../../../admin/helpers/image %>
+<% include ../../helpers/showProductDetails %>
 <div id="page-content">
 	<!--MainContent-->
 	<div id="MainContent" class="main-content" role="main">
@@ -14,59 +14,15 @@
 			</div>
 		</div>
 		<!--End Breadcrumb-->
-		
+		<%= JSON.stringify(itemProduct.images) %> 
 		<div id="ProductSection-product-template" class="product-template__container prstyle1 container">
 			<!--product-single-->
 			<div class="product-single">
 				<div class="row">
 					<div class="col-lg-6 col-md-6 col-sm-12 col-12">
-						<div class="product-details-img">
-							<div class="product-thumb">
-								<div id="gallery" class="product-dec-slider-2 product-tab-left">
-									<a data-image="<%= folderUpload + itemProduct.images[1] %>" data-zoom-image="/frontend/assets/images/product-detail-page/cape-dress-1.jpg" class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" tabindex="-1">
-										<img class="blur-up lazyload" src="/frontend/assets/images/product-detail-page/cape-dress-1.jpg" alt="" />
-									</a>
-									<a data-image="/frontend/assets/images/product-detail-page/cape-dress-2.jpg" data-zoom-image="/frontend/assets/images/product-detail-page/cape-dress-2.jpg" class="slick-slide slick-cloned" data-slick-index="-3" aria-hidden="true" tabindex="-1">
-										<img class="blur-up lazyload" src="/frontend/assets/images/product-detail-page/cape-dress-2.jpg" alt="" />
-									</a>
-									<a data-image="/frontend/assets/images/product-detail-page/cape-dress-3.jpg" data-zoom-image="/frontend/assets/images/product-detail-page/cape-dress-3.jpg" class="slick-slide slick-cloned" data-slick-index="-2" aria-hidden="true" tabindex="-1">
-										<img class="blur-up lazyload" src="/frontend/assets/images/product-detail-page/cape-dress-3.jpg" alt="" />
-									</a>
-									<a data-image="/frontend/assets/images/product-detail-page/cape-dress-4.jpg" data-zoom-image="/frontend/assets/images/product-detail-page/cape-dress-4.jpg" class="slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" tabindex="-1">
-										<img class="blur-up lazyload" src="/frontend/assets/images/product-detail-page/cape-dress-4.jpg" alt="" />
-									</a>
-									<a data-image="/frontend/assets/images/product-detail-page/cape-dress-5.jpg" data-zoom-image="/frontend/assets/images/product-detail-page/cape-dress-5.jpg" class="slick-slide slick-cloned" data-slick-index="0" aria-hidden="true" tabindex="-1">
-										<img class="blur-up lazyload" src="/frontend/assets/images/product-detail-page/cape-dress-5.jpg" alt="" />
-									</a>
-									<a data-image="/frontend/assets/images/product-detail-page/cape-dress-6.jpg" data-zoom-image="/frontend/assets/images/product-detail-page/cape-dress-6.jpg" class="slick-slide slick-cloned" data-slick-index="1" aria-hidden="true" tabindex="-1">
-										<img class="blur-up lazyload" src="/frontend/assets/images/product-detail-page/cape-dress-6.jpg" alt="" />
-									</a>
-									<a data-image="/frontend/assets/images/product-detail-page/cape-dress-7.jpg" data-zoom-image="/frontend/assets/images/product-detail-page/cape-dress-7.jpg" class="slick-slide slick-cloned" data-slick-index="2" aria-hidden="true" tabindex="-1">
-										<img class="blur-up lazyload" src="/frontend/assets/images/product-detail-page/cape-dress-7.jpg" alt="" />
-									</a>
-								</div>
-							</div>
-							<div class="zoompro-wrap product-zoom-right pl-20">
-								<div class="zoompro-span">
-									<img class="zoompro blur-up lazyload" data-zoom-image="/frontend/assets/images/product-detail-page/cape-dress-1.jpg" alt="" src="/frontend/assets/images/product-detail-page/cape-dress-1.jpg" />
-								</div>
-								<div class="product-labels"><span class="lbl on-sale">Sale</span><span class="lbl pr-label1">new</span></div>
-								<div class="product-buttons">
-									<a href="https://www.youtube.com/watch?v=93A2jOW5Mog" class="btn popup-video" title="View Video"><i class="icon anm anm-play-r" aria-hidden="true"></i></a>
-									<a href="#" class="btn prlightbox" title="Zoom"><i class="icon anm anm-expand-l-arrows" aria-hidden="true"></i></a>
-								</div>
-							</div>
-							<div class="lightboximages">
-								<a href="/frontend/assets/images/product-detail-page/cape-dress-1.jpg" data-size="1462x2048"></a>
-								<a href="/frontend/assets/images/product-detail-page/cape-dress-2.jpg" data-size="1462x2048"></a>
-								<a href="/frontend/assets/images/product-detail-page/cape-dress-3.jpg" data-size="1462x2048"></a>
-								<a href="/frontend/assets/images/product-detail-page/cape-dress-4.jpg" data-size="1462x2048"></a>
-								<a href="/frontend/assets/images/product-detail-page/cape-dress-5.jpg" data-size="1462x2048"></a>
-								<a href="/frontend/assets/images/product-detail-page/cape-dress-6.jpg" data-size="1462x2048"></a>
-								<a href="/frontend/assets/images/product-detail-page/cape-dress-7.jpg" data-size="731x1024"></a>
-							</div>
-
-						</div>
+						<%# imageHelper(itemProduct.images) %>
+						<%# imageMulti(items.images, folderUpload) %>  
+						<%- imageMulti(itemProduct.images, folderUpload) %>  
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-12 col-12">
 							<div class="product-single__meta">
@@ -535,219 +491,38 @@
 						<p class="sub-heading">You can manage this section from store admin as describe in above section</p>
 					</header>
 					<div class="productPageSlider">
-						<div class="col-12 item">
-							<!-- start product image -->
-							<div class="product-image">
+						<% listProductBestSeller.forEach((items)=> { %>
+							<div class="col-12 item">
 								<!-- start product image -->
-								<a href="#">
-									<!-- image -->
-									<img class="primary blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image6.jpg" src="/frontend/assets/images/product-images/product-image6.jpg" alt="image" title="product">
-									<!-- End image -->
-									<!-- Hover image -->
-									<img class="hover blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image6-1.jpg" src="/frontend/assets/images/product-images/product-image6-1.jpg" alt="image" title="product">
-									<!-- End hover image -->
-									<!-- product label -->
-									<div class="product-labels rectangular"><span class="lbl on-sale">-16%</span> <span class="lbl pr-label1">new</span></div>
-									<!-- End product label -->
-								</a>
-								<!-- end product image -->
-							</div>
-							<!-- end product image -->
-
-							<!--start product details -->
-							<div class="product-details text-center">
-								<!-- product name -->
-								<div class="product-name">
-									<a href="#">Zipper Jacket</a>
+								<div class="product-image">
+									<!-- start product image -->
+									<a href="/product/<%= items.id %>">
+										<!-- image -->
+										<!-- <img class="primary blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image7.jpg" src="/frontend/assets/images/product-images/product-image7.jpg" alt="image" title="product"> -->
+										<!-- End image -->
+										<!-- Hover image -->
+										<!-- <img class="hover blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image7-1.jpg" src="/frontend/assets/images/product-images/product-image7-1.jpg" alt="image" title="product"> -->
+										<!-- End hover image -->
+									</a>
+									<!-- end product image -->
 								</div>
-								<!-- End product name -->
-							</div>
-							<!-- End product details -->
-						</div>
-						<div class="col-12 item">
-							<!-- start product image -->
-							<div class="product-image">
-								<!-- start product image -->
-								<a href="#">
-									<!-- image -->
-									<img class="primary blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image7.jpg" src="/frontend/assets/images/product-images/product-image7.jpg" alt="image" title="product">
-									<!-- End image -->
-									<!-- Hover image -->
-									<img class="hover blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image7-1.jpg" src="/frontend/assets/images/product-images/product-image7-1.jpg" alt="image" title="product">
-									<!-- End hover image -->
-								</a>
 								<!-- end product image -->
-							</div>
-							<!-- end product image -->
-
-							<!--start product details -->
-							<div class="product-details text-center">
-								<!-- product name -->
-								<div class="product-name">
-									<a href="#">Zipper Jacket</a>
+	
+								<!--start product details -->
+								<div class="product-details text-center">
+									<!-- product name -->
+									<div class="product-name">
+										<a href="/product/<%= items.id %>"><%= items.name %> </a>
+									</div>
+									<!-- End product name -->
+									<div class="product-price">
+										<span class="price"><%= items.price.toLocaleString() %> VND</span>
+									</div>
 								</div>
-								<!-- End product name -->
+								<!-- End product details -->
 							</div>
-							<!-- End product details -->
-						</div>
-						<div class="col-12 item">
-							<!-- start product image -->
-							<div class="product-image">
-								<!-- start product image -->
-								<a href="#">
-									<!-- image -->
-									<img class="primary blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image8.jpg" src="/frontend/assets/images/product-images/product-image8.jpg" alt="image" title="product">
-									<!-- End image -->
-									<!-- Hover image -->
-									<img class="hover blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image8-1.jpg" src="/frontend/assets/images/product-images/product-image8-1.jpg" alt="image" title="product">
-									<!-- End hover image -->
-								</a>
-								<!-- end product image -->
-							</div>
+						<%})%>
 
-							<!-- end product image -->
-
-							<!--start product details -->
-							<div class="product-details text-center">
-								<!-- product name -->
-								<div class="product-name">
-									<a href="#">Workers Shirt Jacket</a>
-								</div>
-								<!-- End product name -->
-							</div>
-							<!-- End product details -->
-						</div>
-						<div class="col-12 item">
-							<!-- start product image -->
-							<div class="product-image">
-								<!-- start product image -->
-								<a href="#">
-									<!-- image -->
-									<img class="primary blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image9.jpg" src="/frontend/assets/images/product-images/product-image9.jpg" alt="image" title="product">
-									<!-- End image -->
-									<!-- Hover image -->
-									<img class="hover blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image9-1.jpg" src="/frontend/assets/images/product-images/product-image9-1.jpg" alt="image" title="product">
-									<!-- End hover image -->
-								</a>
-								<!-- end product image -->
-							</div>
-							<!-- end product image -->
-
-							<!--start product details -->
-							<div class="product-details text-center">
-								<!-- product name -->
-								<div class="product-name">
-									<a href="#">Watercolor Sport Jacket in Brown/Blue</a>
-								</div>
-								<!-- End product name -->
-							</div>
-							<!-- End product details -->
-						</div>
-						<div class="col-12 item">
-							<!-- start product image -->
-							<div class="product-image">
-								<!-- start product image -->
-								<a href="#">
-									<!-- image -->
-									<img class="primary blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image10.jpg" src="/frontend/assets/images/product-images/product-image10.jpg" alt="image" title="product">
-									<!-- End image -->
-									<!-- Hover image -->
-									<img class="hover blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image10-1.jpg" src="/frontend/assets/images/product-images/product-image10-1.jpg" alt="image" title="product">
-									<!-- End hover image -->
-								</a>
-								<!-- end product image -->
-							</div>
-							<!-- end product image -->
-
-							<!--start product details -->
-							<div class="product-details text-center">
-								<!-- product name -->
-								<div class="product-name">
-									<a href="#">Washed Wool Blazer</a>
-								</div>
-								<!-- End product name -->
-							</div>
-							<!-- End product details -->
-						</div>
-						<div class="col-12 item">
-							<!-- start product image -->
-							<div class="product-image">
-								<!-- start product image -->
-								<a href="#">
-									<!-- image -->
-									<img class="primary blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image13.jpg" src="/frontend/assets/images/product-images/product-image13.jpg" alt="image" title="product">
-									<!-- End image -->
-									<!-- Hover image -->
-									<img class="hover blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image13-1.jpg" src="/frontend/assets/images/product-images/product-image13-1.jpg" alt="image" title="product">
-									<!-- End hover image -->
-								</a>
-								<!-- end product image -->
-							</div>
-
-							<!-- end product image -->
-
-							<!--start product details -->
-							<div class="product-details text-center">
-								<!-- product name -->
-								<div class="product-name">
-									<a href="#">Ashton Necklace</a>
-								</div>
-								<!-- End product name -->
-							</div>
-							<!-- End product details -->
-						</div>
-						<div class="col-12 item">
-							<!-- start product image -->
-							<div class="product-image">
-								<!-- start product image -->
-								<a href="#">
-									<!-- image -->
-									<img class="primary blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image14.jpg" src="/frontend/assets/images/product-images/product-image14.jpg" alt="image" title="product">
-									<!-- End image -->
-									<!-- Hover image -->
-									<img class="hover blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image14-1.jpg" src="/frontend/assets/images/product-images/product-image14-1.jpg" alt="image" title="product">
-									<!-- End hover image -->
-								</a>
-								<!-- end product image -->
-							</div>
-							<!-- end product image -->
-
-							<!--start product details -->
-							<div class="product-details text-center">
-								<!-- product name -->
-								<div class="product-name">
-									<a href="#">Ara Ring</a>
-								</div>
-								<!-- End product name -->
-							</div>
-							<!-- End product details -->
-						</div>
-						<div class="col-12 item">
-							<!-- start product image -->
-							<div class="product-image">
-								<!-- start product image -->
-								<a href="#">
-									<!-- image -->
-									<img class="primary blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image15.jpg" src="/frontend/assets/images/product-images/product-image15.jpg" alt="image" title="product">
-									<!-- End image -->
-									<!-- Hover image -->
-									<img class="hover blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image15-1.jpg" src="/frontend/assets/images/product-images/product-image15-1.jpg" alt="image" title="product">
-									<!-- End hover image -->
-								</a>
-								<!-- end product image -->
-							</div>
-							<!-- end product image -->
-
-							<!--start product details -->
-							<div class="product-details text-center">
-								<!-- product name -->
-								<div class="product-name">
-									<a href="#">Ara Ring</a>
-								</div>
-								<!-- End product name -->
-							</div>
-							<!-- End product details -->
-						</div>
 					</div>
 				</div>
 			<!--End Recently Product Slider-->

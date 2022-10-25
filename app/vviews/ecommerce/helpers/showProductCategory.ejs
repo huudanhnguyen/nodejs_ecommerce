@@ -1,0 +1,20 @@
+<% imageMulti=(images,folderUpload)=> {
+    if(!images) return null;
+    let xhtml = '';
+    let arr = images.split(',');
+    arr.forEach(value => {
+    xhtml += `
+    <!-- image -->
+    <img class="primary blur-up lazyload"
+        src="${folderUpload + value}" alt="image" title="product" />
+    <!-- End image -->
+    <!-- Hover image -->
+    <img class="hover blur-up lazyload"
+        src="${folderUpload + value}" alt="image" title="product" />
+    <!-- End hover image -->
+    `;
+    })
+    return xhtml;
+
+    }
+    %>
