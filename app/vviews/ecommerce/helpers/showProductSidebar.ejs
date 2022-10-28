@@ -1,0 +1,17 @@
+<% 
+    imageHelper = (folder, imageName, alt = "Image",width="100",height="100",id="showImage") => {
+
+        if(imageName == null){ 
+        }else{
+            let arr=imageName.split(",")
+            imageName=arr[0]
+        }
+        return `
+        <img class="grid-view-item__image" src="${folder + imageName}" alt="image" />
+
+        `;
+    }
+%>
+
+
+

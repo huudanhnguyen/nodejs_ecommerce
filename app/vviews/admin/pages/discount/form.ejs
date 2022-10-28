@@ -1,0 +1,102 @@
+
+<% include ./../../helpers/showdiscountvalue %>
+<% include ./../../helpers/showoptiondiscount %>
+
+
+<% 
+	const collection = "discount";
+	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`;
+	errors = errors ?? {};
+%>
+
+<div class="card card-info card-outline">
+    <form action="<%= linkPrefix %>save/<%= item.id %>" method="POST" class="mb-0" name="form-upload">
+                                <div class="card-body">
+                                        <div class="form-group row">
+                                            <label for="name"
+                                                class="col-sm-2 col-form-label text-sm-right required">Name</label>
+                                            <div class="col-xs-12 col-sm-8">
+                                                <input type="text" id="name-input-form" name="name"
+                                                    value="<%= item.name %>" class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="discount"
+                                                class="col-sm-2 col-form-label text-sm-right required">Discount Value</label>
+                                            <div class="col-xs-12 col-sm-8">
+                                                <div class="row">
+                                                    <%- showDiscountValue(item.discountValue) %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="description"
+                                                class="col-sm-2 col-form-label text-sm-right required">Description</label>
+                                            <div class="col-xs-12 col-sm-8">
+                                                <input type="text" id="description-input-form" name="description"
+                                                    value="<%= item.description %>"
+                                                    class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="time"
+                                                class="col-sm-2 col-form-label text-sm-right required">Date and time
+                                                range</label>
+                                            <div class="col-xs-12 col-sm-8">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i
+                                                                class="far fa-clock"></i></span>
+                                                    </div>
+                                                    <input type="text" class="form-control float-right" name="time"
+                                                        id="reservationtime" value="<%= item.time %>">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="listProduct"
+                                                class="col-sm-2 col-form-label text-sm-right required">List Product</label>
+                                            <div id="bootstrapDualListbox" class="col-xs-12 col-sm-8">
+                                                
+                                                <select class="duallistbox" name="productList" multiple="multiple" style="display: none;">
+                                                    <%- showOptionDiscount(productList, item.productList) %>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="name"
+                                                class="col-sm-2 col-form-label text-sm-right required">Ordering</label>
+                                            <div class="col-xs-12 col-sm-8">
+                                                <input type="number" min="1" name="ordering"
+                                                    value="<%= item.ordering %>" class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="status"
+                                                class="col-sm-2 col-form-label text-sm-right">Status</label>
+                                            <div class="col-xs-12 col-sm-8">
+                                                <select id="status" name="status"
+                                                    class="custom-select custom-select-sm">
+                                                    <option value="novalue">Choose Status</option>
+                                                    <option value="active" <%=(item.status=="active" )
+                                                        ? 'selected="selected"' : '' %>>
+                                                        Active</option>
+                                                    <option value="inactive" <%=(item.status=="inactive" )
+                                                        ? 'selected="selected"' : '' %>>
+                                                        Inactive</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="col-12 col-sm-8 offset-sm-2">
+                                        <input class="form-control" name="id" value="" type="hidden">
+                                        <button type="submit" class="btn btn-sm btn-success mr-1">
+                                            Submit</button>
+                                        <a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1">
+                                            Cancel</a>
+                                    </div>
+                                </div>
+    </form>
+</div>
+

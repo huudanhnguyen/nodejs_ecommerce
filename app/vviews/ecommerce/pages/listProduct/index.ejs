@@ -35,7 +35,7 @@
                                     </ul>
                                 </li> -->
                                 <% listCategory.slice(0,6).forEach((category)=> { %>
-                                    <li class="lvl-1"><a href="/category/<%= category.id %>" class="site-nav"><%= category.name %></a></li>
+                                    <li class="lvl-1"><a href="/danh-muc/<%= category.id %>" class="site-nav"><%= category.name %></a></li>
                                 <%})%>
                                 <!-- <li class="lvl-1"><a href="#;" class="site-nav">Shoes</a></li> -->
 
@@ -70,16 +70,28 @@
                         <div class="widget-title"><h2>Kích Cỡ</h2></div>
                         <div class="filter-color swacth-list">
                             <ul>
-                                <li><span class="swacth-btn checked">X</span></li>
-                                <li><span class="swacth-btn">XL</span></li>
-                                <li><span class="swacth-btn">XLL</span></li>
-                                <li><span class="swacth-btn">M</span></li>
-                                <li><span class="swacth-btn">L</span></li>
-                                <li><span class="swacth-btn">S</span></li>
-                                <li><span class="swacth-btn">XXXL</span></li>
-                                <li><span class="swacth-btn">XXL</span></li>
-                                <li><span class="swacth-btn">XS</span></span></li>
-                            </ul>
+
+
+                                <div>
+                                    <input type="radio" id="huey" name="drone" value="huey"
+                                           checked>
+                                    <label for="huey">XL</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="huey" name="drone" value="huey"
+                                           >
+                                    <label for="huey">L</label>
+                                </div>
+                              
+                                <div>
+                                    <input type="radio" id="dewey" name="drone" value="dewey">
+                                    <label for="dewey">M</label>
+                                </div>
+                              
+                                <div>
+                                    <input type="radio" id="louie" name="drone" value="louie">
+                                    <label for="louie">S</label>
+                                </div>
                         </div>
                     </div>
                     <!--End Size Swatches-->
@@ -139,15 +151,15 @@
                         <div class="widget-content">
                             <div class="list list-sidebar-products">
                               <div class="grid">
-                                <% listProductNewArrivals.forEach((items)=> { %>
+                                <% listProductNewArrivals.slice(0,4).forEach((items)=> { %>
                                     <div class="grid__item">
                                         <div class="mini-list-item">
                                           <div class="mini-view_image">
-                                              <a class="grid-view-item__link" href="/product/<%= items.id %>">
-                                                  <img class="grid-view-item__image" src="/frontend/assets/images/product-images/mini-product-img.jpg" alt="" />
+                                              <a class="grid-view-item__link" href="/san-pham/<%= items.id %>">
+                                                  <img class="grid-view-item__image" src="<%= folderUpload + items.images.split(",")[0]%>" alt="" />
                                               </a>
                                           </div>
-                                          <div class="details"> <a class="grid-view-item__title" href="/product/<%= items.id %>"><%= items.name %></a>
+                                          <div class="details"> <a class="grid-view-item__title" href="/san-pham/<%= items.id %>"><%= items.name %></a>
                                             <div class="grid-view-item__meta"><span class="product-price__price"><span class="money"><%= items.price.toLocaleString() %> ₫ </span></span></div>
                                           </div>
                                         </div>
@@ -264,7 +276,7 @@
                                     <!-- start product image -->
                                     <div class="product-image">
                                         <!-- start product image -->
-                                        <a href="/product/<%= items.id %>">
+                                        <a href="/san-pham/<%= items.id %>">
                                             <!-- image -->
                                             <%- imageMulti(items.images, folderUpload) %>  
 

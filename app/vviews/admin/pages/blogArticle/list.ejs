@@ -76,7 +76,7 @@
 						<th class="text-center sort">
 							<%- sortField(linkPrefix,'Categories','categories',sort) %>
 						</th>
-						<!-- <th class="text-center">Image</th> -->
+						<th class="text-center">Image</th>
 						<th class="text-center">Status</a></th>
 						<th class="text-center sort">
 							<%- sortField(linkPrefix,'Ordering','ordering',sort) %>
@@ -100,7 +100,7 @@
 						<td class="text-center"><%= index+1 %></td>
 						<td class="text-center"><%- highlightHelper(item.title, keyword) %></td>
 						<td class="text-center position-relative"><%- selectBlogCategory(listBlogCategory,item.categoriesId,'list',null,linkAjax,item.id) %></td>
-						<!-- <td class="text-center"><%# imageHelper(folderUpload, item.thumbnail, item.slug); %></td> -->
+						<td class="text-center"><%- imageHelper(folderUpload, item.thumbnail, item.slug); %></td>
 						<td class="text-center position-relative" id="<%= item.id %>-status">
 							<%- statusHelper(collection, item.status, item.id) %>
 						</td>

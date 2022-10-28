@@ -1,0 +1,41 @@
+        <!--Latest Blog-->
+        <% const collection="blogArticle" ; const folderUpload=`uploads/${collection}/`; %>
+        <div class="latest-blog section">
+        	<div class="container-fluid">
+            	<div class="row">
+                	<div class="col-12 col-sm-12 col-md-12 col-lg-12">
+        				<div class="section-header text-center">
+      						<h2 class="h2">BÀI VIẾT CỦA CHÚNG TÔI</h2>
+                            <p>Ghé Thăm Những Bài Viết Của Chúng Tôi Để Cập Nhật Các Xu Hướng Thời Trang Hiện Nay</p>
+					    </div>
+            		</div>
+                </div>
+            	<div class="row">
+                    <% listBlog.slice(0,2).forEach((items)=> { %>
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                            <div class="wrap-blog">
+                                <a href="/chi-tiet-bai-viet/<%= items.id %>" class="article__grid-image">
+                                      <img src="<%= folderUpload + items.thumbnail %>" alt="It's all about how you wear" title="It's all about how you wear" class="blur-up lazyloaded"/>
+                                </a>
+                                <div class="article__grid-meta article__grid-meta--has-image">
+                                    <div class="wrap-blog-inner">
+                                        <h2 class="h3 article__title">
+                                          <a href="/chi-tiet-bai-viet/<%= items.id %>"><%= items.title %> </a>
+                                        </h2>
+                                        <span class="article__date">May 02, 2017</span>
+                                        <div class="rte article__grid-excerpt">
+                                            <%= items.shortDes %>
+                                        </div>
+                                        <ul class="list--inline article__meta-buttons">
+                                            <li><a href="/chi-tiet-bai-viet/<%= items.id %>">Xem Chi Tiết</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                      <%})%>
+                </div>
+            </div>
+        </div>
+        <!--End Latest Blog-->

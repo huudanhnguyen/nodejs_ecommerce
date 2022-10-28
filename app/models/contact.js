@@ -38,7 +38,9 @@ module.exports = {
         console.log(params)
         // Generate test SMTP service account from ethereal.email
         // Only needed if you don't have a real mail account for testing
-      
+		console.log(process.env.EMAIL_SMTP)
+		console.log(process.env.PASSWORD_SMTP)
+
         // create reusable transporter object using the default SMTP transport
         let transporter = nodemailer.createTransport({
           service: "gmail" ,
@@ -46,8 +48,8 @@ module.exports = {
         //   port: 587,
         //   secure: false, // true for 465, false for other ports
           auth: {
-            user: `${process.env.EMAIL_SMTP}`, // generated ethereal user
-            pass: `${process.env.PASSWORD_SMTP}`, // generated ethereal password
+            user: `huudanh2001.hd@gmail.com`, // generated ethereal user
+            pass: `svhfqzniysevdyjw`, // generated ethereal password
           },
         });
       

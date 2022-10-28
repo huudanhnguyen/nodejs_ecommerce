@@ -10,7 +10,11 @@ module.exports = {
 			.sort(sort)
 			.skip((pagination.currentPage-1) * pagination.totalItemsPerPage)
 			.limit(pagination.totalItemsPerPage)
-	},	
+	},
+	getItemFrontend: (id, options = null) => {
+        return Model.findById(id)
+            .select('title  thumbnail  shortDes description ');
+    },
 	countRow(objWhere) {
 		return Model.count(objWhere).then(data => data);
 	},

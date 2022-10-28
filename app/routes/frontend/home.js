@@ -1,11 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-const {col_products,col_categories,col_menu,col_sliders,col_settings} = require(__path_configs + 'database');
+const {col_products,col_categories,col_menu,col_sliders,col_settings,col_blogArticle} = require(__path_configs + 'database');
 const productsModel 		= require(__path_schemas + col_products);
 const settingsModel 		= require(__path_schemas + col_settings);
 const sliderModel 		= require(__path_schemas + col_sliders);
 const categoryModel 		= require(__path_schemas + col_categories);
+const blogModel 		= require(__path_schemas + col_blogArticle);
 const Model 		= require(__path_models + 'products');
 const menuModel 		= require(__path_schemas + col_menu);
 const folderView	 = __path_view_ecommerce + 'pages/home/';
@@ -48,6 +49,7 @@ router.get('/',async (req, res, next) => {
 	item.logoHeader = logoHeader;
 
   const listProducts = await productsModel.find({});
+  const listBlog = await blogModel.find({status:'active'});
   const listProductBestSeller = await productsModel.find({bestseller:true,status:'active'});
   const listProductNewArrivals = await productsModel.find({newarrivals:true,status:'active'});
   const listMenu = await menuModel.find({status:'active'}).sort({ordering: 'desc'});
@@ -59,6 +61,7 @@ router.get('/',async (req, res, next) => {
     listSliders,
     listMenu,
     item,
+    listBlog,
     listProductBestSeller,
     listProductNewArrivals,
     listCategory,

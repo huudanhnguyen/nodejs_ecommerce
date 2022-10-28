@@ -16,4 +16,5 @@ module.exports = {
     col_blogArticle: "blogArticle",
     col_blogCategory: "blogCategory",
     col_contact: 'contact',
+    col_discount: 'discount',
 };

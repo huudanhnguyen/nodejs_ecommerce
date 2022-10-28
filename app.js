@@ -59,7 +59,7 @@ app.set('view engine', 'ejs');
 app.use(expressLayouts);
 // app.set('layout', __path_views + 'backend');
 app.set('layout', __path_view_admin + 'admin');
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));

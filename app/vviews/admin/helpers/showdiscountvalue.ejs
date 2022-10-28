@@ -1,0 +1,34 @@
+<%
+  showDiscountValue = (data) =>{
+      let html = ''
+      if (!data) data = {unit: '', value: ''}
+      let isCheckedMoney = ''
+      let isCheckedPercent = ''
+      let isDisableMoney = 'disabled'
+      let isDisablePercent = 'disabled'
+      let valueMoney = ''
+      let valuePercent = ''
+      if (data.unit == 'money'){
+        isCheckedMoney = 'checked'
+        isDisableMoney = '' 
+        valueMoney = 'VND ' + new Intl.NumberFormat().format(data.value)
+      } else if(data.unit == 'percent') {
+        isCheckedPercent = 'checked'
+        isDisablePercent = '' 
+        valuePercent = data.value
+      }
+      html = `
+              <div class="col-md-6">
+                <input class="mr-2" type="radio" name="discount" id="money" value="money" ${isCheckedMoney}>
+                Money 
+                <input ${isDisableMoney} value="${valueMoney}" type="text" name="money_input" id="money_input" pattern='^\\VND\\d{1,3}(,\\d{3})*(\\.\\d+)?VND'  data-type="currency" placeholder="VND">
+            </div>
+            <div class="col-md-6">
+                <input class="mr-2" type="radio" name="discount" id="percent" value="percent" ${isCheckedPercent}>
+                Percent (%) 
+                <input ${isDisablePercent} value="${valuePercent}" name="percent_input" type="number" min="1" max="99" id="percent_input" data-type="percent" placeholder="%"/>
+            </div>
+      `
+    return html
+  }
+%>

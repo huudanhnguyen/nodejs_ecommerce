@@ -2,7 +2,25 @@
 	const collection = "products";
 	const folderUpload 	= `uploads/${collection}/`;
 %>
-<% include ../../helpers/showProductDetails %>
+<% include ../../helpers/showProductCategory %>
+<% 
+	let showImages = (data, folder) =>{
+		let html=''
+		if(!data) return
+		let dataParse = data.split(",")
+		dataParse.forEach(item=>{
+			html += `
+			<a data-image="/${folder + item}" 
+				data-zoom-image="/${folder + item}" 
+				class="slick-slide slick-cloned" data-slick-index="-4" aria-hidden="true" tabindex="-1">
+				<img class="blur-up lazyload" src="/${folder + item}" alt="" />
+			</a>
+			`
+		})
+		return html
+	}
+
+%> 
 <div id="page-content">
 	<!--MainContent-->
 	<div id="MainContent" class="main-content" role="main">
@@ -14,7 +32,6 @@
 			</div>
 		</div>
 		<!--End Breadcrumb-->
-		<%= JSON.stringify(itemProduct.images) %> 
 		<div id="ProductSection-product-template" class="product-template__container prstyle1 container">
 			<!--product-single-->
 			<div class="product-single">
@@ -22,7 +39,19 @@
 					<div class="col-lg-6 col-md-6 col-sm-12 col-12">
 						<%# imageHelper(itemProduct.images) %>
 						<%# imageMulti(items.images, folderUpload) %>  
-						<%- imageMulti(itemProduct.images, folderUpload) %>  
+						<div class="product-details-img">
+							<div class="product-thumb">
+								<div id="gallery" class="product-dec-slider-2 product-tab-left">
+									<%- showImages(itemProduct.images,folderUpload ) %>
+								</div>
+							</div>
+							<div class="zoompro-wrap product-zoom-right pl-20">
+								<div class="zoompro-span">
+									<img class="zoompro blur-up lazyload" data-zoom-image="/<%= folderUpload + itemProduct.images.split(",")[0]%>" alt="" src="/<%= folderUpload + itemProduct.images.split(",")[0]%>"/>
+								</div>
+								<!-- <div class="product-labels"><span class="lbl on-sale">Sale</span><span class="lbl pr-label1">new</span></div> -->
+							</div>
+						</div>
 					</div>
 					<div class="col-lg-6 col-md-6 col-sm-12 col-12">
 							<div class="product-single__meta">
@@ -59,7 +88,7 @@
 								<!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p> -->
 							</div>
 							<!-- <div id="quantity_message">Hurry! Only  <span class="items">4</span>  left in stock.</div> -->
-							<form method="post" action="http://annimexweb.com/cart/add" id="product_form_10508262282" accept-charset="UTF-8" class="product-form product-form-product-template hidedropdown" enctype="multipart/form-data">
+							<form method="post" action="" id="product_form_10508262282" accept-charset="UTF-8" class="product-form product-form-product-template hidedropdown" enctype="multipart/form-data">
 								<div class="swatch clearfix swatch-0 option1" data-option-index="0">
 									<div class="product-form__item">
 									  <label class="header">Màu: <span class="slVariant"></span></label>
@@ -496,7 +525,9 @@
 								<!-- start product image -->
 								<div class="product-image">
 									<!-- start product image -->
-									<a href="/product/<%= items.id %>">
+									<a href="/san-pham/<%= items.id %>">
+										<%- imageMulti(items.images, folderUpload) %>  
+
 										<!-- image -->
 										<!-- <img class="primary blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image7.jpg" src="/frontend/assets/images/product-images/product-image7.jpg" alt="image" title="product"> -->
 										<!-- End image -->

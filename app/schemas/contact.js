@@ -8,7 +8,10 @@ var schema = new mongoose.Schema({
     subject: String,
     message: String,
     ordering: Number,
-    status: String,
+    status: {
+        type: String,
+        default: 'inactive'
+    }
 },
 { timestamps: true }
 );

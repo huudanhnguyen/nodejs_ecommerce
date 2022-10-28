@@ -1,0 +1,13 @@
+<%
+    showOptionDiscount = (list, select) => {
+        if(!select) select = []
+        let html = ''
+        list.forEach((item)=>{
+          let isSelected = (select.includes(item.id)) ? 'selected' : ''
+          html+= `
+            <option value="${item.id}" ${isSelected} >${item.name}</option>
+          `
+        })
+        return html
+    }
+%>

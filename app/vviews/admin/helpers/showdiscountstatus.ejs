@@ -1,0 +1,19 @@
+<%
+    showDiscountStatus = (data) =>{
+       if (!data) return
+       let time = data.split('-')
+       let timeStart = Date.parse(time[0])
+       let timeEnd = Date.parse(time[1])
+       let timeNow = Date.now()
+       let text = "Kêt Thúc"
+       let button = "btn-danger"
+       if (timeNow < timeStart){
+            text = "Unstarted"
+            button = "btn-warning"
+       } else if(timeNow < timeEnd){
+            text = "In Process"
+            button = "btn-success"
+       } 
+       return `<button type="button" class="btn btn-block ${button}" style="pointer-events: none;">${text}</button>`
+    }
+%>

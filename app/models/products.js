@@ -11,6 +11,17 @@ module.exports = {
 			.skip((pagination.currentPage-1) * pagination.totalItemsPerPage)
 			.limit(pagination.totalItemsPerPage)
 	},
+	listItems: async (objWhere,
+		currentPage,
+		totalItemsPerPage,
+		updatedAt
+		) => {
+			let data = await Model.find(objWhere)
+										.skip((currentPage-1) * totalItemsPerPage)
+										.limit(totalItemsPerPage)
+										.sort(updatedAt)
+			return data;
+	},
 	listItemsFrontend: (params = null, options = null) => {
         let find = {};
         let select = 'name';

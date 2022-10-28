@@ -57,6 +57,7 @@ router.get("/:id", async (req, res, next) => {
   await Model.listItemsFrontend({id: idCategory}, {task: 'items-in-category'} ).then( (items) => { itemsInCategory = items; });
 
   const listProducts = await productsModel.find({}).limit(4);
+  const listProductNewArrivals = await productsModel.find({newarrivals:true,status:'active'});
   const listMenu = await menuModel.find({status:'active'}).sort({ordering: 'desc'});
   const listSliders = await sliderModel.find({status:'active'});
   const listCategory = await categoryModel.find({}).sort({ ordering: "desc" });
@@ -67,6 +68,7 @@ router.get("/:id", async (req, res, next) => {
     listMenu,
     item,
     itemsInCategory,
+    listProductNewArrivals,
     listCategory,
     slider:false
   });

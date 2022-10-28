@@ -4,6 +4,7 @@ var router = express.Router();
 const {col_products,col_categories,col_menu,col_sliders,col_settings} = require(__path_configs + 'database');
 const productsModel 		= require(__path_schemas + col_products);
 const settingsModel 		= require(__path_schemas + col_settings);
+const ContactModel 		= require(__path_models + 'contact');
 const sliderModel 		= require(__path_schemas + col_sliders);
 const categoryModel 		= require(__path_schemas + col_categories);
 const Model 		= require(__path_models + 'products');
@@ -63,5 +64,18 @@ router.get('/',async (req, res, next) => {
     slider:false
   });
 });
+router.post('/',async (req,res,next)=>{
+  try {
+    console.log(req.body);
+    let sendMail= await ContactModel.mainMail(req.body);
+    let saveItem= await ContactModel.addOne(req.body);
+    res.send({
+      success:true
+    })
+    
+  } catch (error) {
+    console.log(error);
+  }
+})
 
 module.exports = router;

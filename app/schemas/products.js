@@ -25,6 +25,10 @@ var schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: databaseConfig.col_categories 
     },
+    discountProduct: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: databaseConfig.col_discount
+    },
     information: String,
     attributes: String,
     images: String,

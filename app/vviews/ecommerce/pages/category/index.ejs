@@ -68,16 +68,28 @@
                         <div class="widget-title"><h2>Kích Cỡ</h2></div>
                         <div class="filter-color swacth-list">
                             <ul>
-                                <li><span class="swacth-btn checked">X</span></li>
-                                <li><span class="swacth-btn">XL</span></li>
-                                <li><span class="swacth-btn">XLL</span></li>
-                                <li><span class="swacth-btn">M</span></li>
-                                <li><span class="swacth-btn">L</span></li>
-                                <li><span class="swacth-btn">S</span></li>
-                                <li><span class="swacth-btn">XXXL</span></li>
-                                <li><span class="swacth-btn">XXL</span></li>
-                                <li><span class="swacth-btn">XS</span></span></li>
-                            </ul>
+
+
+                                <div>
+                                    <input type="radio" id="huey" name="drone" value="huey"
+                                           checked>
+                                    <label for="huey">XL</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="huey" name="drone" value="huey"
+                                           >
+                                    <label for="huey">L</label>
+                                </div>
+                              
+                                <div>
+                                    <input type="radio" id="dewey" name="drone" value="dewey">
+                                    <label for="dewey">M</label>
+                                </div>
+                              
+                                <div>
+                                    <input type="radio" id="louie" name="drone" value="louie">
+                                    <label for="louie">S</label>
+                                </div>
                         </div>
                     </div>
                     <!--End Size Swatches-->
@@ -133,46 +145,24 @@
                     <!--End Brand-->
                     <!--Popular Products-->
                     <div class="sidebar_widget">
-                        <div class="widget-title"><h2>Popular Products</h2></div>
+                        <div class="widget-title"><h2>Hàng Mới Về</h2></div>
                         <div class="widget-content">
                             <div class="list list-sidebar-products">
                               <div class="grid">
-                                <div class="grid__item">
-                                  <div class="mini-list-item">
-                                    <div class="mini-view_image">
-                                        <a class="grid-view-item__link" href="#">
-                                            <img class="grid-view-item__image" src="/frontend/assets/images/product-images/mini-product-img.jpg" alt="" />
-                                        </a>
-                                    </div>
-                                    <div class="details"> <a class="grid-view-item__title" href="#">Cena Skirt</a>
-                                      <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$173.60</span></span></div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="grid__item">
-                                  <div class="mini-list-item">
-                                    <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image" src="/frontend/assets/images/product-images/mini-product-img1.jpg" alt="" /></a> </div>
-                                    <div class="details"> <a class="grid-view-item__title" href="#">Block Button Up</a>
-                                      <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$378.00</span></span></div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="grid__item">
-                                  <div class="mini-list-item">
-                                    <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image" src="/frontend/assets/images/product-images/mini-product-img2.jpg" alt="" /></a> </div>
-                                    <div class="details"> <a class="grid-view-item__title" href="#">Balda Button Pant</a>
-                                      <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$278.60</span></span></div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div class="grid__item">
-                                  <div class="mini-list-item">
-                                    <div class="mini-view_image"> <a class="grid-view-item__link" href="#"><img class="grid-view-item__image" src="/frontend/assets/images/product-images/mini-product-img3.jpg" alt="" /></a> </div>
-                                    <div class="details"> <a class="grid-view-item__title" href="#">Border Dress in Black/Silver</a>
-                                      <div class="grid-view-item__meta"><span class="product-price__price"><span class="money">$228.00</span></span></div>
-                                    </div>
-                                  </div>
-                                </div>
+                                <% listProductNewArrivals.slice(0,4).forEach((items)=> { %>
+                                    <div class="grid__item">
+                                        <div class="mini-list-item">
+                                          <div class="mini-view_image">
+                                              <a class="grid-view-item__link" href="/san-pham/<%= items.id %>">
+                                                  <img class="grid-view-item__image" src="/<%= folderUpload + items.images.split(",")[0]%>" alt="" />
+                                              </a>
+                                          </div>
+                                          <div class="details"> <a class="grid-view-item__title" href="/san-pham/<%= items.id %>"><%= items.name %></a>
+                                            <div class="grid-view-item__meta"><span class="product-price__price"><span class="money"><%= items.price.toLocaleString() %> ₫ </span></span></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                <%})%>
                               </div>
                             </div>
                           </div>
@@ -283,7 +273,7 @@
                                     <!-- start product image -->
                                     <div class="product-image">
                                         <!-- start product image -->
-                                        <a href="/product/<%= items.id %>">
+                                        <a href="/san-pham/<%= items.id %>">
                                             <!-- image -->
                                             <!-- <img class="primary blur-up lazyload" data-src="/frontend/assets/images/product-images/product-image21.jpg" src="/frontend/assets/images/product-images/product-image21.jpg" alt="image" title="product" /> -->
                                             <!-- End image -->
