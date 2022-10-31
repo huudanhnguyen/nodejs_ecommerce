@@ -54,7 +54,7 @@
 	<div class="card-body">
 		<!-- Control -->
 		<form action="" method="post" class="table-responsive" id="zt-form">
-			<%- actionHelper(collection) %>
+			<!-- <%- actionHelper(collection) %> -->
 
 			<!-- List Content -->
 		
@@ -71,10 +71,12 @@
 						<th class="text-center sort">
 							<%- sortField(linkPrefix,'Tên','name',sort) %>
 						</th>
+						<th class="text-center">Email</a></th>
+
 						<th class="text-center">Trạng Thái</a></th>
-						<th class="text-center sort">
+						<!-- <th class="text-center sort">
 							<%- sortField(linkPrefix,'Ordering','ordering',sort) %>
-						</th>
+						</th> -->
 						<th class="text-center">Thao Tác</th>
 					</tr>
 				</thead>
@@ -91,26 +93,19 @@
 						</td>
 						<td class="text-center"><%= index+1 %></td>
 						<td class="text-center"><%- highlightHelper(item.name, keyword) %></td>
+						<td class="text-center"><%- highlightHelper(item.email, keyword) %></td>
 						<td class="text-center position-relative" id="<%= item.id %>-status">
 							<%- statusHelper(collection, item.status, item.id) %>
 						</td>
-						
-						<td class="text-center position-relative">
-							<input type="number" value="<%= item.ordering %>" class="text-center ordering" onChange="handleAjax(
-								'<%= linkAjax %>',
-								'ordering',
-								'<%= item.id %>',
-								this
-								)">
-						</td>
+					
 						<td class="text-center">
 							<a href="<%= linkPrefix %>form/<%= item.id %>" class="rounded-circle btn btn-sm btn-info" title="Edit">
 								<i class="fas fa-pencil-alt"></i>
 							</a>
 
-							<a class="rounded-circle btn btn-sm btn-danger btn-delete" title="Delete" data-toggle="modal" href="#exampleModal" data-url='<%= linkPrefix %>delete/<%= item.id %>'>
+							<!-- <a class="rounded-circle btn btn-sm btn-danger btn-delete" title="Delete" data-toggle="modal" href="#exampleModal" data-url='<%= linkPrefix %>delete/<%= item.id %>'>
 								<i class="fas fa-trash-alt"></i>
-							</a>
+							</a> -->
 						</td>
 					</tr>
 					<% }) %>

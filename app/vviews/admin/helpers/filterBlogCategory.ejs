@@ -1,0 +1,30 @@
+<% 
+  filterBlogCategory = (
+    listBlogCategory,
+    link,
+    categoryId
+  ) => {
+    optionBlogCategory = (listBlogCategory, parentId = 0, indent = 0) => {
+      let xhtml = '';
+      listBlogCategory.forEach((item,index)=> {
+        let selected = item._id == categoryId ? 'selected' : '';
+        let str = '';
+        for(let i = 0; i < indent; i++) {
+          str += `- - `
+        }
+        if(parentId == item.parentId) { 
+          xhtml += `<option value="${item._id}" ${selected}>${str + item.name}</option>`;
+          xhtml += optionBlogCategory(listBlogCategory,item.id, indent + 1);
+        }
+      }) 
+      return xhtml;
+    }
+
+    let xhtml = `<select class="custom-select" style="width:auto" onChange="filterBlogCategory(this,'${link}')">
+      <option value="all">Chọn Danh Mục</option>`;
+    xhtml += optionBlogCategory(listBlogCategory)
+    xhtml += `</select>`
+    return xhtml;
+  }
+  
+%>

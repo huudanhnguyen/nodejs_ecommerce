@@ -9,6 +9,7 @@
 <% include ./../../helpers/selectCategory %>
 <% include ./../../helpers/showOptionBox %>
 <% include ./../../helpers/getStringLength %>
+<% include ./../../helpers/filterCategory %>
 <% 
 	const collection = "products";
 	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`;
@@ -28,7 +29,9 @@
 	<div class="card-body">
 		<div class="row justify-content-between">
 			<div class="mb-1">
-				<%- filterStatusHelper(collection, statusFilter, keyword) %>	 
+				<%- filterStatusHelper(collection, statusFilter, keyword) %>
+				<%- filterCategory(listCategory, linkPrefix + 'filter', categoryId) %>	 
+ 
 			</div>
 			
 			<div class="mb-1">
@@ -156,7 +159,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Xóa</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -172,90 +175,7 @@
   </div>
 </div>
 <script>
-	if($('input[name="id"]').val()) {
-		$("button[type='submit']").prop("disabled", false)
+	function filterCategory(obj,link) {
+			window.location.href = link + '/' + obj.value;
 	}
-	$('.add-more').click(function(e) {
-		e.preventDefault();
-		$('#information div.add').append(
-			`<div class="row mb-3">
-					<div class="col-md-4">
-						<input type="text" class="form-control" placeholder="info" name="infoName">
-					</div>
-					<div class="col-md-7">
-						<input type="text" class="form-control" placeholder="value" name="infoValue">
-					</div>
-					<div class="col-md-1">
-						<button type="button" class="btn btn-danger" onClick="closeInfo(this)">
-							<i class="fas fa-times"></i>
-						</button>
-					</div>
-				</div>
-		`).children(':last').hide().fadeIn();;
-	});
-
-	function closeInfo(obj) {
-		$(obj).parent().parent().fadeOut(350, function() {
-			$(this).remove();
-		});
-	}
-
-	function setValueImagesHidden(arrElement = ['.dz-filename span','.showImage img']) {
-		let value = '';
-		arrElement.forEach(element => {
-			$(element).each((index,elm) => {
-				console.log(index,elm)
-				value += $(elm).data('filename') + ','
-			})
-			if(value) {
-				$("input[name='images']").val(value.substr(0,value.length - 1))
-			}
-		})
-	}
-	$('#myDropzone').sortable({
- 	  update: function( event, ui ) {
-			setValueImagesHidden()
-		}
-	});
-
-	let myDropzone = new Dropzone("#myDropzone", { 
-		url: $("#myDropzone").data('url'),
-		paramName: 'fileMulti',
-		autoProcessQueue:false,
-		addRemoveLinks: true,
-		maxFiles:10,
-		parallelUploads:10,
-		init: function() {
-			var myDropzone = this;
-				$("button[name='saveImages']").click((e) => {
-					$("button[name='saveImages']").prop("disabled", true)
-					$("button[type='submit']").prop("disabled", false)
-					myDropzone.processQueue();
-			});
-			myDropzone.on("addedfile", file => {
-				$("button[name='saveImages']").prop("disabled", false)
-				$("button[type='submit']").prop("disabled", true)
-			});
-			myDropzone.on("success",(file, res) => {
-				$('.dz-filename span').each((index,element) => {
-					let fileName = $(element).text();
-					if(fileName == res.originalname) {
-						$(element).attr('data-filename',res.filename);
-					}
-				});
-				setValueImagesHidden()
-			})
-		}
-	});
-
-	let $gallery = $('.showImage');
-	let $trash = $( "#trash" );
-
-	$('.showImage,#trash').sortable({
-		connectWith: ".connectedSort",
-		update: function( event, ui ) {
-			setValueImagesHidden()
-		},
-	});
-
 </script>

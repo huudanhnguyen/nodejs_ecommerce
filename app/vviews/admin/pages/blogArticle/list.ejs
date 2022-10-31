@@ -8,6 +8,8 @@
 <% include ./../../helpers/image %>
 <% include ./../../helpers/selectBlogCategory %>
 <% include ./../../helpers/getStringLength %>
+<% include ./../../helpers/filterBlogCategory %>
+
 <% 
 	const collection = "blogArticle";
 	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`;
@@ -27,7 +29,8 @@
 	<div class="card-body">
 		<div class="row justify-content-between">
 			<div class="mb-1">
-				<%- filterStatusHelper(collection, statusFilter, keyword) %>	 
+				<%- filterStatusHelper(collection, statusFilter, keyword) %>
+				<%- filterBlogCategory(listBlogCategory, linkPrefix + 'filter', categoryId) %>	  
 			</div>
 			
 			<div class="mb-1">
@@ -160,3 +163,8 @@
     </div>
   </div>
 </div>
+<script>
+	function filterBlogCategory(obj,link) {
+			window.location.href = link + '/' + obj.value;
+	}
+</script>

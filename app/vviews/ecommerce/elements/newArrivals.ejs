@@ -25,7 +25,7 @@
                             </a>
                             <!-- end product image -->
                             <!-- Start product button -->
-                            <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
+                            <form class="variants add" action="#" onclick="window.location.href='/add/<%= items.id %>'"method="post">
                                 <button class="btn btn-addto-cart" type="button" tabindex="0">Add To Cart</button>
                             </form>
                             <div class="button-set">
@@ -75,8 +75,10 @@
                             </a>
                             <!-- end product image -->
                             <!-- Start product button -->
-                            <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
-                                <button class="btn btn-addto-cart" type="button" tabindex="0">Add To Cart</button>
+                            <!-- <button src="/add/<%= items.id %>" class="btn btn-addto-cart" type="button" tabindex="0">Add To Cart</button> -->
+
+                            <form class="variants add" action="#" onclick="window.location.href='/add/<%= items.id %>'"method="post">
+                                <button src="/add/<%= items.id %>" class="btn btn-addto-cart" type="button" tabindex="0">Add To Cart</button>
                             </form>
                             <div class="button-set">
                                 <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view" data-toggle="modal" data-target="#content_quickview">

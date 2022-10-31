@@ -21,6 +21,7 @@ var schema = new mongoose.Schema({
         default: false
     },
     price: { type: Number, required: true },
+    priceDiscount: Number,
     categoriesId: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: databaseConfig.col_categories 

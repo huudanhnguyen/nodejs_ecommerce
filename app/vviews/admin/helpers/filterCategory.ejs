@@ -1,0 +1,30 @@
+<% 
+  filterCategory = (
+    listCategory,
+    link,
+    categoryId
+  ) => {
+    optionCategory = (listCategory, parentId = 0, indent = 0) => {
+      let xhtml = '';
+      listCategory.forEach((item,index)=> {
+        let selected = item._id == categoryId ? 'selected' : '';
+        let str = '';
+        for(let i = 0; i < indent; i++) {
+          str += `- - `
+        }
+        if(parentId == item.parentId) { 
+          xhtml += `<option value="${item._id}" ${selected}>${str + item.name}</option>`;
+          xhtml += optionCategory(listCategory,item.id, indent + 1);
+        }
+      }) 
+      return xhtml;
+    }
+
+    let xhtml = `<select class="custom-select" style="width:auto" onChange="filterCategory(this,'${link}')">
+      <option value="all">Chọn Danh Mục</option>`;
+    xhtml += optionCategory(listCategory)
+    xhtml += `</select>`
+    return xhtml;
+  }
+  
+%>

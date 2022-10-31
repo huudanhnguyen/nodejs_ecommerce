@@ -29,7 +29,7 @@
 				</div>
 			</div>
 			<div class="form-group row">
-				<label for="message" class="col-sm-2 col-form-label text-sm-right required">Tiêu Đề</label>
+				<label for="message" class="col-sm-2 col-form-label text-sm-right required">Nội Dung Tin Nhắn</label>
 				<div class="col-xs-12 col-sm-8">
                     <textarea type="text" id="message-input-form" name="message" value="<%= item.message %>" class="form-control form-control-sm"></textarea>
 				</div>
@@ -54,7 +54,7 @@
 				<input class="form-control" name="id" value="<%= item.id %>" type="hidden" >
 				<input name="image_old" value="<%= item.avatar %>" type="hidden"  />
 				<input name="image_uploaded" value="" type="hidden" id="image_uploaded"  />
-				<button type="submit" class="btn btn-sm btn-success mr-1"> Lưu</button>
+				<!-- <button type="submit" class="btn btn-sm btn-success mr-1"> Lưu</button> -->
 				<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Trở Lại</a>
 			</div>
 		</div>

@@ -29,6 +29,7 @@ router.get('(/status/:status)?', async (req, res, next) => {
 	let currentStatus= ParamsHelpers.getParam(req.params, 'status', 'all'); 
 	let statusFilter = await UtilsHelpers.createFilterStatus(currentStatus,Collection);
 	let sort = req.session;
+	let categoryId = req.session.categoryId ?? null;
 	let listCategory = await UtilsHelpers.getCategory();
 	let pagination 	 = {
 		totalItems		 : 1,
@@ -36,7 +37,7 @@ router.get('(/status/:status)?', async (req, res, next) => {
 		currentPage		 : parseInt(ParamsHelpers.getParam(req.query, 'page', 1)),
 		pageRanges		 : 3
 	};
-
+	if(categoryId && categoryId != 'all') objWhere.categoriesId = categoryId;
 	if(currentStatus !== 'all') objWhere.status = currentStatus;
 	if(keyword !== '') objWhere.name = new RegExp(keyword, 'i');
 	pagination.totalItems = await Model.countRow(objWhere);
@@ -52,7 +53,8 @@ router.get('(/status/:status)?', async (req, res, next) => {
 				currentStatus,
 				keyword,
 				sort,
-				listCategory
+				listCategory,
+				categoryId
 			});
 		});
 });
@@ -79,6 +81,11 @@ router.post('/change-status/:status', (req, res, next) => {
 router.get('/sort/:field/:type', (req, res, next) => {
 	req.session.sortField = req.params.field;
 	req.session.sortType = req.params.type;
+	res.redirect(linkIndex)
+});
+// filter category
+router.get('/filter/:categoryId', (req, res, next) => {
+	req.session.categoryId = req.params.categoryId;
 	res.redirect(linkIndex)
 });
 router.post('(/option)', async (req, res, next) => {
