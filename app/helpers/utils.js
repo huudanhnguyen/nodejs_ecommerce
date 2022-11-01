@@ -47,6 +47,11 @@ const getBlogCategory = async () => {
 	const listBlogCategory = await Model.find({status: 'active'});
 	return listBlogCategory;
 }
+const getproduct = async () => {
+	const Model = require(__path_schemas + databaseConfig.col_products);
+	const listProduct = await Model.find({status: 'active'});
+	return listProduct;
+}
 const mapDataRss = async (listRss) => {
 		return await Promise.all (listRss.map(async item => {
 		let category = item.name;
@@ -68,6 +73,21 @@ const mapDataRss = async (listRss) => {
 const mapRssPagination = (listRss,totalItemsPerPage) => {
 	let newArr = [];
 	listRss.map(item => {
+		newArr = [...newArr,...item]
+	});
+	let result = []; let count = 0; let tmp = [];
+	for (let i = 1; i <newArr.length; i++) {
+		tmp.push(newArr[i]);
+		if(i % totalItemsPerPage == 0) {
+			result.push(tmp)
+			tmp = [];
+		}
+	}
+	return result;
+}
+const mapProductPagination = (listProduct,totalItemsPerPage) => {
+	let newArr = [];
+	listProduct.map(item => {
 		newArr = [...newArr,...item]
 	});
 	let result = []; let count = 0; let tmp = [];
@@ -131,6 +151,7 @@ module.exports = {
 		getCategory,
 		getBlogCategory,
 		getRss,
+		getproduct,
 		mapRssPagination,
 		mappingAttributes,
 }

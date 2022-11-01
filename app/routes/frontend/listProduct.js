@@ -10,6 +10,7 @@ const Model 		= require(__path_models + 'products');
 const menuModel 		= require(__path_schemas + col_menu);
 const folderView	 = __path_view_ecommerce + 'pages/listProduct/';
 const layout	     = __path_view_ecommerce+ 'frontend';
+const UtilsHelpers 	= require(__path_helpers + 'utils');
 /* GET home page. */
 router.get('/(:slug)?',async (req, res, next) => {
   // let itemsSpecial 	= [];
@@ -46,12 +47,11 @@ router.get('/(:slug)?',async (req, res, next) => {
 	item.phoneHeader = phoneHeader;
 	item.notification = notification;
 	item.logoHeader = logoHeader;
-
-  const listProducts = await productsModel.find({status:'active'}).limit();
   const listProductNewArrivals = await productsModel.find({newarrivals:true,status:'active'});
   const listMenu = await menuModel.find({status:'active'}).sort({ordering: 'desc'});
   const listSliders = await sliderModel.find({status:'active'});
   const listCategory = await categoryModel.find({}).sort({ ordering: "desc" });
+  const listProducts = await productsModel.find({status:'active'}).limit();
   res.render(`${folderView}index`, { 
     layout,
     listProducts,
@@ -61,6 +61,31 @@ router.get('/(:slug)?',async (req, res, next) => {
     listProductNewArrivals,
     listCategory,
     slider:false
+  });
+});
+router.get('/(:page)?',async (req, res, next) => {
+  const listProducts = await productsModel.find({status:'active'}).limit();
+  let page = req.params.page || 1;
+  UtilsHelpers.getProduct(listProducts,req).then(data => {
+    let totalItemsPerPage = 10;
+    data = UtilsHelpers.mapProductPagination(data,totalItemsPerPage);
+    let paginationObj = {
+      totalItems		 : data.length * 10,
+      totalItemsPerPage,
+      currentPage		 : parseInt(page),
+      pageRanges		 : 3
+    }
+    if(!data[page - 1]) {
+      res.redirect('/')
+      return;
+    }
+    let breadcrumb = [{name: 'rss'}];
+    res.render(`${folderView}index`, { 
+      layout,
+      rss: data[page - 1],
+      paginationObj,
+      breadcrumb
+    });
   });
 });
 

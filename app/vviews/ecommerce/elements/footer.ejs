@@ -50,8 +50,8 @@ const folderProductUpload 	= "uploads/products/";
                     	<div class="col-12 col-sm-12 col-md-4 col-lg-4 footer-links">
                         	<h4 class="h4">Danh Mục</h4>
                             <ul>
-                                <% listCategory.slice(1,4).forEach((category)=> { %>
-                                    <li><a href="category/<%= category.slug %> "><%= category.name %></a></li>
+                                <% listCategory.forEach((category)=> { %>
+                                    <li><a href="/danh-muc/<%= category.id %> "><%= category.name %></a></li>
                                 <%})%>
                             </ul>
                         </div>
@@ -76,7 +76,7 @@ const folderProductUpload 	= "uploads/products/";
                         <div class="col-12 col-sm-12 col-md-4 col-lg-4 footer-links">
                         	<h4 class="h4">Thông Tin</h4>
                             <ul>
-                            	<li><a href="/gioi-thieu">Về Chúng Tôi</a></li>
+                            	<!-- <li><a href="/gioi-thieu">Về Chúng Tôi</a></li> -->
                                 <li><a href="/lien-he">Liên Hệ</a></li>
                                 <!-- <li><a href="">Chính Sách Bảo Mật</a></li>
                                 <li><a href="">Tài Khoản Của Bạn</a></li> -->

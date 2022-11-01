@@ -1,6 +1,7 @@
 <% const collection="products" ; const folderUpload=`uploads/${collection}/`; %>
 <% include ../../helpers/showProduct %>
 <% include ../../helpers/showProductSidebar %>
+<% include ../../helpers/pagination %>
 
 
 
@@ -156,7 +157,7 @@
                                         <div class="mini-list-item">
                                           <div class="mini-view_image">
                                               <a class="grid-view-item__link" href="/san-pham/<%= items.id %>">
-                                                  <img class="grid-view-item__image" src="<%= folderUpload + items.images.split(",")[0]%>" alt="" />
+                                                  <img class="grid-view-item__image" src="<%= folderUpload + items.images.split(",")[0]%>" alt="<%= items.name %>" />
                                               </a>
                                           </div>
                                           <div class="details"> <a class="grid-view-item__title" href="/san-pham/<%= items.id %>"><%= items.name %></a>
@@ -335,6 +336,7 @@
                 </div>
                 <hr class="clear">
                 <div class="pagination">
+                    <%# paginationHelper(paginationObj,'listProduct') %>
                   <ul>
                     <li class="active"><a href="#">1</a></li>
                     <li><a href="#">2</a></li>

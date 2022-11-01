@@ -1,6 +1,11 @@
-    <!--Body Content-->
-    <% const collection="blogArticle" ; const folderUpload=`uploads/${collection}/`; %>
+<% const collection="blogArticle" ;
+const folderUpload=`uploads/${collection}/`;
+const folderProductUpload='uploads/products/';
+ %>
+<% include ../../helpers/showProductSidebar %>
 
+
+<!--Body Content-->
     <div id="page-content">
     	<!--Page Title-->
     	<div class="page section-header text-center mb-0">
@@ -99,11 +104,11 @@
                                       <div class="grid__item">
                                           <div class="mini-list-item">
                                             <div class="mini-view_image">
-                                                <a class="grid-view-item__link" href="/product/<%= items.id %>">
-                                                    <img class="grid-view-item__image" src="/frontend/assets/images/product-images/mini-product-img.jpg" alt="" />
+                                                <a class="grid-view-item__link" href="/san-pham/<%= items.id %>">
+                                                    <img class="grid-view-item__image" src="<%= folderProductUpload + items.images.split(",")[0]%>" alt="" />
                                                 </a>
                                             </div>
-                                            <div class="details"> <a class="grid-view-item__title" href="/product/<%= items.id %>"><%= items.name %></a>
+                                            <div class="details"> <a class="grid-view-item__title" href="/san-pham/<%= items.id %>"><%= items.name %></a>
                                               <div class="grid-view-item__meta"><span class="product-price__price"><span class="money"><%= items.price.toLocaleString() %> ₫ </span></span></div>
                                             </div>
                                           </div>
