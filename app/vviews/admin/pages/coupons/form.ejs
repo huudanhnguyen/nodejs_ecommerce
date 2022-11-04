@@ -1,0 +1,123 @@
+<% 
+	const collection = "coupons";
+	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`;
+	errors = errors ?? {};
+%>
+
+<link rel="stylesheet" href="https://adminlte.io/themes/v3/plugins/daterangepicker/daterangepicker.css">
+
+<div class="card card-info card-outline">
+	<form action="<%= linkPrefix %>save/" method="POST" class="mb-0" name="form-upload">
+		<div class="card-body">
+		
+			<div class="form-group row">
+				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Name</label>
+				<div class="col-xs-12 col-sm-8">
+					<input type="text" name="name" value="<%= item.name %>" class="form-control form-control-sm <%= errors.name && 'is-invalid' %>" onKeyUp="handleSlug(
+						'<%= linkPrefix %>',
+						this,
+						)">
+					<%- `<span class="error invalid-feedback">${errors.name}</span>` %>
+				</div>
+				<a href="javascript:void(0)" class="col-sm-2 text-dark" onClick="refresh()">
+					<i class="fas fa-sync-alt fa-lg"></i>
+				</a>
+			</div>
+
+			<div class="form-group row" style="display:flex;align-items:center">
+				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Values</label>
+				<div class="col-xs-12 col-sm-6">
+					<input type="text" name="values" value="<%= item.values ?? 1 %>" class="form-control form-control-sm <%= errors.values && 'is-invalid' %>">
+					<%- `<span class="error invalid-feedback">${errors.values}</span>` %>
+				</div>
+				
+				<div class="form-check mr-3">
+					<input class="form-check-input" type="radio" name="type" value="percent" id="percent" checked <%= item.type == 'percent' ? 'checked' : '' %> >
+					<label class="form-check-label" for="percent">Percent</label>
+				</div>
+				<div class="form-check">
+					<input class="form-check-input" type="radio" name="type" value="direct" id="direct" <%= item.type == 'direct' ? 'checked' : '' %>>
+					<label class="form-check-label" for="direct">Direct</label>
+				</div>
+				
+			</div>
+
+			<div class="form-group row">
+				<label for="status" class="col-sm-2 col-form-label text-sm-right required">Status</label>
+				<div class="col-xs-12 col-sm-8">
+					<select id="form[status]" name="status" class="custom-select custom-select-sm <%= errors.status && 'is-invalid' %>">
+						<option value="novalue">Choose Status</option>
+						<option value="active" <%= (item.status == "active") ? 'selected="selected"' : '' %> >Active</option>
+						<option value="inactive" <%= (item.status == "inactive") ? 'selected="selected"' : '' %> >Inactive</option>
+					</select>
+					<%- `<span class="error invalid-feedback">${errors.status}</span>` %>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="status" class="col-sm-2 col-form-label text-sm-right required">Date</label>
+				<div class="col-xs-12 col-sm-8">
+					<div class="input-group">
+						<div class="input-group-prepend">
+						<span class="input-group-text">
+						<i class="far fa-calendar-alt"></i>
+						</span>
+						</div>
+						<input type="text" class="form-control float-right" id="reservation" name="dates" value="<%= item.dates ?? null %>">
+					</div>
+				</div>
+			</div>
+
+			<div class="form-group row">
+				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Quantity</label>
+				<div class="col-xs-12 col-sm-8">
+					<input type="text" name="quantity" value="<%= item.quantity ?? 1 %>" class="form-control form-control-sm <%= errors.quantity && 'is-invalid' %>">
+					<%- `<span class="error invalid-feedback">${errors.quantity}</span>` %>
+				</div>
+			</div>
+			
+		</div>
+		<div class="card-footer">
+			<div class="col-12 col-sm-8 offset-sm-2">
+				<input name="id" value="<%= item.id %>" type="hidden" >
+				<input name="used" value="<%= item.used ?? 0 %>" type="hidden" >
+				<button type="submit" class="btn btn-sm btn-success mr-1"> Submit</button>
+				<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+<script>
+	if (!$('input[name="id"]').val()) {
+		$('input[name="name"]').val(randomStr(10))
+	}
+	
+	$('#reservation').daterangepicker({
+		"locale": {
+			"format": "DD/MM/YYYY",
+		},
+	})
+
+function randomStr(length) {
+	var result           = '';
+	var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+	var charactersLength = characters.length;
+	for ( var i = 0; i < length; i++ ) {
+			result += characters.charAt(Math.floor(Math.random() * charactersLength));
+	}
+	return result;
+}
+function refresh() {
+	$('input[name="name"]').val(randomStr(10))
+}
+
+
+
+//Date range picker
+
+</script>

@@ -17,4 +17,6 @@ router.use('/contact', require('./contact'));
 router.use('/settings', require('./settings'));
 router.use('/blogArticle', require('./blogArticle'));
 router.use('/blogCategory', require('./blogCategory'));
+router.use('/coupons', require('./coupons'));
+
 module.exports = router;

@@ -1,9 +1,12 @@
 <%  
     let arrBox = [
-        {name: 'Categories', icon: 'ion-connection-bars', link: `${systemConfig.prefixAdmin}/categories`, background: 'bg-danger'},
+        {name: 'Sản Phẩm', icon: 'ion-bag', link: `${systemConfig.prefixAdmin}/products`, background: 'bg-info'},
+        {name: 'Danh Mục Sản Phẩm', icon: 'ion-ios-copy', link: `${systemConfig.prefixAdmin}/categories`, background: 'bg-danger'},
         {name: 'Sliders', icon: 'ion-images', link: `${systemConfig.prefixAdmin}/sliders`, background: 'bg-success'},
-        {name: 'Articles', icon: 'ion-ios-paper', link: `${systemConfig.prefixAdmin}/articles`, background: 'bg-primary'},
+        {name: 'Bài Viết', icon: 'ion-ios-paper', link: `${systemConfig.prefixAdmin}/blogArticle`, background: 'bg-primary'},
         {name: 'Menu', icon: 'ion-android-menu', link: `${systemConfig.prefixAdmin}/menu`, background: 'bg-dark'},
+        {name: 'Tài Khoản', icon: 'ion ion-person-add', link: `${systemConfig.prefixAdmin}/users`, background: 'bg-secondary'},
+        {name: 'Tin Nhắn', icon: 'ion-email', link: `${systemConfig.prefixAdmin}/contact`, background: 'bg-warning'},
         // {name: 'Rss', icon: 'ion-social-rss', link: `${systemConfig.prefixAdmin}/rss`, background: 'bg-info'},
     ];
 
@@ -18,11 +21,159 @@
                             <div class="icon text-white">
                                 <i class="ion ${value.icon}"></i>
                             </div>
-                            <a href="${value.link}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                            <a href="${value.link}" class="small-box-footer">Xem Chi Tiết <i class="fas fa-arrow-circle-right"></i></a>
                         </div>
                     </div>`;
     });
     xhtmlBox += '</div>';   
 %>
-
 <%- xhtmlBox %>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header border-transparent">
+                    <h3 class="card-title">Đơn Hàng Mới Nhất</h3>
+                    <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                            <i class="fas fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-tool" data-card-widget="remove">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+        
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table m-0">
+                            <thead>
+                                <tr>
+                                    <th>Mã Đơn Hàng</th>
+                                    <th>Sản Phẩm</th>
+                                    <th>Trạng Thái</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><a href="">OR9842</a></td>
+                                    <td>Call of Duty IV</td>
+                                    <td><span class="badge badge-success">Shipped</span></td>
+
+                                </tr>
+                                <tr>
+                                    <td><a href="">OR1848</a></td>
+                                    <td>Samsung Smart TV</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+
+                                </tr>
+                                <tr>
+                                    <td><a href="">OR7429</a></td>
+                                    <td>iPhone 6 Plus</td>
+                                    <td><span class="badge badge-danger">Delivered</span></td>
+
+                                </tr>
+                                <tr>
+                                    <td><a href="">OR7429</a></td>
+                                    <td>Samsung Smart TV</td>
+                                    <td><span class="badge badge-info">Processing</span></td>
+
+                                </tr>
+                                <tr>
+                                    <td><a href="">OR1848</a></td>
+                                    <td>Samsung Smart TV</td>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+
+                                </tr>
+                                <tr>
+                                    <td><a href="">OR7429</a></td>
+                                    <td>iPhone 6 Plus</td>
+                                    <td><span class="badge badge-danger">Delivered</span></td>
+
+                                </tr>
+                                <tr>
+                                    <td><a href="">OR9842</a></td>
+                                    <td>Call of Duty IV</td>
+                                    <td><span class="badge badge-success">Shipped</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+        
+                </div>
+        
+                <div class="card-footer clearfix">
+                    <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
+                    <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+                </div>
+        
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                <h3 class="card-title">Latest Members</h3>
+                <div class="card-tools">
+                <span class="badge badge-danger">8 New Members</span>
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                <i class="fas fa-minus"></i>
+                </button>
+                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                <i class="fas fa-times"></i>
+                </button>
+                </div>
+                </div>
+                
+                <div class="card-body p-0" style="display: block;">
+                <ul class="users-list clearfix">
+                <li>
+                <img src="/frontend/dist/img/user1-128x128.jpg" alt="User Image">
+                <a class="users-list-name" href="#">Alexander Pierce</a>
+                <span class="users-list-date">Today</span>
+                </li>
+                <li>
+                <img src="/frontend/dist/img/user8-128x128.jpg" alt="User Image">
+                <a class="users-list-name" href="#">Norman</a>
+                <span class="users-list-date">Yesterday</span>
+                </li>
+                <li>
+                <img src="/frontend/dist/img/user7-128x128.jpg" alt="User Image">
+                <a class="users-list-name" href="#">Jane</a>
+                <span class="users-list-date">12 Jan</span>
+                </li>
+                <li>
+                <img src="/frontend/dist/img/user6-128x128.jpg" alt="User Image">
+                <a class="users-list-name" href="#">John</a>
+                <span class="users-list-date">12 Jan</span>
+                </li>
+                <li>
+                <img src="/frontend/dist/img/user2-160x160.jpg" alt="User Image">
+                <a class="users-list-name" href="#">Alexander</a>
+                <span class="users-list-date">13 Jan</span>
+                </li>
+                <li>
+                <img src="/frontend/dist/img/user5-128x128.jpg" alt="User Image">
+                <a class="users-list-name" href="#">Sarah</a>
+                <span class="users-list-date">14 Jan</span>
+                </li>
+                <li>
+                <img src="/frontend/dist/img/user4-128x128.jpg" alt="User Image">
+                <a class="users-list-name" href="#">Nora</a>
+                <span class="users-list-date">15 Jan</span>
+                </li>
+                <li>
+                <img src="/frontend/dist/img/user3-128x128.jpg" alt="User Image">
+                <a class="users-list-name" href="#">Nadia</a>
+                <span class="users-list-date">15 Jan</span>
+                </li>
+                </ul>
+                
+                </div>
+                
+                <div class="card-footer text-center" style="display: block;">
+                <a href="javascript:">View All Users</a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    

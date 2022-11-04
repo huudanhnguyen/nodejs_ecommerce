@@ -41,9 +41,10 @@
 %>
 <%  
     let arrProductSettings = [
+    {name: 'Danh Mục Sản Phẩm', icon: 'fa-window-restore', link: `${systemConfig.prefixAdmin}/categories`},
     {name: 'Sản Phẩm', icon: 'fas fa-shopping-cart', link: `${systemConfig.prefixAdmin}/products`},
     {name: 'Sản Phẩm Giảm Giá', icon: 'fa-shopping-cart', link: `${systemConfig.prefixAdmin}/discount`},
-    {name: 'Danh Mục Sản Phẩm', icon: 'fa-window-restore', link: `${systemConfig.prefixAdmin}/categories`},
+    {name: 'Mã Giảm Giá', icon: 'fas fa-ticket-alt', link: `${systemConfig.prefixAdmin}/Coupons`},
     ];
 
     let xhtmlProductSettings = '';
@@ -99,7 +100,7 @@
                       <p>
                         Quản Lý Sản Phẩm
                         <i class="fas fa-angle-left right"></i>
-                        <span class="badge badge-info right">3</span>
+                        <span class="badge badge-info right">4</span>
                       </p>
                     </a>
                     <ul class="nav nav-treeview">

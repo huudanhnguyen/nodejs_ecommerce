@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const Cart = require('../../models/frontend/cart');
+
 
 router.use('/',require('./home'));
 router.use('/auth', require('./auth'));

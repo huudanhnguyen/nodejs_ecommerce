@@ -1,5 +1,9 @@
 var express = require('express');
 var router = express.Router();
+const FrontEndHelpers = require(__path_helpers + 'frontend');
+const { body, validationResult } = require('express-validator');
+
+
 
 const {col_products,col_categories,col_menu,col_sliders,col_settings} = require(__path_configs + 'database');
 const productsModel 		= require(__path_schemas + col_products);
@@ -76,6 +80,27 @@ router.post('/',async (req,res,next)=>{
   } catch (error) {
     console.log(error);
   }
-})
+});
+router.post('/dang-ky-mail', 
+body('email')
+    .isEmail(),
+async function(req, res, next) {
+    try {
+        let errors = validationResult(req)
+        if(!errors.isEmpty()) {
+            res.send({success: false})
+        } else{
+            let item = req.body
+            item.status = 'active'
+            item.ordering = '1'
+            let sendMail = await FrontEndHelpers.sendMailLetter(item)
+            let saveData = await FrontEndHelpers.saveNewsletter(item)
+            res.send({success: true})
+        }
+    } catch (error) {
+        console.log(error)
+        res.send({success: false})
+    }
+});
 
 module.exports = router;
