@@ -12,13 +12,7 @@ const menuModel 		= require(__path_schemas + col_menu);
 const folderView	 = __path_view_ecommerce + 'pages/user/';
 const layout	     = __path_view_ecommerce+ 'frontend';
 /* GET home page. */
-// router.get('/(:slug)?',async (req, res, next) => {
 router.get('/', async (req, res, next) => {
-  let idProduct = ParamsHelpers.getParam(req.params, 'id', '');
-  let itemProduct = {};
-  await Model.getItemFrontend(idProduct, null).then((itemPro) => {
-    itemProduct = itemPro;
-  });
   let item = await settingsModel.findOne({});
 
 	const {copyright, content, logoFooter,phoneFooter,email,address,linkfacebook,linkyoutube} = JSON.parse(item.footer);
@@ -32,19 +26,11 @@ router.get('/', async (req, res, next) => {
 	item.logoFooter = logoFooter;
 	item.linkfacebook=linkfacebook;
 	item.linkyoutube=linkyoutube;
-
 	item.phoneHeader = phoneHeader;
 	item.notification = notification;
 	item.logoHeader = logoHeader;
-  let idCategory 		= ParamsHelpers.getParam(req.params, 'id', '');
-
-  let itemsInCategory	= [];
-  await Model.listItemsFrontend({id: idCategory}, {task: 'items-in-category'} ).then( (items) => { itemsInCategory = items; });
 
   const listProducts = await productsModel.find({}).limit(4);
-  const itemsCate = await productsModel.find({id: idCategory});
-  const listProductBestSeller = await productsModel.find({bestseller:true,status:'active'});
-  const listProductNewArrivals = await productsModel.find({newarrivals:true,status:'active'});
   const listMenu = await menuModel.find({status:'active'}).sort({ordering: 'desc'});
   const listSliders = await sliderModel.find({status:'active'});
   const listCategory = await categoryModel.find({}).sort({ ordering: "desc" });
@@ -54,11 +40,6 @@ router.get('/', async (req, res, next) => {
     listSliders,
     listMenu,
     item,
-    itemProduct,
-    itemsCate,
-    itemsInCategory,
-    listProductBestSeller,
-    listProductNewArrivals,
     listCategory,
     slider:false
   });

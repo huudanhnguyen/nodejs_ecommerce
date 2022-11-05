@@ -39,10 +39,10 @@ module.exports = function(passport){
                 if(err){
                     return done(err);
                 }
+                console.log(newUser);
                 return done(null,newUser);
             });
         });
-
     }));
     passport.serializeUser(function(user, done) {
         done(null, user._id);     

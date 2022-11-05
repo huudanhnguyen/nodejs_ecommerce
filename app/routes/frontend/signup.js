@@ -50,7 +50,7 @@ router.get('/',async (req, res, next) => {
 router.post('/', 
   passport.authenticate('local.signup', { failureRedirect: '/user/signup' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/user/profile');
   });
 
 
