@@ -20,14 +20,37 @@ module.exports = function(passport){
             });
         }
     ));
-    
+    passport.use('local.signup',new LocalStrategy({
+        usernameField:'email',
+        passwordField:'password',
+        passReqToCallback:true
+    },function(res,email,password,done){
+        UsersModel.findOne({'email':email},function(err,user){
+            if(err){
+                return done(err);
+            }
+            if(user){
+                return done(null,false,{message:"email đã tồn tại"});
+            }
+            var newUser=new UsersModel();
+            newUser.email=email;
+            newUser.password=newUser.encryptPassword(password);
+            newUser.save(function(err,result){
+                if(err){
+                    return done(err);
+                }
+                return done(null,newUser);
+            });
+        });
+
+    }));
     passport.serializeUser(function(user, done) {
         done(null, user._id);     
     });
     
     passport.deserializeUser(function(id, done) {
-        UsersModel.getItem(id, null).then( (user) => {
-            done(null, user);
+        UsersModel.findById(id, null).then( (err,user) => {
+            done(err, user);
         });
     });
 }

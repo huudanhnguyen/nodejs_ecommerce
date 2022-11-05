@@ -9,7 +9,12 @@ module.exports = {
 			.sort(sort)
 			.skip((pagination.currentPage-1) * pagination.totalItemsPerPage)
 			.limit(pagination.totalItemsPerPage)
-	},	
+	},
+	getItemByEmail: (email, options = null) => {
+        if(options == null) {
+            return Model.find({email: email})                 
+        } 
+    },	
 	countRow(objWhere) {
 		return Model.count(objWhere).then(data => data);
 	},
