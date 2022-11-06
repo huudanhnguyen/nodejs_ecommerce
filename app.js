@@ -64,6 +64,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.get('*',function(req,res,next){
+  res.locals.cart=req.session.cart;
+  next();
+})
+
 app.use(function(req,res,next){
   res.locals.login=req.isAuthenticated();
   next();

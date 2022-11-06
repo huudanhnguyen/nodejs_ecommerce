@@ -16,6 +16,7 @@ router.use('/bai-viet', require('./listBlog'));
 router.use('/chi-tiet-bai-viet', require('./blogArticle'));
 router.use('/cart', require('./cart'));
 router.use('/thanh-toan', require('./checkout'));
+router.use('/don-mua', require('./order'));
 
 
 

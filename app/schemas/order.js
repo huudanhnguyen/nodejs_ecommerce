@@ -4,6 +4,12 @@ const databaseConfig = require(__path_configs + 'database');
 
 var schema = new mongoose.Schema({ 
   userId: { type: String, required: true },
+  customer: { type: String, required: true },
+  address: { type: String, required: true },
+  status: { type: String, default: "pending" },
+  notes: { type: String, required: true },
+  estimated_delivery: { type: String, required: true },
+  tracking_id: { type: String, required: true },  
   products: [
     {
       productId: {
@@ -13,11 +19,9 @@ var schema = new mongoose.Schema({
         type: Number,
         default: 1,
       },
+      price: { type: Number, required: true },
     },
   ],
-  amount: { type: Number, required: true },
-  address: { type: Object, required: true },
-  status: { type: String, default: "pending" },
 });
 
 module.exports = mongoose.model(databaseConfig.col_orders, schema );

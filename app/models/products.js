@@ -63,6 +63,11 @@ module.exports = {
         return Model.find(find).select(select).limit(limit).sort(sort);
        
     },
+	findOne: (id, options = null) => {
+        if(options == null) {
+            return Model.findOne({id: id})                 
+        } 
+    },	
 	getItemFrontend: (id, options = null) => {
         return Model.findById(id)
             .select('name slug image images price shortDes description ');
