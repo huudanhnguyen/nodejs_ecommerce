@@ -4,45 +4,40 @@ var md5 = require('md5');
 var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = function(passport){
-    passport.use(new LocalStrategy(
-        function(username, password, done) {
-            UsersModel.getItemByUsername(username, null).then( ( users) => {
-                let user = users[0];
-                if (user === undefined || user.length == 0) {
-                    return done(null, false, { message: notify.ERROR_LOGIN });
-                }else {
-                    if(md5(password) !== user.password) {
-                        return done(null, false, { message: notify.ERROR_LOGIN });
-                    }else {
-                        return done(null, user);
-                    }
-                }
-            });
-        }
-    ));
     passport.use('local.signup',new LocalStrategy({
         usernameField:'email',
         passwordField:'password',
         passReqToCallback:true
-    },function(res,email,password,done){
-        UsersModel.findOne({'email':email},function(err,user){
-            if(err){
-                return done(err);
-            }
-            if(user){
+    }, async function(res,email,password,done){
+        try {
+            let checkUser = await UsersModel.getItemByEmail(email)
+            if(checkUser){
                 return done(null,false,{message:"email đã tồn tại"});
             }
-            var newUser=new UsersModel();
-            newUser.email=email;
-            newUser.password=newUser.encryptPassword(password);
-            newUser.save(function(err,result){
-                if(err){
-                    return done(err);
-                }
-                console.log(newUser);
-                return done(null,newUser);
-            });
-        });
+            let newUser = {}
+            newUser.email = email;
+            newUser.password = password;
+            let saveUser = await UsersModel.saveUser(newUser)
+            console.log(saveUser) 
+            return done(null,saveUser);
+    } catch (error) {
+        console.log(error)
+        return done(error);
+    }
+    }));
+    passport.use('local.signin',new LocalStrategy({
+        usernameField:'email',
+        passwordField:'password',
+        passReqToCallback:true
+    }, async function(res,email,password,done){
+        try {
+            let checkUser = await UsersModel.getItemByEmail(email);
+            console.log(checkUser);
+            return done(null,checkUser);
+    } catch (error) {
+        console.log(error);
+        return done(error);
+    }
     }));
     passport.serializeUser(function(user, done) {
         done(null, user._id);     

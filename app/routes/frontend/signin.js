@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+const passport = require('passport');
+
 
 const {col_products,col_categories,col_menu,col_sliders,col_settings} = require(__path_configs + 'database');
 const productsModel 		= require(__path_schemas + col_products);
@@ -43,6 +45,17 @@ router.get('/(:slug)?',async (req, res, next) => {
     listCategory,
     slider:false
   });
+});
+router.post('/',
+  async(req,res,next)=>{
+    if(req.isAuthenticated()) res.redirect('/');
+    req.body=JSON.parse(JSON.stringify(req.body));
+    console.log(req.body);
+    passport.authenticate('local.signin', {
+      successRedirect:'/user/profile',
+      failureRedirect: '/user/signin',
+      failureFlash:true,
+    })(req,res,next);
 });
 
 module.exports = router;

@@ -46,20 +46,22 @@ router.get('/',async (req, res, next) => {
     slider:false
   });
 });
-
-// router.post('/', 
-//   passport.authenticate('local.signup', { failureRedirect: '/user/signup' }),
-//   function(req, res) {
-//     res.redirect('/user/profile');
-// });
-router.post('/', 
-  passport.authenticate('local.signup', {
-    successRedirect:'user/profile',
-    failureRedirect: '/user/signup',
-    failureFlash:true
-}));
-
-
-
-
+// router.post('/',
+//   passport.authenticate('local.signup', {
+//     successRedirect:'user/profile',
+//     failureRedirect: '/user/signup',
+//     failureFlash:true
+// }));
+router.post('/',
+  async(req,res,next)=>{
+    if(req.isAuthenticated()) res.redirect('/');
+    req.body=JSON.parse(JSON.stringify(req.body));
+    console.log(req.body);
+    passport.authenticate('local.signup', {
+      successRedirect:'/user/profile',
+      failureRedirect: '/user/signup',
+      failureFlash:true,
+    })(req,res,next);
+});
 module.exports = router;
+

@@ -41,7 +41,7 @@ router.get('/', async (req, res, next) => {
     listMenu,
     item,
     listCategory,
-    slider:false
+    slider:false,
   });
 });
 

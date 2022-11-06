@@ -14,12 +14,23 @@ var schema = new mongoose.Schema({
       default: false
   },
 },{ timestamps: true });
-schema.methods.encryptPassword=function(password){
-  return bcrypt.hashSync(password,bcrypt.genSaltSync(5),null);
+schema.methods.encryptPassword= async function(password){
+  return await bcrypt.hashSync(password,bcrypt.genSaltSync(5),null);
 };
-schema.methods.validPassword=function(password){
-  return bcrypt.compareSync(password,this.password);
+schema.methods.validPassword= async function(password){
+  return await bcrypt.compareSync(password,this.password);
 };
+
+schema.pre('save', async function save(next) {
+  if (!this.isModified('password')) return next();
+  try {
+    const salt = await bcrypt.genSalt(saltRounds);
+    this.password = await bcrypt.hash(this.password, salt);
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+});
 
 // schema.pre('save', async function save(next) {
 //     if (!this.isModified('password')) return next();

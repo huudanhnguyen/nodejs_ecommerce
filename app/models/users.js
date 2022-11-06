@@ -12,7 +12,7 @@ module.exports = {
 	},
 	getItemByEmail: (email, options = null) => {
         if(options == null) {
-            return Model.find({email: email})                 
+            return Model.findOne({email: email})                 
         } 
     },	
 	countRow(objWhere) {
@@ -43,5 +43,8 @@ module.exports = {
 	},
 	findById(id) {
 		return Model.findById(id);
+	},
+	saveUser: async (obj)=>{
+		return await Model(obj).save()
 	}
 }

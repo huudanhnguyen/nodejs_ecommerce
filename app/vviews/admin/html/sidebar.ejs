@@ -43,7 +43,7 @@
     let arrProductSettings = [
     {name: 'Danh Mục Sản Phẩm', icon: 'fa-window-restore', link: `${systemConfig.prefixAdmin}/categories`},
     {name: 'Sản Phẩm', icon: 'fas fa-shopping-cart', link: `${systemConfig.prefixAdmin}/products`},
-    {name: 'Sản Phẩm Giảm Giá', icon: 'fa-shopping-cart', link: `${systemConfig.prefixAdmin}/discount`},
+    {name: 'Sản Phẩm Giảm Giá', icon: 'fa-solid fa-percent', link: `${systemConfig.prefixAdmin}/discount`},
     {name: 'Mã Giảm Giá', icon: 'fas fa-ticket-alt', link: `${systemConfig.prefixAdmin}/Coupons`},
     ];
 
@@ -51,7 +51,7 @@
     arrProductSettings.forEach(menu => {
         xhtmlProductSettings += `<li class="nav-item">
                     <a href="${menu.link}" class="nav-link" data-active="${menu.name.toLowerCase()}">
-                        <i class="nav-icon fas ${menu.icon}"></i>
+                        <i class="nav-icon fas ${menu.icon}"></i>                        
                         <p>${menu.name}</p>
                     </a>
                 </li>`;
