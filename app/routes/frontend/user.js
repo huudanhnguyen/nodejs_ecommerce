@@ -45,6 +45,11 @@ router.get('/profile',isLoggedIn, async (req, res, next) => {
       slider:false,
     });
 });
+//logout
+router.get('/logout',isLoggedIn,function (req,res,next) {
+  req.logout();
+  res.redirect('/');
+})
 router.get('/',notLoggedIn,function (req,res,next) {
     next();
 })
@@ -138,11 +143,6 @@ router.post('/signup',
         failureFlash:true,
       })(req,res,next);
 });
-//logout
-router.get('/logout',function (req,res,next) {
-    req.logout();
-    res.redirect('/');
-})
 
 module.exports = router;
 
