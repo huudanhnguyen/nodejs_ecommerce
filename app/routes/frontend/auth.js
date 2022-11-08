@@ -6,16 +6,11 @@ var passport = require('passport');
 const StringHelpers 	= require(__path_helpers + 'string');
 const systemConfig  = require(__path_configs + 'system');
 
-// const middleGetUserInfo         = require(__path_middleware + 'get-user-info');
-// const middleGetCategoryForMenu  = require(__path_middleware + 'get-category-for-menu');
-// const middleArticleRandom       = require(__path_middleware + 'get-article-random');
-
 const folderView	= __path_view_ecommerce + 'pages/auth/';
 const layoutLogin   = __path_view_ecommerce + 'login';
 const layoutEcommerce   	= __path_view_ecommerce + 'frontend';
 const linkIndex		= StringHelpers.formatLink('/' + systemConfig.prefixEcommerce + '/'); 
 const linkLogin		= StringHelpers.formatLink('/' + systemConfig.prefixEcommerce + '/auth/login/'); 
-// const ValidateLogin	= require(__path_validates + 'login');
 
 /* GET logout page. */
 router.get('/logout', function(req, res, next) {

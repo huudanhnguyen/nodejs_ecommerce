@@ -71,23 +71,17 @@ const handleSlug = (link,evt) => {
          $("[name='slug']").val(data);
       });
 }
-// const handleChange = (link,field,id,evt) => {
-//    let value = evt.value;
-//    if(isNaN(value)) {
-//       evt.value = evt.value.replace(/[^0-9]/g,'');
-//       ntf(evt,'Please Insert Number','error')
-//       return;
-//    } 
-//    $.ajax({
-//    method: "post",
-//    url: link,
-//    data: { id,field,value},
-//    dataType: "html"
-//    }).done(function( msg ) {
-//       ntf(evt);
-//    });
-// }
 $("#sendMail").submit(function(e) {
+   $('[data-toggle="tooltip"]').tooltip()
+   $("form").submit((e)=>{
+     $( "form button[type='submit']" ).addClass('disabled').attr('disabled','')
+   })
+ 
+   $('.submitButton').html(`
+    <div class="spinner-border text-success" role="status">
+        <span class="sr-only">Loading...</span>
+    </div> Đang gửi...
+    `)
    let urlPath = window.location.pathname.split("/")[1]
    e.preventDefault(); // avoid to execute the actual submit of the form.
    var form = $("#sendMail").serialize();
@@ -120,41 +114,8 @@ $("#sendMail").submit(function(e) {
            } else {
                toastr["error"]("Đã có lỗi, vui lòng thử lại!")
            }
-       }
-   });
-});
-$("#newsletterForm").submit(function(e) {
-   let urlPath = window.location.pathname.split("/")[1]
-   e.preventDefault(); // avoid to execute the actual submit of the form.
-   var form = $("#newsletterForm").serialize();
-   $.ajax({
-       type: "POST",
-       url: `/lien-he/dang-ky-mail`,
-       data: form, // serializes the form's elements.
-       success: function (response) {
-           toastr.options = {
-               "closeButton": false,
-               "debug": false,
-               "newestOnTop": false,
-               "progressBar": false,
-               "positionClass": "toast-top-center",
-               "preventDuplicates": false,
-               "onclick": null,
-               "showDuration": "300",
-               "hideDuration": "1000",
-               "timeOut": "5000",
-               "extendedTimeOut": "1000",
-               "showEasing": "swing",
-               "hideEasing": "linear",
-               "showMethod": "fadeIn",
-               "hideMethod": "fadeOut"
-             }
-           if(response.success == true){
-               toastr["success"]("Bạn đã đăng ký thành công.")
-               $("#newsletterForm input").val("")
-           } else {
-               toastr["error"]("Đã có lỗi, vui lòng thử lại!")
-           }
+           $('.submitButton').html('<input type="submit" class="btn" value="Send Message">')
+
        }
    });
 });

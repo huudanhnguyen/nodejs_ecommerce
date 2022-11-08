@@ -61,6 +61,15 @@ router.get("/:id", async (req, res, next) => {
   const listMenu = await menuModel.find({status:'active'}).sort({ordering: 'desc'});
   const listSliders = await sliderModel.find({status:'active'});
   const listCategory = await categoryModel.find({}).sort({ ordering: "desc" });
+  let minPrice = isNaN(req.query.minPrice) ? undefined : req.query.minPrice
+  let maxPrice = isNaN(req.query.maxPrice) ? undefined : req.query.maxPrice
+  let sort     = decodeURIComponent(req.query.sort).split(',')   
+  let valueSort     = (sort[1]=='asc'||sort[1]=='desc') ? sort[1] : undefined
+  let keySort      = (sort[0]=='price' && valueSort) ? sort[0] : undefined
+  let limit   = 9
+  let sortObj = {}
+  sortObj[`${keySort}`]  = valueSort
+  let objRangePrice = {minPrice: minPrice, maxPrice: maxPrice}
   res.render(`${folderView}index`, { 
     layout,
     listProducts,
@@ -70,6 +79,7 @@ router.get("/:id", async (req, res, next) => {
     itemsInCategory,
     listProductNewArrivals,
     listCategory,
+    objRangePrice,
     slider:false
   });
 });

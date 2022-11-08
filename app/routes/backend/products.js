@@ -138,6 +138,7 @@ router.post('/save',uploadImage,
 	body('slug').matches(/^[a-z0-9]+(?:-[a-z0-9]+)*$/).withMessage(notify.ERROR_SLUG),
 	body('ordering').isNumeric().withMessage(notify.ERROR_ORDERING),
 	body('price').isNumeric().withMessage(notify.ERROR_PRICE),
+	body('priceDiscount').isNumeric().withMessage(notify.ERROR_PRICE),
 	body('status').not().isIn(['novalue']).withMessage(notify.ERROR_STATUS),
 	async (req, res, next) => {
 

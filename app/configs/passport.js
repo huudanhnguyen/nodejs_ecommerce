@@ -2,24 +2,22 @@ const UsersModel 	= require(__path_models + 'users');
 const notify  		= require(__path_configs + 'notify');
 var md5 = require('md5');
 var LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
 
 module.exports = function(passport){
     passport.use('local.signup',new LocalStrategy({
+        usernameField:'username',
         usernameField:'email',
         passwordField:'password',
         passReqToCallback:true
-    }, async function(res,email,password,done){
+    }, async function(req,email,password,done){
         try {
             let checkUser = await UsersModel.getItemByEmail(email)
             if(checkUser){
                 return done(null,false,{message:"email đã tồn tại"});
             }
-            let newUser = {}
-            newUser.email = email;
-            newUser.password = password;
-            let saveUser = await UsersModel.saveUser(newUser)
-            console.log(saveUser) 
-            return done(null,saveUser);
+            let saveUser = await UsersModel.addOne(req.body)
+                return done(null, saveUser)
     } catch (error) {
         console.log(error)
         return done(error);
@@ -32,7 +30,6 @@ module.exports = function(passport){
     }, async function(res,email,password,done){
         try {
             let checkUser = await UsersModel.getItemByEmail(email);
-            console.log(checkUser);
             return done(null,checkUser);
     } catch (error) {
         console.log(error);
@@ -44,7 +41,7 @@ module.exports = function(passport){
     });
     
     passport.deserializeUser(function(id, done) {
-        UsersModel.findById(id, null).then( (err,user) => {
+        UsersModel.findById(id, null).then( (user,err) => {
             done(err, user);
         });
     });
