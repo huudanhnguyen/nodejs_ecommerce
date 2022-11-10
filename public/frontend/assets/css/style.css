@@ -71,6 +71,11 @@ Table of Content:
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
 *, ::before, ::after { box-sizing:border-box; -webkit-box-sizing:border-box; }
 html { overflow:hidden; overflow-y:auto; }
+.cart-icon{
+  font-size: 21px;
+  margin-left: 20px;
+  text-decoration: none;
+}
 body { font-size:13px; line-height:1.5; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-family:"Poppins",Helvetica,Tahoma,Arial,serif; color:#424242; font-weight:400; margin:0; padding:0; }
 article, aside, details, figcaption, figure, footer, header, nav, section, summary { display: block; }
 audio, canvas, video { display: inline-block; }

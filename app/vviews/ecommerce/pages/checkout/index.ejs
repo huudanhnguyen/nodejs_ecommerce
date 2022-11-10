@@ -3,7 +3,7 @@
     	<!--Page Title-->
     	<div class="page section-header text-center">
 			<div class="page-title">
-        		<div class="wrapper"><h1 class="page-width">Checkout</h1></div>
+        		<div class="wrapper"><h1 class="page-width">Thanh Toán</h1></div>
       		</div>
 		</div>
         <!--End Page Title-->
@@ -66,15 +66,15 @@
                     <div class="create-ac-content bg-light-gray padding-20px-all">
                         <form>
                             <fieldset>
-                                <h2 class="login-title mb-3">Billing details</h2>
+                                <h2 class="login-title mb-3">Nhập Thông Tin</h2>
                                 <div class="row">
                                     <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                        <label for="input-firstname">First Name <span class="required-f">*</span></label>
-                                        <input name="firstname" value="" id="input-firstname" type="text">
+                                        <label for="name">Tên <span class="required-f">*</span></label>
+                                        <input name="nem" value="" id="input-name" type="text">
                                     </div>
                                     <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                        <label for="input-lastname">Last Name <span class="required-f">*</span></label>
-                                        <input name="lastname" value="" id="input-lastname" type="text">
+                                        <label for="input-telephone">Điện Thoại <span class="required-f">*</span></label>
+                                        <input name="telephone" value="" id="input-telephone" type="tel">
                                     </div>
                                 </div>
                                 <div class="row">
@@ -83,66 +83,12 @@
                                         <input name="email" value="" id="input-email" type="email">
                                     </div>
                                     <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                        <label for="input-telephone">Telephone <span class="required-f">*</span></label>
-                                        <input name="telephone" value="" id="input-telephone" type="tel">
-                                    </div>
-                                </div>
-                            </fieldset>
-
-                            <fieldset>
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                        <label for="input-company">Company</label>
-                                        <input name="company" value="" id="input-company" type="text">
-                                    </div>
-                                    <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                        <label for="input-address-1">Address <span class="required-f">*</span></label>
+                                        <label for="input-address-1">Địa Chỉ <span class="required-f">*</span></label>
                                         <input name="address_1" value="" id="input-address-1" type="text">
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-lg-6 col-xl-6">
-                                        <label for="input-address-2">Apartment <span class="required-f">*</span></label>
-                                        <input name="address_2" value="" id="input-address-2" type="text">
-                                    </div>
-                                    <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                        <label for="input-city">City <span class="required-f">*</span></label>
-                                        <input name="city" value="" id="input-city" type="text">
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                        <label for="input-postcode">Post Code <span class="required-f">*</span></label>
-                                        <input name="postcode" value="" id="input-postcode" type="text">
-                                    </div>
-                                    <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                        <label for="input-country">Country <span class="required-f">*</span></label>
-                                        <select name="country_id" id="input-country">
-                                            <option value=""> --- Please Select --- </option>
-                                            <option value="244">Aaland Islands</option>
-                                            <option value="1">Afghanistan</option>
-                                            <option value="2">Albania</option>
-                                            <option value="3">Algeria</option>
-                                            <option value="4">American Samoa</option>
-                                            <option value="5">Andorra</option>
-                                            <option value="6">Angola</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
-                                        <label for="input-zone">Region / State <span class="required-f">*</span></label>
-                                        <select name="zone_id" id="input-zone">
-                                            <option value=""> --- Please Select --- </option>
-                                            <option value="3513">Aberdeen</option>
-                                            <option value="3514">Aberdeenshire</option>
-                                            <option value="3515">Anglesey</option>
-                                            <option value="3516">Angus</option>
-                                        </select>
-                                    </div>
-                                </div>
                             </fieldset>
-
+<!-- 
                             <fieldset>
                                 <div class="row">
                                     <div class="form-group form-check col-md-12 col-lg-12 col-xl-12">
@@ -151,12 +97,12 @@
                                         </label>
                                     </div>
                                 </div>
-                            </fieldset>
+                            </fieldset> -->
 
                             <fieldset>
                                 <div class="row">
                                     <div class="form-group col-md-12 col-lg-12 col-xl-12">
-                                        <label for="input-company">Order Notes <span class="required-f">*</span></label>
+                                        <label for="input-company">Ghi Chú <span class="required-f">*</span></label>
                                         <textarea class="form-control resize-both" rows="3"></textarea>
                                     </div>
                                 </div>
@@ -168,7 +114,7 @@
                 <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12">
                     <div class="your-order-payment">
                         <div class="your-order">
-                            <h2 class="order-title mb-4">Your Order</h2>
+                            <h2 class="order-title mb-4">Đơn Hàng Của Bạn</h2>
 
                             <div class="table-responsive-sm order-table"> 
                                 <table class="bg-white table table-bordered table-hover text-center">
