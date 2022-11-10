@@ -46,25 +46,21 @@
                         <div class="widget-title">
                             <h2>Giá</h2>
                         </div>
-                        <form action="#" method="post" class="price-filter">
-                            <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                                <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                            </div>
-                            <div class="row">
-                                <div class="col-6">
-                                    <p class="no-margin"><input id="amount" type="text"></p>
-                                </div>
-                                <div class="col-6 text-right margin-25px-top">
-                                    <button class="btn btn-secondary btn--small">Lọc</button>
-                                </div>
+                        
+                        <form id="filterForm" action="" method="get" class="filter-ranger-form">
+                            <div id="slider-range"></div>
+                            <input type="hidden" id="amount1" name="minPrice">
+                            <input type="hidden" id="amount2" name="maxPrice">
+                            <div class="get-results-wrap d-flex align-items-center justify-content-between">
+                                <button type="submit"
+                                    class="btn btnTheme btn-shop fwEbold md-round px-3 pt-1 pb-2 text-uppercase">Lọc</button>
+                                <p id="amount" class="mb-0"></p>
                             </div>
                         </form>
                     </div>
                     <!--End Price Filter-->
                     <!--Size Swatches-->
-                    <div class="sidebar_widget filterBox filter-widget size-swacthes">
+                    <!-- <div class="sidebar_widget filterBox filter-widget size-swacthes">
                         <div class="widget-title"><h2>Kích Cỡ</h2></div>
                         <div class="filter-color swacth-list">
                             <ul>
@@ -91,10 +87,10 @@
                                     <label for="louie">S</label>
                                 </div>
                         </div>
-                    </div>
+                    </div> -->
                     <!--End Size Swatches-->
                     <!--Color Swatches-->
-                    <div class="sidebar_widget filterBox filter-widget">
+                    <!-- <div class="sidebar_widget filterBox filter-widget">
                         <div class="widget-title"><h2>Màu Sắc</h2></div>
                         <div class="filter-color swacth-list clearfix">
                             <span class="swacth-btn black"></span>
@@ -114,7 +110,7 @@
                             <span class="swacth-btn dimGrey"></span>
                             <span class="swacth-btn khaki"></span> 
                         </div>
-                    </div>
+                    </div> -->
                     <!--End Color Swatches-->
                     <!--Brand-->
                     <!-- <div class="sidebar_widget filterBox filter-widget">
