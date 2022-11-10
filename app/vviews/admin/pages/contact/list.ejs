@@ -6,6 +6,8 @@
 <% include ./../../helpers/userTimeInfo %>
 <% include ./../../helpers/sortField %>
 <% include ./../../helpers/image %>
+<% include ./../../helpers/formattime %>
+formattime
 <% 
 	const collection = "contact";
 	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`;
@@ -72,8 +74,10 @@
 							<%- sortField(linkPrefix,'Tên','name',sort) %>
 						</th>
 						<th class="text-center">Email</a></th>
+						<th class="text-center">Tin Nhắn</a></th>
+						<th class="text-center">Ngày Nhận Tin</a></th>
 
-						<th class="text-center">Trạng Thái</a></th>
+						<th class="text-center">Phản Hồi Tin</a></th>
 						<!-- <th class="text-center sort">
 							<%- sortField(linkPrefix,'Ordering','ordering',sort) %>
 						</th> -->
@@ -94,13 +98,19 @@
 						<td class="text-center"><%= index+1 %></td>
 						<td class="text-center"><%- highlightHelper(item.name, keyword) %></td>
 						<td class="text-center"><%- highlightHelper(item.email, keyword) %></td>
+						<td class="text-center" id="message-item-<%= item.id%>">
+							<textarea disabled row="5" style="width:100%"><%= item.message %></textarea>
+						</td>
+						<td class="text-center">
+							<%- formatTime(item.createdAt) %>
+						</td>						
 						<td class="text-center position-relative" id="<%= item.id %>-status">
 							<%- statusHelper(collection, item.status, item.id) %>
 						</td>
 					
 						<td class="text-center">
 							<a href="<%= linkPrefix %>form/<%= item.id %>" class="rounded-circle btn btn-sm btn-info" title="Edit">
-								<i class="fas fa-pencil-alt"></i>
+								<i class="fas fa-eye"></i>
 							</a>
 
 							<a class="rounded-circle btn btn-sm btn-danger btn-delete" title="Delete" data-toggle="modal" href="#exampleModal" data-url='<%= linkPrefix %>delete/<%= item.id %>'>
