@@ -2,11 +2,9 @@ const UsersModel 	= require(__path_models + 'users');
 const notify  		= require(__path_configs + 'notify');
 var md5 = require('md5');
 var LocalStrategy = require('passport-local').Strategy;
-const bcrypt = require('bcrypt');
 
 module.exports = function(passport){
     passport.use('local.signup',new LocalStrategy({
-        usernameField:'username',
         usernameField:'email',
         passwordField:'password',
         passReqToCallback:true
@@ -18,6 +16,7 @@ module.exports = function(passport){
             }
             let saveUser = await UsersModel.addOne(req.body)
                 return done(null, saveUser)
+          
     } catch (error) {
         console.log(error)
         return done(error);
@@ -30,9 +29,10 @@ module.exports = function(passport){
     }, async function(res,email,password,done){
         try {
             let checkUser = await UsersModel.getItemByEmail(email);
+            // console.log(checkUser);
             return done(null,checkUser);
     } catch (error) {
-        console.log(error);
+        // console.log(error);
         return done(error);
     }
     }));

@@ -48,10 +48,10 @@ router.get('/',async (req, res, next) => {
 	item.notification = notification;
 	item.logoHeader = logoHeader;
 
-  const listProducts = await productsModel.find({}).sort({ordering: 'desc'});
-  const listBlog = await blogModel.find({status:'active'}).sort({ordering: 'desc'});
-  const listProductBestSeller = await productsModel.find({bestseller:true,status:'active'}).sort({ordering: 'desc'});
-  const listProductNewArrivals = await productsModel.find({newarrivals:true,status:'active'}).sort({ordering: 'desc'});
+  const listProducts = await productsModel.find({});
+  const listBlog = await blogModel.find({status:'active'});
+  const listProductBestSeller = await productsModel.find({bestseller:true,status:'active'});
+  const listProductNewArrivals = await productsModel.find({newarrivals:true,status:'active'});
   const listMenu = await menuModel.find({status:'active'}).sort({ordering: 'desc'});
   const listSliders = await sliderModel.find({status:'active'});
   const listCategory = await categoryModel.find({}).sort({ ordering: "desc" });

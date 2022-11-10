@@ -1,12 +1,6 @@
 var express = require('express');
 var router = express.Router();
 const passport = require('passport');
-const { body, validationResult } = require('express-validator');
-const notify = require(__path_configs + 'notify');
-var util = require('util')
-
-
-
 
 
 const {col_products,col_categories,col_menu,col_sliders,col_settings} = require(__path_configs + 'database');
@@ -51,12 +45,13 @@ router.get('/profile',isLoggedIn, async (req, res, next) => {
       slider:false,
     });
 });
+//logout
 router.get('/logout',isLoggedIn,function (req,res,next) {
   req.logout(function(err) {
     if (err) { return next(err); }
     res.redirect('/');
   });
-});
+})
 router.get('/',notLoggedIn,function (req,res,next) {
     next();
 })
@@ -98,9 +93,9 @@ router.post('/signin',
   async(req,res,next)=>{
     if(req.isAuthenticated()) res.redirect('/');
     req.body=JSON.parse(JSON.stringify(req.body));
-    // console.log(req.body);
+    console.log(req.body);
     passport.authenticate('local.signin', {
-      successRedirect:'/user/profile',
+      successRedirect:'/',
       failureRedirect: '/user/signin',
       failureFlash:true,
     })(req,res,next);
@@ -129,13 +124,6 @@ router.get('/signup',async (req, res, next) => {
     const listMenu = await menuModel.find({status:'active'}).sort({ordering: 'desc'});
     const listSliders = await sliderModel.find({status:'active'});
     const listCategory = await categoryModel.find({}).sort({ ordering: "desc" });
-    let error = []
-    // if(req.flash().hasOwnProperty('error')){
-    //     error.push({
-    //         msg: req.flash().error,
-    //         param: 'emailexits'
-    //     })
-    // }
     res.render(`${folderView}signup`, { 
       layout,
       listProducts,
@@ -143,53 +131,19 @@ router.get('/signup',async (req, res, next) => {
       listMenu,
       item,
       listCategory,
-      error: error,
       slider:false
     });
 });
 router.post('/signup',
-        body('email')
-            .isEmail()
-            .normalizeEmail()
-            .withMessage(notify.ERROR_REGISTER_EMAIL),
-        body('username')
-            .isLength({min: 2, max: 15})
-            .withMessage(util.format(notify.ERROR_REGISTER_NAME,2,15)),
-        body('password')
-            .custom((value, { req })=>{
-                let {confirmpassword, password} = req.body
-
-                if (!confirmpassword || !password) {
-                    return Promise.reject(notify.ERROR_REGISTER_PASS_INPUT)
-                }
-                if((confirmpassword.length<6 || confirmpassword.length>18)|| (password.length<6 || password.length>18)
-                ){
-                    return Promise.reject(util.format(notify.ERROR_REGISTER_PASS,6,18))
-                }
-                if(password != confirmpassword){
-                    return Promise.reject(notify.ERROR_REGISTER_PASSCONFIRM)
-                }
-                return Promise.resolve()
-            }),
     async(req,res,next)=>{
       if(req.isAuthenticated()) res.redirect('/');
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        let errorsMsg = {};
-        errors.errors.forEach(value => {
-          errorsMsg[value.param] = value.msg
-        });
-        res.render(`${folderView}signup`, { 
-          errors: errorsMsg,
-        });
       req.body=JSON.parse(JSON.stringify(req.body));
-      // console.log(req.body);
       passport.authenticate('local.signup', {
-        successRedirect:'/user/profile',
+        successRedirect:'/',
         failureRedirect: '/user/signup',
         failureFlash:true,
       })(req,res,next);
-}});
+});
 
 module.exports = router;
 
