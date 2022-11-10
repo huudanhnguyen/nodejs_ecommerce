@@ -64,5 +64,19 @@ router.get('/',async (req, res, next) => {
   });
 });
 
+router.post('/',async (req, res, next) => {
+  try {
+    let listIds = JSON.parse(req.body.data)
+    let listProduct = await productsModel.find({ '_id': { $in: listIds } }).select('-description').exec()
+    console.log(listProduct)
+    res.send({success: true, data: listProduct})
+  } catch (error) {
+    console.log(error)
+    res.send({success: false, data: null})
+  }
+});
+
+
+
 
 module.exports = router;

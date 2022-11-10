@@ -1,9 +1,10 @@
 var express = require('express');
 var router = express.Router();
 const Cart = require('../../models/frontend/cart');
+const middleAuthentication = require(__path_middleware + 'auth');
 
 
-router.use('/',require('./home'));
+router.use('/',middleAuthentication, require('./home'));
 router.use('/auth', require('./auth'));
 router.use('/danh-muc', require('./category'));
 router.use('/lien-he', require('./contact'));

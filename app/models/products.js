@@ -22,7 +22,7 @@ module.exports = {
 										.sort(updatedAt)
 			return data;
 	},
-	listItemsFrontend: (params = null, options = null) => {
+	listItemsFrontend: (params = null, options = null, filterPrice = null, sortPrice= null) => {
         let find = {};
         let select = 'name';
         let limit = 5;
@@ -43,7 +43,19 @@ module.exports = {
 
         if (options.task == 'items-in-category'){
             select = 'name price image images description';
-            find = {status:'active', 'categoriesId': params.id};
+            find = {status:'active', 'categoriesId': params.id
+			};
+			console.log(filterPrice)
+			if(filterPrice){
+
+				find["$and"] = [
+					{price: {$gte: filterPrice.minPrice}},
+					{price: {$lte: filterPrice.maxPrice}}
+				]
+			}
+			if(sortPrice){
+				sort = { [sortPrice.key] : sortPrice.value }
+			} 
         }
 
 

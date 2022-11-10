@@ -155,11 +155,7 @@
           <a href="/cart" class="" title="Cart">
             <i class="icon anm anm-bag-l cart-icon"></i>
             <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">
-              <% if (typeof cart !=="undefined") { %>
-                <%= cart.length %>
-                <% } else { %>
-                  0
-              <% } %>
+   
                
             </span>
           </a>
@@ -167,12 +163,7 @@
         <div class="site-cart">
           <a href="/wishlist" class="" title="Cart">
             <i  class="icon anm anm-heart-l cart-icon"></i>
-            <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">
-              <% if (typeof cart !=="undefined") { %>
-                <%= cart.length %>
-                <% } else { %>
-                  0
-              <% } %>
+            <span id="LoveCount" class="site-header__cart-count" data-cart-render="item_count">
                
             </span>
           </a>

@@ -52,15 +52,22 @@ router.get("/:id", async (req, res, next) => {
 	item.logoHeader = logoHeader;
 
   let idCategory 		= ParamsHelpers.getParam(req.params, 'id', '');
-
+  let filterPrice       = (req.query.minPrice && req.query.maxPrice) ? {minPrice: req.query.minPrice, maxPrice:req.query.maxPrice} :  undefined
+  let sortPrice     = undefined
+  if(req.query.sort){
+      let dataSort      = req.query.sort.split(",")
+      sortPrice     = ((dataSort[0] == 'price') && (dataSort[1] =='asc' || dataSort[1] =='desc'))? {key:dataSort[0], value: dataSort[1] } : undefined
+  }
   let itemsInCategory	= [];
-  await Model.listItemsFrontend({id: idCategory}, {task: 'items-in-category'} ).then( (items) => { itemsInCategory = items; });
+  await Model.listItemsFrontend({id: idCategory}, {task: 'items-in-category'}, filterPrice, sortPrice).then( (items) => { itemsInCategory = items; });
 
   const listProducts = await productsModel.find({}).limit(4);
   const listProductNewArrivals = await productsModel.find({newarrivals:true,status:'active'});
   const listMenu = await menuModel.find({status:'active'}).sort({ordering: 'desc'});
   const listSliders = await sliderModel.find({status:'active'});
   const listCategory = await categoryModel.find({}).sort({ ordering: "desc" });
+  let queryPrice = (req.query.minPrice && req.query.maxPrice) ? filterPrice : {}
+ 
   res.render(`${folderView}index`, { 
     layout,
     listProducts,
@@ -70,7 +77,9 @@ router.get("/:id", async (req, res, next) => {
     itemsInCategory,
     listProductNewArrivals,
     listCategory,
-    slider:false
+    slider:false,
+    queryPrice,
+    idCategory,
   });
 });
 

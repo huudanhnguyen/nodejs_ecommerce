@@ -2,6 +2,8 @@
 <% 
 	const collection = "products";
 	const folderUpload 	= `uploads/${collection}/`;
+    let paramPrice = (queryPrice.maxPrice && queryPrice.minPrice) ? `minPrice=${queryPrice.minPrice}&maxPrice=${queryPrice.maxPrice}&` : ''
+
 %>
 <div id="page-content">
     <br>
@@ -242,20 +244,24 @@
                                     <span class="filters-toolbar__product-count">Đang Hiển Thị: 22</span>
                                 </div> -->
                                 <div class="col-4 col-md-4 col-lg-4 text-left">
-                                    <div class="filters-toolbar__item">
-                                          <label for="SortBy" class="hidden">Lọc</label>
-                                          <select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">
-                                            <option value="title-ascending" selected="selected">Lọc</option>
-                                            <!-- <option>Best Selling</option> -->
-                                            <option>Theo Thứ Tự, A-Z</option>
-                                            <option>Theo Thứ Tự, Z-A</option>
-                                            <option>Giá, Thấp Đến Cao</option>
-                                            <option>Giá, Cao Đến Thấp</option>
-                                            <option>Ngày, Mới Tới Cũ</option>
-                                            <option>Ngày, Cũ Tới Mới</option>
-                                          </select>
-                                          <input class="collection-header__default-sort" type="hidden" value="manual">
-                                    </div>
+                                    <header class="show-head d-flex flex-row-reverse flex-wrap justify-content-between mb-7">
+                                        <!-- sortGroup -->
+                                        <div class="sortGroup">
+                                            <div class="d-flex flex-nowrap align-items-center">
+                                                <strong class="groupTitle mr-2">Sắp xếp theo:</strong>
+                                                <div class="dropdown">
+                                                    <button class="dropdown-toggle buttonReset" type="button" id="sortGroup"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span id="showSortText">Mặc định</span>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="sortGroup">
+                                                        <li><a href="/danh-muc/<%=idCategory%>?<%=paramPrice%>sort=price%2casc">Giá từ thấp đến cao</a></li>
+                                                        <li><a href="/danh-muc/<%=idCategory%>?<%=paramPrice%>sort=price%2cdesc">Giá từ cao đến thấp</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </header>
                                 </div>
 
                             </div>

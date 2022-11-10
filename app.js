@@ -14,6 +14,7 @@ const session = require('express-session');
 const flash = require('express-flash-notification');
 const expressLayouts = require('express-ejs-layouts');
 const mongoose = require('mongoose');
+var flashh        = require('req-flash');
 
 const pathConfig = require('./path');
 
@@ -34,6 +35,7 @@ global.__path_uploads     = __path_public + pathConfig.folder_uploads + '/';
 global.__path_middleware= __path_app + pathConfig.folder_middleware + '/';
 const systemConfig = require(__path_configs + 'system');
 const databaseConfig = require(__path_configs + 'database');
+const layoutFrontEnd	     = __path_view_ecommerce+ 'frontend';
 
 
 mongoose.connect(`mongodb+srv://${databaseConfig.username}:${databaseConfig.password}@cluster0.r4pc6.mongodb.net/training_nodejs?retryWrites=true&w=majority`);
@@ -63,7 +65,7 @@ app.set('layout', __path_view_admin + 'admin');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use(flashh());
 app.get('*',function(req,res,next){
   res.locals.cart=req.session.cart;
   next();
@@ -89,10 +91,15 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
+  console.log(req._parsedOriginalUrl._raw)
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
     res.status(err.status || 500);
-    res.render(__path_view_admin +  'pages/error', { pageTitle   : 'Page Not Found ' });
+    if(req._parsedOriginalUrl._raw.split("/")[1] == "adminCCC"){
+      res.render(__path_view_admin +  'pages/error', {pageTitle   : 'Page Not Found ' });
+    } else{
+      res.redirect("/bai-viet")
+    }
 
 });
 
