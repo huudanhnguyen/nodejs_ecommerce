@@ -7,7 +7,7 @@ const linkNoPermission	 = StringHelpers.formatLink('../vviews/ecommerce/pages/er
 
 module.exports = (req, res, next) => {
     if(req.isAuthenticated()){
-        if(req.user.email == "admin123@gmail.com") {
+        if(req.user.email == "admin@gmail.com") {
             next();
         }else {
             res.redirect('/');

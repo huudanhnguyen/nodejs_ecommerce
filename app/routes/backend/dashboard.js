@@ -10,8 +10,11 @@ const UsersModel 	= require(__path_schemas + 'users');
 const MenuModel 	= require(__path_schemas + 'menu');
 const ContactModel 	= require(__path_schemas + 'contact');
 const RssModel 	= require(__path_schemas + 'rss');
+const {col_users} = require(__path_configs + 'database');
+const userModel 		= require(__path_schemas + col_users);
 /* GET dashboard page. */
 router.get('/', async(req, res, next) => {
+	const userModel = await UsersModel.find({status:'active'});
 	let collectionModel = {
 		'Sliders': SlidersModel,
 		'Sản Phẩm': ProductsModel,
@@ -25,7 +28,8 @@ router.get('/', async(req, res, next) => {
 	collectionModel = await countCollection(Object.keys(collectionModel),collectionModel);
 	res.render(`${folderView}index`, { 
 		pageTitle: 'Bảng Điều Khiển', 
-		count: collectionModel
+		count: collectionModel,
+		userModel
 	});
 });
 

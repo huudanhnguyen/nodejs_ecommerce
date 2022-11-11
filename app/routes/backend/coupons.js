@@ -126,7 +126,7 @@ router.get(('/form(/:id)?'), (req, res, next) => {
 
 // SAVE = ADD EDIT
 router.post('/save',uploadAvatar,
-	body('name').isLength({ min: 10 }).withMessage('Name toi thieu 10 ky tu'),
+	body('name').isLength({ min: 4 }).withMessage('Name toi thieu 4 ky tu'),
 	body('quantity').isInt({min: 1}).withMessage('Quantity phai la so nguyen lon hon 0'),
 	body('status').not().isIn(['novalue']).withMessage(notify.ERROR_STATUS),
 	body('values').isInt({min:1}).withMessage('Value phai la so nguyen lon hon 0').custom((value,{req}) => {

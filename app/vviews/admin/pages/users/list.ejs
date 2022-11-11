@@ -76,7 +76,7 @@
 						<th class="text-center sort">
 							<%- sortField(linkPrefix,'Email','email',sort) %>
 						</th>
-						<!-- <th class="text-center">Trạng Thái</a></th> -->
+						<th class="text-center">Trạng Thái</a></th>
 						<th class="text-center">Admin</a></th>
 						<!-- <th class="text-center">Created</a></th>
 						<th class="text-center">Modified</a></th> -->
@@ -98,9 +98,9 @@
 						<td class="text-center"><%- imageHelper(folderUpload, item.avatar, item.name); %></td>
 						<td class="text-center"><%- highlightHelper(item.username, keyword) %></td>
 						<td class="text-center"><%- highlightHelper(item.email, keyword) %></td>
-						<!-- <td class="text-center position-relative" id="<%= item.id %>-status">
+						<td class="text-center position-relative" id="<%= item.id %>-status">
 							<%- statusHelper(collection, item.status, item.id) %>
-						</td> -->
+						</td>
 						<td class="text-center position-relative" id="<%= item.id %>-isAdmin">
 							<%- isAdminHelper(collection, item.isAdmin, item.id) %>
 						</td>

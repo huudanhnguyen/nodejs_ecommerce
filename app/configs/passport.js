@@ -2,6 +2,8 @@ const UsersModel 	= require(__path_models + 'users');
 const notify  		= require(__path_configs + 'notify');
 var md5 = require('md5');
 var LocalStrategy = require('passport-local').Strategy;
+const bcrypt = require('bcrypt');
+
 
 module.exports = function(passport){
     passport.use('local.signup',new LocalStrategy({
@@ -26,16 +28,30 @@ module.exports = function(passport){
         usernameField:'email',
         passwordField:'password',
         passReqToCallback:true
-    }, async function(res,email,password,done){
-        try {
-            let checkUser = await UsersModel.getItemByEmail(email);
-            // console.log(checkUser);
-            return done(null,checkUser);
-    } catch (error) {
-        // console.log(error);
-        return done(error);
-    }
-    }));
+    },
+        async function(req, email, password, done) {
+            try {
+                let checkUser = await UsersModel.getItemByEmail(email)
+                if(checkUser){
+                    let checkPassword = await bcrypt.compare(password,checkUser.password);
+                    if(checkPassword){
+                        if(checkUser.status === 'active'){
+                            return done(null, checkUser);
+                        }else{
+                            return done(null, false, { message:'Tài Khoản Bị Khóa'});
+                        }
+                    }else{
+                        return done(null, false, { message:'Mật Khẩu Sai'});
+                    }
+                } else {
+                    return done(null, false, { message:'Tài Khoản Chưa Đăng Ký'});
+                }
+            } catch (error) {
+                console.log(error)
+                return done(null, false, { message: "Có lỗi xảy ra vui lòng thử lại"});
+            }
+        }
+    ));
     passport.serializeUser(function(user, done) {
         done(null, user._id);     
     });

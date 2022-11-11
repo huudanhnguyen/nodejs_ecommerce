@@ -123,7 +123,7 @@ router.get("/signin", async (req, res, next) => {
     item,
     listCategory,
     slider: false,
-    error
+    error,
   });
 });
 router.post(
@@ -135,8 +135,8 @@ router.post(
       return Promise.reject("Chưa Nhập Mật Khẩu");
     }
     if (
-      password.length < 5 ||
-      password.length > 18
+      password.length < 6 ||
+      password.length > 20
     ) {
       return Promise.reject("Mật Khẩu Không Hợp Lệ");
     }
@@ -192,7 +192,7 @@ router.post(
         return;
       } else {
         passport.authenticate("local.signin", {
-          successRedirect: "/",
+          successRedirect: "/user/profile",
           failureRedirect: "/user/signin",
           failureFlash: true,
         })(req, res, next);
@@ -259,7 +259,7 @@ router.get("/signup", async (req, res, next) => {
 router.post(
   "/signup",
   body("email").isEmail().normalizeEmail().withMessage("Định Dạng Email Sai"),
-  body("name").isLength({ min: 3, max: 20 }).withMessage("Chiều Dài Tên Phải Từ 3 Đến 20"),
+  body("username").isLength({ min: 3, max: 30 }).withMessage("Chiều Dài Tên Phải Từ 3 Đến 30"),
   body("password").custom((value, { req }) => {
     let { confirmpassword, password } = req.body;
 
@@ -267,10 +267,10 @@ router.post(
       return Promise.reject("Chưa Nhập Mật Khẩu");
     }
     if (
-      confirmpassword.length < 8 ||
-      confirmpassword.length > 18 ||
-      password.length < 8 ||
-      password.length > 18
+      confirmpassword.length < 6 ||
+      confirmpassword.length > 20 ||
+      password.length < 6 ||
+      password.length > 20
     ) {
       return Promise.reject("Mật Khẩu Không Hợp Lệ");
     }
@@ -329,7 +329,7 @@ router.post(
         return;
       } else {
         passport.authenticate("local.signup", {
-          successRedirect: "/",
+          successRedirect: "/user/profile",
           failureRedirect: "/user/signup",
           failureFlash: true,
         })(req, res, next);

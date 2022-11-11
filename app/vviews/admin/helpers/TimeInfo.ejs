@@ -1,0 +1,13 @@
+<% 
+    showTimeInfo = (time)  => {
+    
+        time     = time ? `<i class="fas fa-clock"></i> ${dayjs().to(dayjs(time))}` : '';    
+        let xhtml = `
+                    <span class="time">${time}</span>`;
+        return xhtml;
+    }
+%>
+
+
+
+

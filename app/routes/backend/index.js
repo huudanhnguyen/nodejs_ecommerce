@@ -1,8 +1,9 @@
 var express = require('express');
 var router = express.Router();
 const middleAuthenticationAdmin = require(__path_middleware + 'authAdmin');
+const middlewareGetUser    = require(__path_middleware + 'get-user-info')
 
-router.use('/' ,middleAuthenticationAdmin,require('./dashboard'));
+router.use('/' ,middleAuthenticationAdmin,middlewareGetUser,require('./dashboard'));
 // router.use('/' ,require('./dashboard'));
 router.use('/dashboard', require('./dashboard'));
 router.use('/products', require('./products'));

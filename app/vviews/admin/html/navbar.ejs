@@ -10,20 +10,20 @@
     <ul class="navbar-nav ml-auto">
         <li class="nav-item dropdown user-menu">
             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-                <img src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t39.30808-6/313418246_1262114044633906_958031652154661284_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=dHjAh0Deb3UAX8OMYaC&_nc_oc=AQkSGr9ai-zJTe9ndHJMiaO_Ut8Y0JyGULYE40xuAaOfHdD-CzxVimnUld4deQJE6yA&_nc_ht=scontent.fsgn5-8.fna&oh=00_AfDcXQlpVDRcty_PjRWro6L-FsNEZrxWpyEKTllHcXORpA&oe=63715043" class="user-image img-circle elevation-2" alt="User Image">
-                <span class="d-none d-md-inline">Danh</span>
+                <img src="/uploads/users/<%= userInfo.avatar %>" class="user-image img-circle elevation-2" alt="User Image">
+                <span class="d-none d-md-inline"><%= userInfo.username %></span>
             </a>
             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                 <!-- User image -->
                 <li class="user-header bg-info">
-                    <img src="https://scontent.fsgn5-8.fna.fbcdn.net/v/t39.30808-6/313418246_1262114044633906_958031652154661284_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=dHjAh0Deb3UAX8OMYaC&_nc_oc=AQkSGr9ai-zJTe9ndHJMiaO_Ut8Y0JyGULYE40xuAaOfHdD-CzxVimnUld4deQJE6yA&_nc_ht=scontent.fsgn5-8.fna&oh=00_AfDcXQlpVDRcty_PjRWro6L-FsNEZrxWpyEKTllHcXORpA&oe=63715043" class="img-circle elevation-2" alt="User Image">
+                    <img src="/uploads/users/<%= userInfo.avatar %>" class="img-circle elevation-2" alt="User Image">
 
-                    <p>Danh <small>admin</small></p>
+                    <p><%= userInfo.username %> <small>Admin: <%= userInfo.isAdmin %></small></p>
                 </li>
                 <!-- Menu Footer-->
                 <li class="user-footer">
-                    <a href="#" class="btn btn-default btn-flat">Tài Khoản</a>
-                    <a href="#" class="btn btn-default btn-flat float-right">Đăng Xuất</a>
+                    <a href="/user/profile" target="_blank" class="btn btn-default btn-flat">Tài Khoản</a>
+                    <a href="/user/logout" class="btn btn-default btn-flat float-right">Đăng Xuất</a>
                 </li>
             </ul>
         </li>

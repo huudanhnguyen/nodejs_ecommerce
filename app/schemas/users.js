@@ -8,11 +8,16 @@ var schema = new mongoose.Schema({
     avatar: String,
     username: String,
     email:String,
-    password: String,
+    phone:String,
+    address:String,
+    status: {
+      type: String,
+      default: 'inactive'
+    },    password: String,
     isAdmin: {
-      type: Boolean,
-      default: false
-  },
+      type: String,
+      default: 'no'
+    },
 },{ timestamps: true });
 schema.methods.encryptPassword= async function(password){
   return await bcrypt.hashSync(password,bcrypt.genSaltSync(5),null);
@@ -31,17 +36,6 @@ schema.pre('save', async function save(next) {
     return next(err);
   }
 });
-
-// schema.pre('save', async function save(next) {
-//     if (!this.isModified('password')) return next();
-//     try {
-//       const salt = await bcrypt.genSalt(saltRounds);
-//       this.password = bcrypt.hash(this.password, salt);
-//       return next();
-//     } catch (err) {
-//       return next(err);
-//     }
-// });
 
 
 module.exports = mongoose.model(databaseConfig.col_users, schema );

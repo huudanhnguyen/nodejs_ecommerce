@@ -127,20 +127,20 @@ router.get(('/form(/:id)?'), (req, res, next) => {
 
 // SAVE = ADD EDIT
 router.post('/save',uploadAvatar,
-	body('username').isLength({ min: 5 ,max:20}).withMessage(util.format(notify.ERROR_NAME,5,20)),
-	body('email').isLength({ min: 5 ,max:50}).withMessage(util.format(notify.ERROR_NAME,5,20)),
+	body('username').isLength({ min: 5 ,max:30}).withMessage(util.format(notify.ERROR_NAME,5,30)),
+	body('email').isLength({ min: 5 ,max:20}).withMessage(util.format(notify.ERROR_NAME,5,20)),
 	body('status').not().isIn(['novalue']).withMessage(notify.ERROR_STATUS),
 	body('isAdmin').not().isIn(['novalue']).withMessage(notify.ERROR_STATUS),
-	body('avatar').custom((value,{req}) => {
-		const {image_uploaded,image_old} = req.body;
-		if(!image_uploaded && !image_old) {
-			return Promise.reject(notify.ERROR_FILE_EMPTY);
-		}
-		if(!req.file && image_uploaded) {
-				return Promise.reject(notify.ERROR_FILE_EXTENSION);
-		}
-		return true;
-	}),
+	// body('avatar').custom((value,{req}) => {
+	// 	const {image_uploaded,image_old} = req.body;
+	// 	if(!image_uploaded && !image_old) {
+	// 		return Promise.reject(notify.ERROR_FILE_EMPTY);
+	// 	}
+	// 	if(!req.file && image_uploaded) {
+	// 			return Promise.reject(notify.ERROR_FILE_EXTENSION);
+	// 	}
+	// 	return true;
+	// }),
 	(req, res, next) => {
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
