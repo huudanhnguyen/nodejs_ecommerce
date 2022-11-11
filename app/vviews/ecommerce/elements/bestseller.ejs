@@ -20,9 +20,8 @@
                                     <%- imageMulti(items.images, folderUpload) %>  
                                 </a>
                                 <!-- Start product button -->
-                                <form class="variants add" action="#" onclick="window.location.href='/add/<%= items.id %>'"
-                                    method="post">
-                                    <button class="btn btn-addto-cart" type="button" tabindex="0">ADD TO CARD</button>
+                                <form class="variants add" action="#"method="post">
+                                    <a href="javascript:void(0);"data-product="product-<%= items.id %>"><button class="btn btn-addto-cart"  type="button" tabindex="0">THÊM GIỎ HÀNG</button></a>
                                 </form>
                                 <div class="button-set">
                                     <!-- <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view"
@@ -32,11 +31,6 @@
                                     <div class="wishlist-btn">
                                         <a class="wishlist add-to-wishlist" data-product="product-<%= items.id %>" href="javascript:void(0);" title="Add to Love">
                                             <i class="icon anm anm-heart-l" data-product="product-<%= items.id %>"></i>
-                                        </a>
-                                    </div>
-                                    <div class="compare-btn">
-                                        <a class="compare add-to-compare" href="" title="Add to Compare">
-                                            <i class="icon anm anm-random-r"></i>
                                         </a>
                                     </div>
                                 </div>

@@ -12,7 +12,7 @@ const categoryModel 		= require(__path_schemas + col_categories);
 
 const Model 		= require(__path_models + 'products');
 const menuModel 		= require(__path_schemas + col_menu);
-const folderView	 = __path_view_ecommerce + 'pages/wishlist/';
+const folderView	 = __path_view_ecommerce + 'pages/error/';
 const layout	     = __path_view_ecommerce+ 'frontend';
 /* GET home page. */
 router.get('/add/:id', async function(req, res, next) {
@@ -63,19 +63,6 @@ router.get('/',async (req, res, next) => {
     slider:false
   });
 });
-
-router.post('/',async (req, res, next) => {
-  try {
-    let listIds = JSON.parse(req.body.data)
-    let listProduct = await productsModel.find({ '_id': { $in: listIds } }).select('-description').exec()
-    res.send({success: true, data: listProduct})
-  } catch (error) {
-    console.log(error)
-    res.send({success: false, data: null})
-  }
-});
-
-
 
 
 module.exports = router;

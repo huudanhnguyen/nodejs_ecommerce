@@ -3,7 +3,8 @@
 	const folderUpload 	= `uploads/${collection}/`;
 %>
 <div class="notification-bar mobilehide">
-  <a href="#" class="notification-bar__message"><%= item.notification %> </a>
+  <span class="notification-bar__message"><%= item.notification %></span>
+  <!-- <a href="#" class="notification-bar__message"><%= item.notification %> </a> -->
   <span class="close-announcement">×</span>
 </div>
 <!--End Promotion Bar-->
@@ -143,8 +144,8 @@
       <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
         <div class="logo">
           <a href="/">
-            <img src="frontend/assets/images/logo.svg" alt="Belle Multipurpose Html Template"
-              title="Belle Multipurpose Html Template" />
+            <img src="frontend/assets/images/logo.svg" alt=""
+              title="" />
           </a>
         </div>
       </div>
@@ -161,7 +162,7 @@
           </a>
         </div>
         <div class="site-cart">
-          <a href="/wishlist" class="" title="Cart">
+          <a href="/wishlist" class="" title="Wishlist">
             <i  class="icon anm anm-heart-l cart-icon"></i>
             <span id="LoveCount" class="site-header__cart-count" data-cart-render="item_count">
                

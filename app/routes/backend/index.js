@@ -3,6 +3,7 @@ var router = express.Router();
 const middleAuthenticationAdmin = require(__path_middleware + 'authAdmin');
 
 router.use('/' ,middleAuthenticationAdmin,require('./dashboard'));
+// router.use('/' ,require('./dashboard'));
 router.use('/dashboard', require('./dashboard'));
 router.use('/products', require('./products'));
 router.use('/discount', require('./discount'));

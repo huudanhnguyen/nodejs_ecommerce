@@ -14,24 +14,6 @@ const layout	     = __path_view_ecommerce+ 'frontend';
 /* GET home page. */
 // router.get('/(:slug)?',async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
-
-  // let itemsSpecial 	= [];
-  // await Model.listItemsFrontend(null, {task: 'items-special'} ).then( (items) => { itemsSpecial = items;
-  //   items.map(async i=>{
-  //     let{name}=await categoryModel.findById((i.categoriesId))
-  //       i.categoryName=name;
-  //       return i
-  //     })
-  //     items= itemsSpecial;
-  // });
-  // await Model.listItemsFrontend(null, {task: 'items-ecommerce'} ).then( (items) => { itemsEcommerce = items;
-  //   items.map(async i=>{
-  //     let{name}=await categoryModel.findById((i.categoriesId))
-  //       i.categoryName=name;
-  //       return i
-  //     })
-  //     itemsEcommerce=items; 
-  // });
   
   let item = await settingsModel.findOne({});
 

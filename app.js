@@ -91,14 +91,15 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
-  console.log(req._parsedOriginalUrl._raw)
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
     res.status(err.status || 500);
     if(req._parsedOriginalUrl._raw.split("/")[1] == "adminCCC"){
       res.render(__path_view_admin +  'pages/error', {pageTitle   : 'Page Not Found ' });
     } else{
-      res.redirect("/bai-viet")
+      // res.redirect("/error")
+      res.render(__path_view_admin +  'pages/error', { layout:false ,pageTitle   : 'Page Not Found ' });
+
     }
 
 });

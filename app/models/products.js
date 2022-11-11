@@ -57,6 +57,7 @@ module.exports = {
 				sort = { [sortPrice.key] : sortPrice.value }
 			} 
         }
+		
 
 
         if (options.task == 'items-random'){

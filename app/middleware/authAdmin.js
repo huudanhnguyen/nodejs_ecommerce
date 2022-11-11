@@ -2,15 +2,15 @@ const StringHelpers 	= require(__path_helpers + 'string');
 const systemConfig       = require(__path_configs + 'system');
 
 const linkLogin		     = StringHelpers.formatLink('/user/signin/');
-const linkNoPermission	 = StringHelpers.formatLink('/auth/no-permission');
+const linkNoPermission	 = StringHelpers.formatLink('../vviews/ecommerce/pages/error/index.ejs');
+
 
 module.exports = (req, res, next) => {
     if(req.isAuthenticated()){
-        console.log(req.user)
-        if(req.user.email == "huudanh2001.hd@gmail.com") {
+        if(req.user.email == "admin123@gmail.com") {
             next();
         }else {
-            res.redirect(linkNoPermission);
+            res.redirect('/');
         }
     }else {
         res.redirect(linkLogin);

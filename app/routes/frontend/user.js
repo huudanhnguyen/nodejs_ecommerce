@@ -76,8 +76,14 @@ router.get("/", notLoggedIn, function (req, res, next) {
 });
 //Login
 router.get("/signin", async (req, res, next) => {
+  let error = []
+  if(req.flash().hasOwnProperty('error')){
+    error.push({
+        msg: req.flash().error,
+        param: 'emailexits'
+    })
+}
   let item = await settingsModel.findOne({});
-
   const {
     copyright,
     content,
@@ -117,18 +123,86 @@ router.get("/signin", async (req, res, next) => {
     item,
     listCategory,
     slider: false,
+    error
   });
 });
-router.post("/signin", async (req, res, next) => {
-  if (req.isAuthenticated()) res.redirect("/");
-  req.body = JSON.parse(JSON.stringify(req.body));
-  console.log(req.body);
-  passport.authenticate("local.signin", {
-    successRedirect: "/",
-    failureRedirect: "/user/signin",
-    failureFlash: true,
-  })(req, res, next);
-});
+router.post(
+  "/signin",
+  body("email").isEmail().normalizeEmail().withMessage("Định Dạng Email Sai"),
+  body("password").custom((value, { req }) => {
+    let {password } = req.body;
+    if (!password) {
+      return Promise.reject("Chưa Nhập Mật Khẩu");
+    }
+    if (
+      password.length < 5 ||
+      password.length > 18
+    ) {
+      return Promise.reject("Mật Khẩu Không Hợp Lệ");
+    }
+    return Promise.resolve();
+  }),
+  async (req, res, next) => {
+    try {
+      if (req.isAuthenticated()) res.redirect("/");
+      req.body = JSON.parse(JSON.stringify(req.body));
+      let errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        let item = await settingsModel.findOne({});
+        const {
+          copyright,
+          content,
+          logoFooter,
+          phoneFooter,
+          email,
+          address,
+          linkfacebook,
+          linkyoutube,
+        } = JSON.parse(item.footer);
+        const { logoHeader, phoneHeader, notification } = JSON.parse(item.header);
+      
+        item.copyright = copyright;
+        item.content = content;
+        item.address = address;
+        item.phoneFooter = phoneFooter;
+        item.email = email;
+        item.logoFooter = logoFooter;
+        item.linkfacebook = linkfacebook;
+        item.linkyoutube = linkyoutube;
+      
+        item.phoneHeader = phoneHeader;
+        item.notification = notification;
+        item.logoHeader = logoHeader;
+        const listCategory = await categoryModel.find({}).sort({ ordering: "desc" });
+        const listMenu = await menuModel
+        .find({ status: "active" })
+        .sort({ ordering: "desc" });
+        const listProducts = await productsModel.find({}).limit(4);
+
+      
+        res.render(`${folderView}signin`, {
+          layout,
+          item,
+          listCategory,
+          listMenu,
+          listProducts,
+          slider:false,
+          error: errors.errors,
+        });
+        return;
+      } else {
+        passport.authenticate("local.signin", {
+          successRedirect: "/",
+          failureRedirect: "/user/signin",
+          failureFlash: true,
+        })(req, res, next);
+        return;
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
 //Register
 router.get("/signup", async (req, res, next) => {
   let error = []
@@ -184,13 +258,13 @@ router.get("/signup", async (req, res, next) => {
 
 router.post(
   "/signup",
-  body("email").isEmail().normalizeEmail().withMessage("sai email"),
-  body("name").isLength({ min: 2, max: 20 }).withMessage("sai ten"),
+  body("email").isEmail().normalizeEmail().withMessage("Định Dạng Email Sai"),
+  body("name").isLength({ min: 3, max: 20 }).withMessage("Chiều Dài Tên Phải Từ 3 Đến 20"),
   body("password").custom((value, { req }) => {
     let { confirmpassword, password } = req.body;
 
     if (!confirmpassword || !password) {
-      return Promise.reject("chua nhap mat khau");
+      return Promise.reject("Chưa Nhập Mật Khẩu");
     }
     if (
       confirmpassword.length < 8 ||
@@ -198,10 +272,10 @@ router.post(
       password.length < 8 ||
       password.length > 18
     ) {
-      return Promise.reject("mat khau kkhong hop le");
+      return Promise.reject("Mật Khẩu Không Hợp Lệ");
     }
     if (password != confirmpassword) {
-      return Promise.reject("mat khau khong khop");
+      return Promise.reject("Mật Khẩu Không Khớp");
     }
     return Promise.resolve();
   }),
@@ -209,7 +283,6 @@ router.post(
     try {
       if (req.isAuthenticated()) res.redirect("/");
       req.body = JSON.parse(JSON.stringify(req.body));
-      let user=req.body;
       let errors = validationResult(req);
       if (!errors.isEmpty()) {
         let item = await settingsModel.findOne({});
@@ -245,7 +318,6 @@ router.post(
 
       
         res.render(`${folderView}signup`, {
-          user,
           layout,
           item,
           listCategory,
@@ -266,11 +338,6 @@ router.post(
     } catch (error) {
       console.log(error);
     }
-    // passport.authenticate('local.signup', {
-    //   successRedirect:'/',
-    //   failureRedirect: '/user/signup',
-    //   failureFlash:true,
-    // })(req,res,next);
   }
 );
 

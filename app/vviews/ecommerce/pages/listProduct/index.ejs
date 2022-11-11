@@ -1,4 +1,7 @@
-<% const collection="products" ; const folderUpload=`uploads/${collection}/`; %>
+<% const collection="products" ; const folderUpload=`uploads/${collection}/`;
+    // let paramPrice = (queryPrice.maxPrice && queryPrice.minPrice) ? `minPrice=${queryPrice.minPrice}&maxPrice=${queryPrice.maxPrice}&` : ''
+
+%>
 <% include ../../helpers/showProduct %>
 <% include ../../helpers/showProductSidebar %>
 <% include ../../helpers/pagination %>
@@ -244,19 +247,13 @@
                                     <span class="filters-toolbar__product-count">Đang Hiển Thị: 22</span>
                                 </div> -->
                                 <div class="col-4 col-md-4 col-lg-4 text-left">
-                                    <div class="filters-toolbar__item">
-                                          <label for="SortBy" class="hidden">Lọc</label>
-                                          <select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">
-                                            <option value="title-ascending" selected="selected">Lọc</option>
-                                            <!-- <option>Best Selling</option> -->
-                                            <option>Theo Thứ Tự, A-Z</option>
-                                            <option>Theo Thứ Tự, Z-A</option>
-                                            <option>Giá, Thấp Đến Cao</option>
-                                            <option>Giá, Cao Đến Thấp</option>
-                                            <option>Ngày, Mới Tới Cũ</option>
-                                            <option>Ngày, Cũ Tới Mới</option>
-                                          </select>
-                                          <input class="collection-header__default-sort" type="hidden" value="manual">
+                                    <strong class="groupTitle mr-2">Sắp xếp theo:</strong>
+                                    <div class="dropdown">
+                                        <button class="dropdown-toggle buttonReset" type="button" id="sortGroup"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <span id="showSortText">Mặc định</span>
+                                        </button>
+
                                     </div>
                                 </div>
 
@@ -284,19 +281,11 @@
                                             <button class="btn btn-addto-cart" type="button">THÊM VÀO GIỎ HÀNG</button>
                                         </form>
                                         <div class="button-set">
-                                            <!-- <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view" data-toggle="modal" data-target="#content_quickview">
-                                                        <i class="icon anm anm-search-plus-r"></i>
-                                                    </a> -->
-                                            <!-- <div class="wishlist-btn">
-                                                <a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist">
-                                                    <i class="icon anm anm-heart-l"></i>
+                                            <div class="wishlist-btn">
+                                                <a class="wishlist add-to-wishlist" data-product="product-<%= items.id %>" href="javascript:void(0);" title="Add to Love">
+                                                    <i class="icon anm anm-heart-l" data-product="product-<%= items.id %>"></i>
                                                 </a>
                                             </div>
-                                            <div class="compare-btn">
-                                                <a class="compare add-to-compare" href="#" title="Add to Compare">
-                                                    <i class="icon anm anm-random-r"></i>
-                                                </a>
-                                            </div> -->
                                         </div>
                                         <!-- end product button -->
                                     </div>

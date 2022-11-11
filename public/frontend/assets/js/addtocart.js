@@ -48,7 +48,7 @@ $(document).ready(function() {
             <a href="#"><img src="/uploads/products/${item.images.split(",")[0]}" alt="" title="" /></a>
         </td>
         <td class="product-name"><h4 class="no-margin"><a href="#">${item.name}</a></h4></td>
-        <td class="product-price text-center"><span class="amount">${item.price.toLocaleString() + " " + "₫"}</span></td>
+        <td class="product-price text-center"><span class="amount">${item.price.toLocaleString() + " " + "VND"}</span></td>
         <td class="product-subtotal text-center"><button type="button" class="btn btn-small">Thêm Giỏ Hàng</button></td>
         </tr>
         `
