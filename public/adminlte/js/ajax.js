@@ -119,3 +119,47 @@ $("#sendMail").submit(function(e) {
        }
    });
 });
+$("#formProfile").submit(function(e) {
+   e.preventDefault(); // avoid to execute the actual submit of the form.
+   let urlPath = window.location.pathname.split("/")[1]
+   e.preventDefault(); // avoid to execute the actual submit of the form.
+   var form = $("#formProfile").serialize();
+   $.ajax({
+       type: "POST",
+       url: `/${urlPath}/cap-nhat-thong-tin`,
+       data: form, // serializes the form's elements.
+       success: function (response) {
+           toastr.options = {
+               "closeButton": false,
+               "debug": false,
+               "newestOnTop": false,
+               "progressBar": false,
+               "positionClass": "toast-top-center",
+               "preventDuplicates": false,
+               "onclick": null,
+               "showDuration": "300",
+               "hideDuration": "1000",
+               "timeOut": "5000",
+               "extendedTimeOut": "1000",
+               "showEasing": "swing",
+               "hideEasing": "linear",
+               "showMethod": "fadeIn",
+               "hideMethod": "fadeOut"
+             }
+           if(response.success == true){
+               toastr["success"]("Cập Nhật Thông Tin Thành Công")
+           } else {
+               try {
+                 response.errors.forEach((item)=>{
+                   toastr["error"](item.msg)
+                   })
+               } catch (error) {
+                 toastr["error"]("Có lỗi xảy ra")
+               }
+           }
+           $(e.target).children('.d-flex.justify-content-center.spinner').html(`
+           <button type="submit" class="btn  btn-block btn-lg gradient-custom-4 ">Thay Đổi Thông Tin</button>
+           `)
+       }
+   });
+ });

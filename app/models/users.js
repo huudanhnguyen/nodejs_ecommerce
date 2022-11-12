@@ -46,5 +46,15 @@ module.exports = {
 	},
 	saveUser: async (obj)=>{
 		return await Model(obj).save()
-	}
+	},
+	updateInfoUser: async (obj)=>{
+        let result = await Model.updateOne({email: obj.email}, {
+            username: obj.username,
+            phone: obj.phone,
+            address: obj.address,
+
+		})
+        return result
+      }
+    ,
 }

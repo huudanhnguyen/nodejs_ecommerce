@@ -153,7 +153,6 @@ router.post('/save',uploadAvatar,
 		} 
 		let item = req.body;
 		if(item.id){	// edit	
-			console.log(item)
 			Model.updateOne(item).then((data) => {
 				req.flash('success', notify.EDIT_SUCCESS, linkIndex);
 			});

@@ -1,90 +1,98 @@
-    <!--Page Title-->
-    <div class="page section-header text-center">
-        <div class="page-title">
-            <div class="wrapper"><h1 class="page-width">Tài Khoản</h1></div>
-          </div>
+<!--Page Title-->
+<div class="page section-header text-center">
+  <div class="page-title">
+    <div class="wrapper">
+      <h1 class="page-width">Tài Khoản</h1>
     </div>
-    <!--End Page Title-->
+  </div>
+</div>
+<!--End Page Title-->
 <div class="container">
-    <div class="main-body">  
-          <!-- Breadcrumb -->
-          <!-- <nav aria-label="breadcrumb" class="main-breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-              <li class="breadcrumb-item"><a href="javascript:void(0)">User</a></li>
-              <li class="breadcrumb-item active" aria-current="page">User Profile</li>
-            </ol> -->
-          </nav>
-          <!-- /Breadcrumb -->
-    
-          <div class="row gutters-sm">
-            <div class="col-md-4 mb-3">
-              <div class="card">
-                <div class="card-body">
-                  <div class="d-flex flex-column align-items-center text-center">
-                    <img src="/uploads/users/<%= userInfo.avatar %>" alt="<%= userInfo.username %>" class="rounded-circle" width="100">
-                    <div class="mt-3">
-                      <h4><%= userInfo.username %></h4>
-                      <!-- <p class="text-secondary mb-1">Full Stack Developer</p> -->
-                      <p class="text-muted font-size-sm"><%= userInfo.email %></p>
-                      <!-- <button class="btn btn-primary">Follow</button>
-                      <button class="btn btn-outline-primary">Message</button> -->
+  <div class="main-body">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img src="/uploads/users/<%= userInfo.avatar %>" alt="<%= userInfo.username %>"
+                class="rounded-circle p-1 bg-primary" width="110">
+              <div class="mt-3">
+                <h4>
+                  <%= userInfo.username %>
+                </h4>
+                <!-- <p class="text-secondary mb-1"><%= userInfo.username %></p> -->
+                <p class="text-muted font-size-sm">
+                  <%= userInfo.email%>
+                </p>
+                <!-- <button class="btn btn-primary">Follow</button>
+                <button class="btn btn-outline-primary">Message</button> -->
+              </div>
+            </div>
+            <hr class="my-4">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="d-flex align-items-center mb-3">Tra Cứu Đơn Hàng</h5>
+                    <div class="col-sm-9 text-secondary">
+                      <input type="text" name="order" class="form-control" value="">
+                      <br>
+                      <button type="submit" class="btn btn-block btn-lg gradient-custom-4 float-left">Tra Cứu</button>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="col-md-8">
-              <div class="card mb-3">
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Tên</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        <%= userInfo.username %>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Email</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                        <%= userInfo.email %>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Số Điện Thoại</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      <%= userInfo.phone %>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Địa Chỉ</h6>
-                    </div>
-                    <div class="col-sm-9 text-secondary">
-                      <%= userInfo.address %>
-                    </div>
-                  </div>
-                  <hr>
-                  <!-- <div class="row">
-                    <div class="col-sm-12">
-                      <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
-                    </div>
-                  </div> -->
-                </div>
-              </div>
-
-
-
-            </div>
           </div>
-
+          </div>
         </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card">
+          <form id="formProfile" action="" method="post">
+            <div class="card-body">
+              <div class="row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Tên</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" name="username" class="form-control" value="<%= userInfo.username %> ">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Email</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" name="email" class="form-control" value="<%= userInfo.email%>">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Số Điện Thoại</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" name="phone" class="form-control" value="<%= userInfo.phone%>">
+                </div>
+              </div>
+              <div class="row mb-3">
+                <div class="col-sm-3">
+                  <h6 class="mb-0">Địa Chỉ</h6>
+                </div>
+                <div class="col-sm-9 text-secondary">
+                  <input type="text" name="address" class="form-control" value="<%= userInfo.address%>">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-3"></div>
+                <div class="col-sm-9 text-secondary">
+                  <button type="submit" class="btn  btn-block btn-lg gradient-custom-4 submitButton ">Thay Đổi Thông
+                    Tin</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      
     </div>
+  </div>
+</div>

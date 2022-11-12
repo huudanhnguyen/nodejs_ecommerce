@@ -10,6 +10,8 @@ const {
   col_sliders,
   col_settings,
 } = require(__path_configs + "database");
+const FrontEndHelpers = require(__path_helpers + 'frontend');
+
 const productsModel = require(__path_schemas + col_products);
 const settingsModel = require(__path_schemas + col_settings);
 const sliderModel = require(__path_schemas + col_sliders);
@@ -61,6 +63,38 @@ router.get("/profile", isLoggedIn, async (req, res, next) => {
     listCategory,
     slider: false,
   });
+});
+router.post('/cap-nhat-thong-tin',
+        body('username')
+                .isLength({min: 3, max: 30})
+                .withMessage('Độ Dài Tên Từ 3 Đến 30'),
+        body('phone')
+                .isMobilePhone()
+                .withMessage('Số Điện Thoại Sai'),
+        async function(req, res, next) {
+            try {
+                let errors = validationResult(req)
+                if(req.isAuthenticated()) {
+                    if(!errors.isEmpty()){
+                        res.send({success: false, errors: errors.errors})
+                        return
+                    } else{
+                        let email = req.user.email
+                        req.body.email = email
+                        let updateUser = await FrontEndHelpers.updateInfoUser(req.body)
+                        res.send({success: true})
+                    }
+                }else{
+                    res.send({success: false, errors:[{
+                        msg:"Có lỗi xảy ra vui lòng F5 trang"
+                    }]})
+                }
+            } catch (error) {
+                res.send({success: false,errors:[{
+                    msg:"Có lỗi xảy ra vui lòng F5 trang"
+                }]})
+            }
+            
 });
 //logout
 router.get("/logout", isLoggedIn, function (req, res, next) {
