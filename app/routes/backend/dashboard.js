@@ -14,7 +14,7 @@ const {col_users} = require(__path_configs + 'database');
 const userModel 		= require(__path_schemas + col_users);
 /* GET dashboard page. */
 router.get('/', async(req, res, next) => {
-	const userModel = await UsersModel.find({status:'active'});
+	const userModel = await UsersModel.find();
 	let collectionModel = {
 		'Sliders': SlidersModel,
 		'Sản Phẩm': ProductsModel,

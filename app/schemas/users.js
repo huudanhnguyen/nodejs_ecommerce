@@ -12,7 +12,7 @@ var schema = new mongoose.Schema({
     address:String,
     status: {
       type: String,
-      default: 'inactive'
+      default: 'active'
     },    password: String,
     isAdmin: {
       type: String,

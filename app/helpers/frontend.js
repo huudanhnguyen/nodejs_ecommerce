@@ -17,10 +17,15 @@ let updateInfoUser = async (obj)=>{
   let result = await UserModel.updateInfoUser(obj)
   return result
 }
+let updatePasswordUser = async (obj)=>{
+  let result = await UserModel.updatePasswordUser(obj)
+  return result
+}
 
 
 module.exports = {
   sendMailLetter,
   saveNewsletter,
-  updateInfoUser
+  updateInfoUser,
+  updatePasswordUser,
 }

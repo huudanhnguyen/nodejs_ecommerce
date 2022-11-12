@@ -23,25 +23,19 @@
 			<div class="form-group row">
 				<label for="email" class="col-sm-2 col-form-label text-sm-right required">Email</label>
 				<div class="col-xs-12 col-sm-8">
-					<input type="text" name="email" value="<%= item.email %>" class="form-control form-control-sm <%= errors.email && 'is-invalid' %>" onKeyUp="handleSlug(
-						'<%= linkPrefix %>',
-						this,
-						)">
-					<%- `<span class="error invalid-feedback">${errors.email}</span>` %>
+					<input type="text" name="email" value="<%= item.email %>" class="form-control form-control-sm">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="phone" class="col-sm-2 col-form-label text-sm-right required">Điện Thoại</label>
 				<div class="col-xs-12 col-sm-8">
-					<input type="text" name="phone" value="<%= item.phone %>" class="form-control form-control-sm <%= errors.email && 'is-invalid' %>">
-					<%- `<span class="error invalid-feedback">${errors.email}</span>` %>
+					<input type="text" name="phone" value="<%= item.phone %>" class="form-control form-control-sm">
 				</div>
 			</div>
 			<div class="form-group row">
 				<label for="address" class="col-sm-2 col-form-label text-sm-right required">Địa Chỉ</label>
 				<div class="col-xs-12 col-sm-8">
-					<input type="text" name="address" value="<%= item.address %>" class="form-control form-control-sm <%= errors.email && 'is-invalid' %>">
-					<%- `<span class="error invalid-feedback">${errors.email}</span>` %>
+					<input type="text" name="address" value="<%= item.address %>" class="form-control form-control-sm">
 				</div>
 			</div>
 			

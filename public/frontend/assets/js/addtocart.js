@@ -1,5 +1,4 @@
 $(document).ready(function() {
-    const localLOVE = "LIST_LOVE"
     const localCART = "LIST_CART"
     const pathname = window.location.pathname.split("/")[1];
 
@@ -11,7 +10,7 @@ $(document).ready(function() {
         localStorage.setItem(local, JSON.stringify(items));
     }
     var arrayPath = window.location.pathname.split("/")[1]
-    $(`li > a[href="/${arrayPath}"]`).parent().addClass("active")
+    $(`a[href="/${arrayPath}"]`).parent().addClass("active")
   
     //storage love
   
@@ -37,7 +36,7 @@ $(document).ready(function() {
       return items;
     }
     
-    let showListLove = (data, link, unit ) =>{
+    let showListCart = (data, link, unit ) =>{
         console.log(data)
       let html=''
       data.forEach((item,index)=>{
@@ -56,22 +55,22 @@ $(document).ready(function() {
       return html
     }
   
-  // thêm-xóa yêu thích
-    $(document).on('click', '.wishlist-btn a.wishlist.add-to-wishlist', function(e) {
+  // thêm giỏ hàng
+    $(document).on('click', '.btn .btn-addto-cart', function(e) {
         console.log(e.target)
         let dataProduct = $(e.target).attr('data-product').split("-")
         let idCurrent   = dataProduct[1]
         console.log(idCurrent)
 
       if($(e.target).hasClass('active')){
-        let items = deleteItem(idCurrent, localLOVE)
+        let items = deleteItem(idCurrent, localCART)
         $(e.target).removeClass("active")
-        $("#LoveCount").text(items.length)
+        $("#CartCount").text(items.length)
         console.log(items.length)
       } else{
-        let items = addItem(idCurrent, localLOVE)
+        let items = addItem(idCurrent, localCART)
         $(e.target).addClass("active")
-        $("#LoveCount").text(items.length)
+        $("#CartCount").text(items.length)
       }
       });
 // xóa sản phẩm trong yêu thích
@@ -79,15 +78,15 @@ $(document).ready(function() {
         console.log($(e.target).attr("data-product"))
         let dataProduct = $(e.target).attr('data-product').split("-")
         let idCurrent   = dataProduct[1]
-        let items = deleteItem(idCurrent, localLOVE)
+        let items = deleteItem(idCurrent, localCART)
         $(e.target).removeClass("active")
-        $("#LoveCount").text(items.length)
+        $("#CartCount").text(items.length)
         $(`tr[data-product="product-${idCurrent}"]`).remove()
 
       });
 
       // let loadListLove = () =>{
-      //   let items = listItems(localLOVE)
+      //   let items = listItems(localCART)
       //   $("#LoveCount").text(items.length)
       //   items.forEach(item=>{
       //     $(`tr[data-product="product-${items}"]`)
@@ -97,8 +96,8 @@ $(document).ready(function() {
       // loadListLove()
 
       
-      if(pathname == "wishlist"){
-        let items= listItems(localLOVE)
+      if(pathname == "cart"){
+        let items= listItems(localCART)
         $.ajax({
             type: "POST",
             url: `/${pathname}`,
@@ -110,7 +109,7 @@ $(document).ready(function() {
                     html =``
                     $("div.wishlist-table tbody").html(html)
                   } else{
-                    let html = await showListLove(response.data)
+                    let html = await showListCart(response.data)
                     $("div.wishlist-table tbody").html(html)
                   }
                 } else{
@@ -121,8 +120,8 @@ $(document).ready(function() {
       }
 //show số luongj yêu thích
       let showCount = () =>{
-        let items = listItems(localLOVE)
-        $("#LoveCount").text(items.length)
+        let items = listItems(localCART)
+        $("#CartCount").text(items.length)
       }
       showCount()
   })

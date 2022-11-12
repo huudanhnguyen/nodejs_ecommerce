@@ -163,3 +163,42 @@ $("#formProfile").submit(function(e) {
        }
    });
  });
+ $("#formChangePassword").submit(function(e) {
+   e.preventDefault(); // avoid to execute the actual submit of the form.
+   let urlPath = window.location.pathname.split("/")[1]
+   e.preventDefault(); // avoid to execute the actual submit of the form.
+   var form = $("#formChangePassword").serialize();
+   $.ajax({
+       type: "POST",
+       url: `/${urlPath}/doi-mat-khau`,
+       data: form, // serializes the form's elements.
+       success: function (response) {
+           toastr.options = {
+               "closeButton": false,
+               "debug": false,
+               "newestOnTop": false,
+               "progressBar": false,
+               "positionClass": "toast-top-center",
+               "preventDuplicates": false,
+               "onclick": null,
+               "showDuration": "300",
+               "hideDuration": "1000",
+               "timeOut": "5000",
+               "extendedTimeOut": "1000",
+               "showEasing": "swing",
+               "hideEasing": "linear",
+               "showMethod": "fadeIn",
+               "hideMethod": "fadeOut"
+             }
+           if(response.success == true){
+               toastr["success"]('Đổi Mật Khẩu Thành Công')
+           } else {
+             toastr["error"](response.errors[0].msg)
+           }
+           $(e.target).children('.d-flex.justify-content-center.spinner').html(`
+           <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 submitButton">Đổi</button>
+           `)
+       }
+   });
+ });
+ 

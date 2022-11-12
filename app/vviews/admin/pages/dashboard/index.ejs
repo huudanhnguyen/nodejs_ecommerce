@@ -94,7 +94,8 @@
                 <ul class="users-list clearfix">
                     <% userModel.forEach((items)=> { %>
                         <li>
-                            <img src="/uploads/users/<%= items.avatar %>"  alt="<%= items.username %>">
+                            <img src="/uploads/users/<%= items.avatar%>"onerror="this.onerror=null; this.src='https://vyshnevyi-partners.com/wp-content/uploads/2016/12/no-avatar.png'"/>
+                            <!-- <img src="/uploads/users/<%= items.avatar%>"  alt="<%= items.username %>"> -->
                             <a class="users-list-name" href="/adminCCC/users/form/<%= items.id %>"><%= items.username %> </a>
                             <span class="users-list-date"><%- showTimeInfo(items.createdAt) %></span>
                         </li>

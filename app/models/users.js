@@ -1,6 +1,9 @@
 const Collection = 'users';
 const Model = require(__path_schemas + Collection);
 const FileHelpers = require(__path_helpers + 'file');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 module.exports = {
 	getList(objWhere, pagination, {sortField, sortType}) {
 		let sort = sortField && sortType ? {[sortField]: sortType} : {_id: 'desc'};
@@ -55,6 +58,20 @@ module.exports = {
 
 		})
         return result
-      }
-    ,
+    },
+	updatePasswordUser: async (obj) =>{
+        let email = obj.email
+        let newPassword = obj.password
+        let user  = await Model.findOne({email: email})
+        let oldPassword = user.password
+        let CheckPassNew = await bcrypt.compare(newPassword,oldPassword);
+        if(CheckPassNew){
+            return {success: false, errors: [{msg:'Mật Khẩu Mới không Được Trùng với Mật Khẩu Cũ'}]}
+        } else{
+            let salt = await bcrypt.genSalt(saltRounds);
+            let hashPassword = await bcrypt.hash(newPassword, salt);
+            let data = await Model.updateOne({email: email}, {password: hashPassword})
+            return {success: true}
+        }
+    },
 }

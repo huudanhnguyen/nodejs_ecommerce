@@ -96,6 +96,51 @@ router.post('/cap-nhat-thong-tin',
             }
             
 });
+//Đổi Mật Khẩu
+router.post('/doi-mat-khau',
+    body('password')
+        .custom((value, { req })=>{
+            let {confirmpassword, password} = req.body
+
+            if (!password) {
+                return Promise.reject('Vui Lòng Nhập Mật Khẩu')
+            }
+            // if((confirmpassword.length<5 || confirmpassword.length>20)|| (password.length<5 || password.length>20)
+            // ){
+            //     return Promise.reject('Độ Dài Phải Từ 5 đến 20')
+            // }
+            // if(password != confirmpassword){
+            //     return Promise.reject('Mật Khẩu Không Trùng')
+            // }
+            return Promise.resolve()
+        }),
+        async function(req, res, next) {
+            try {
+                let errors = validationResult(req)
+                if(req.isAuthenticated()) {
+                    if(!errors.isEmpty()){
+                        res.send({success: false, errors: errors.errors})
+                        return
+                    } else{
+                        let email = req.user.email
+                        req.body.email = email
+                        let updateUser = await FrontEndHelpers.updatePasswordUser(req.body)
+                        res.send(updateUser)
+                    }
+                }else{
+                    res.send({success: false, errors:[{
+                        msg:"Có lỗi xảy ra vui lòng F5 trang"
+                    }]})
+                }
+            } catch (error) {
+                console.log(error)
+                res.send({success: false,errors:[{
+                    msg:"Có lỗi xảy ra vui lòng F5 trang"
+                }]})
+            }
+            
+});
+
 //logout
 router.get("/logout", isLoggedIn, function (req, res, next) {
   req.logout(function (err) {
