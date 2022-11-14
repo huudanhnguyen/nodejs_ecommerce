@@ -115,7 +115,8 @@ $(document).ready(function () {
         </td>
         <td class="product-name"><h4 class="no-margin"><a href="#">${item.name}</a></h4></td>
         <td class="product-price text-center"><span class="amount">${item.price.toLocaleString() + " " + "VND"}</span></td>
-        <td class="product-subtotal text-center"><button type="button" class="btn btn-small">Thêm Giỏ Hàng</button></td>
+        <td class="product-subtotal text-center"><a href="javascript:void(0);" class="addtocart" ><button data-product="product-${item._id}" class="btn addtocart"  type="button" tabindex="0">THÊM GIỎ HÀNG</button></a>
+        </td>
         </tr>
         `;
     });
