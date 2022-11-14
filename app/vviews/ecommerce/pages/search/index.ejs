@@ -1,7 +1,13 @@
-<% const collection="products" ; const folderUpload=`uploads/${collection}/`; %>
-<% include ../../../admin/helpers/userTimeInfo %>
+<% const collection="products" ; const folderUpload=`uploads/${collection}/`;
+    let paramPrice = (queryPrice.maxPrice && queryPrice.minPrice) ? `minPrice=${queryPrice.minPrice}&maxPrice=${queryPrice.maxPrice}&` : ''
+
+%>
 <% include ../../helpers/showProduct %>
 <% include ../../helpers/showProductSidebar %>
+<% include ../../helpers/pagination %>
+
+
+
 
 <div id="page-content">
     <br>
@@ -32,7 +38,7 @@
                                         <li class="level2"><a href="#;" class="site-nav">View All Jewellery</a></li>
                                     </ul>
                                 </li> -->
-                                <% listCategory.forEach((category)=> { %>
+                                <% listCategory.slice(0,6).forEach((category)=> { %>
                                     <li class="lvl-1"><a href="/danh-muc/<%= category.id %>" class="site-nav"><%= category.name %></a></li>
                                 <%})%>
                                 <!-- <li class="lvl-1"><a href="#;" class="site-nav">Shoes</a></li> -->
@@ -46,6 +52,7 @@
                         <div class="widget-title">
                             <h2>Giá</h2>
                         </div>
+                        
                         <form id="filterForm" action="" method="get" class="filter-ranger-form">
                             <div id="slider-range"></div>
                             <input type="hidden" id="amount1" name="minPrice">
@@ -85,7 +92,7 @@
                                     <input type="radio" id="louie" name="drone" value="louie">
                                     <label for="louie">S</label>
                                 </div>
-                            </div>
+                        </div>
                     </div> -->
                     <!--End Size Swatches-->
                     <!--Color Swatches-->
@@ -144,13 +151,13 @@
                         <div class="widget-content">
                             <div class="list list-sidebar-products">
                               <div class="grid">
-                                <% listProductNewArrivals.forEach((items)=> { %>
+                                <% listProductNewArrivals.slice(0,4).forEach((items)=> { %>
                                     <div class="grid__item">
                                         <div class="mini-list-item">
                                           <div class="mini-view_image">
                                               <a class="grid-view-item__link" href="/san-pham/<%= items.id %>">
-                                                <img class="grid-view-item__image" src="<%= folderUpload + items.images.split(",")[0]%>" alt="" />
-                                            </a>
+                                                  <img class="grid-view-item__image" src="<%= folderUpload + items.images.split(",")[0]%>" alt="<%= items.name %>" />
+                                              </a>
                                           </div>
                                           <div class="details"> <a class="grid-view-item__title" href="/san-pham/<%= items.id %>"><%= items.name %></a>
                                             <div class="grid-view-item__meta"><span class="product-price__price"><span class="money"><%= items.price.toLocaleString() %> ₫ </span></span></div>
@@ -241,20 +248,24 @@
                                     <span class="filters-toolbar__product-count">Đang Hiển Thị: 22</span>
                                 </div> -->
                                 <div class="col-4 col-md-4 col-lg-4 text-left">
-                                    <div class="filters-toolbar__item">
-                                          <label for="SortBy" class="hidden">Lọc</label>
-                                          <select name="SortBy" id="SortBy" class="filters-toolbar__input filters-toolbar__input--sort">
-                                            <option value="title-ascending" selected="selected">Lọc</option>
-                                            <!-- <option>Best Selling</option> -->
-                                            <option>Theo Thứ Tự, A-Z</option>
-                                            <option>Theo Thứ Tự, Z-A</option>
-                                            <option>Giá, Thấp Đến Cao</option>
-                                            <option>Giá, Cao Đến Thấp</option>
-                                            <option>Ngày, Mới Tới Cũ</option>
-                                            <option>Ngày, Cũ Tới Mới</option>
-                                          </select>
-                                          <input class="collection-header__default-sort" type="hidden" value="manual">
-                                    </div>
+                                    <header class="show-head flex-row-reverse flex-wrap justify-content-between mb-7">
+                                        <!-- sortGroup -->
+                                        <div class="sortGroup">
+                                            <div class="d-flex flex-nowrap align-items-center left">
+                                                <span class="groupTitle mr-2">Sắp xếp theo:</span>
+                                                <div class="dropdown">
+                                                    <button class="dropdown-toggle buttonReset" type="button" id="sortGroup"
+                                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                        <span id="showSortText">Mặc định</span>
+                                                    </button>
+                                                    <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="sortGroup">
+                                                        <li><a href="/search?<%=paramPrice%>sort=price%2casc">Giá từ thấp đến cao</a></li>
+                                                        <li><a href="/search?<%=paramPrice%>sort=price%2cdesc">Giá từ cao đến thấp</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </header>
                                 </div>
 
                             </div>
@@ -270,22 +281,25 @@
                                     <div class="product-image">
                                         <!-- start product image -->
                                         <a href="/san-pham/<%= items.id %>">
+                                            <!-- image -->
                                             <%- imageMulti(items.images, folderUpload) %>  
 
                                         </a>
                                         <!-- end product image -->
     
                                         <!-- Start product button -->
-                                        <form class="variants add" action="#" onclick="window.location.href='cart.html'"method="post">
-                                            <button class="btn btn-addto-cart" type="button">THÊM VÀO GIỎ HÀNG</button>
+                                        <form class="variants add" action="#"method="post">
+                                            <a href="javascript:void(0);" class="addtocart" ><button data-product="product-<%= items.id %>" class="btn addtocart"  type="button" tabindex="0">THÊM GIỎ HÀNG</button></a>
+                                            <a href="javascript:void(0);" class="addtolove" ><button data-product="product-<%= items.id %>" class="btn addtolove"  type="button" tabindex="0">YÊU THÍCH</button></a>
+        
                                         </form>
-                                        <div class="button-set">
+                                        <!-- <div class="button-set">
                                             <div class="wishlist-btn">
                                                 <a class="wishlist add-to-wishlist" data-product="product-<%= items.id %>" href="javascript:void(0);" title="Add to Love">
                                                     <i class="icon anm anm-heart-l" data-product="product-<%= items.id %>"></i>
                                                 </a>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <!-- end product button -->
                                     </div>
                                     <!-- end product image -->
@@ -294,7 +308,7 @@
                                     <div class="product-details text-center">
                                         <!-- product name -->
                                         <div class="product-name">
-                                            <a href="/product/<%= items.id %>"><%= items.name %> </a>
+                                            <a href="/san-pham/<%= items.id %>"><%= items.name %> </a>
                                         </div>
                                         <!-- End product name -->
                                         <!-- product price -->
@@ -319,6 +333,7 @@
                 </div>
                 <hr class="clear">
                 <div class="pagination">
+                    <%# paginationHelper(paginationObj,'listProduct') %>
                   <ul>
                     <li class="active"><a href="#">1</a></li>
                     <li><a href="#">2</a></li>
