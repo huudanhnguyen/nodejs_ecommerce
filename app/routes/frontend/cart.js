@@ -63,6 +63,21 @@ router.get('/',async (req, res, next) => {
     slider:false
   });
 });
+router.post('/',async (req, res, next) => {
+  try {
+    let listIds = JSON.parse(req.body.data)
+    let dataIds = listIds.map(item => {
+      return item.id
+  })
+    let listProduct = await productsModel.find({ '_id': { $in: dataIds } }).select('-description').exec()
+    console.log(listProduct);
+    res.send({success: true, data: listProduct})
+  } catch (error) {
+    console.log(error)
+    res.send({success: false, data: null})
+  }
+});
+
 
 
 module.exports = router;

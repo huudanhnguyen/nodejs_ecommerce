@@ -21,18 +21,20 @@
                                 </a>
                                 <!-- Start product button -->
                                 <form class="variants add" action="#"method="post">
-                                    <a href="javascript:void(0);"data-product="product-<%= items.id %>"><button class="btn btn-addto-cart"  type="button" tabindex="0">THÊM GIỎ HÀNG</button></a>
+                                    <a href="javascript:void(0);" class="addtocart" ><button data-product="product-<%= items.id %>" class="btn addtocart"  type="button" tabindex="0">THÊM GIỎ HÀNG</button></a>
+                                    <a href="javascript:void(0);" class="addtolove" ><button data-product="product-<%= items.id %>" class="btn addtolove"  type="button" tabindex="0">YÊU THÍCH</button></a>
+
                                 </form>
                                 <div class="button-set">
                                     <!-- <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view"
                                         data-toggle="modal" data-target="#content_quickview">
                                         <i class="icon anm anm-search-plus-r"></i>
                                     </a> -->
-                                    <div class="wishlist-btn">
+                                    <!-- <div class="wishlist-btn">
                                         <a class="wishlist add-to-wishlist" data-product="product-<%= items.id %>" href="javascript:void(0);" title="Add to Love">
-                                            <i class="icon anm anm-heart-l" data-product="product-<%= items.id %>"></i>
+                                            <i class="icon anm anm-heart-l" data-product="product-<%= items.id %>"disabled></i>
                                         </a>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <!-- end product button -->
                             </div>

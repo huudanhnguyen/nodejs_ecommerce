@@ -6,6 +6,7 @@ const productsModel 		= require(__path_schemas + col_products);
 const settingsModel 		= require(__path_schemas + col_settings);
 const sliderModel 		= require(__path_schemas + col_sliders);
 const categoryModel 		= require(__path_schemas + col_categories);
+const ParamsHelpers = require(__path_helpers + "params");
 const Model 		= require(__path_models + 'products');
 const menuModel 		= require(__path_schemas + col_menu);
 const folderView	 = __path_view_ecommerce + 'pages/listProduct/';
@@ -31,11 +32,27 @@ router.get('/(:slug)?',async (req, res, next) => {
 	item.phoneHeader = phoneHeader;
 	item.notification = notification;
 	item.logoHeader = logoHeader;
+  let filterPrice       = (req.query.minPrice && req.query.maxPrice) ?[
+    {price: {$gte: req.query.minPrice}},
+    {price: {$lte: req.query.maxPrice}}
+  ] :  undefined
+  let sortPrice     = {}
+  if(req.query.sort){
+      let dataSort      = req.query.sort.split(",")
+      sortPrice[dataSort[0]]     = ((dataSort[0] == 'price') && (dataSort[1] =='asc' || dataSort[1] =='desc'))? dataSort[1] : ''
+  }
+
+  let queryPrice = (req.query.minPrice && req.query.maxPrice) ? filterPrice : {}
+
   const listProductNewArrivals = await productsModel.find({newarrivals:true,status:'active'});
   const listMenu = await menuModel.find({status:'active'}).sort({ordering: 'desc'});
   const listSliders = await sliderModel.find({status:'active'});
   const listCategory = await categoryModel.find({}).sort({ ordering: "desc" });
-  const listProducts = await productsModel.find({status:'active'}).limit();
+  let objWhere={status:'active'}
+  if(filterPrice){
+    objWhere.$and= filterPrice
+  }
+  const listProducts = await productsModel.find(objWhere).limit().sort(sortPrice);
   res.render(`${folderView}index`, { 
     layout,
     listProducts,
@@ -44,6 +61,7 @@ router.get('/(:slug)?',async (req, res, next) => {
     item,
     listProductNewArrivals,
     listCategory,
+    queryPrice,
     slider:false
   });
 });

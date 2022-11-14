@@ -1671,3 +1671,7 @@ body.home15-funiture-template { font-size:14px; }
 .wishlist.add-to-wishlist.active{
   background-color: red;
 }
+
+a.addtolove button.active{
+  background-color: red;
+}

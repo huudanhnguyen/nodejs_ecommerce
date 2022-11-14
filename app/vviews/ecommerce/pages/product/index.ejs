@@ -89,7 +89,7 @@
 							</div>
 							<!-- <div id="quantity_message">Hurry! Only  <span class="items">4</span>  left in stock.</div> -->
 							<form method="post" action="" id="product_form_10508262282" accept-charset="UTF-8" class="product-form product-form-product-template hidedropdown" enctype="multipart/form-data">
-								<div class="swatch clearfix swatch-0 option1" data-option-index="0">
+								<!-- <div class="swatch clearfix swatch-0 option1" data-option-index="0">
 									<div class="product-form__item">
 									  <label class="header">Màu: <span class="slVariant"></span></label>
 									  <div data-value="Black" class="swatch-element color black available">
@@ -126,7 +126,7 @@
 										<label class="swatchLbl medium rectangle" for="swatch-1-l" title="L">L</label>
 									  </div>
 									</div>
-								</div>
+								</div> -->
 								<!-- <p class="infolinks"><a href="#sizechart" class="sizelink btn"> Size Guide</a> <a href="#productInquiry" class="emaillink btn"> Ask About this Product</a></p> -->
 								<!-- Product Action -->
 								<div class="product-action clearfix">
@@ -138,11 +138,12 @@
 												<a class="qtyBtn plus" href="javascript:void(0);"><i class="fa anm anm-plus-r" aria-hidden="true"></i></a>
 											</div>
 										</div>
-									</div>                                
+									</div>  
 									<div class="product-form__item--submit">
-										<button type="button" name="add" class="btn product-form__cart-submit">
-											<span>THÊM VÀO GIỎ HÀNG</span>
-										</button>
+										<form class="variants add" action="#"method="post">
+											<a href="javascript:void(0);" class="addtocart" ><button data-product="product-<%= itemProduct.id %>" class="btn addtocart"  type="button" tabindex="0">THÊM GIỎ HÀNG</button></a>
+											
+										</form>
 									</div>
 									<div class="shopify-payment-button" data-shopify="payment-button">
 										<button type="button" class="shopify-payment-button__button shopify-payment-button__button--unbranded">MUA NGAY</button>
