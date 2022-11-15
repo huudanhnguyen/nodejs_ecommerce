@@ -16,9 +16,8 @@
                             <thead class="cart__row cart__header">
                                 <tr>
                                     <th colspan="2" class="text-center">Tên Sản Phẩm</th>
-                                    <th class="text-center">Giá</th>
                                     <th class="text-center">Số Lượng</th>
-                                    <th class="text-right">Tổng Cộng</th>
+                                    <th class="text-right">Giá</th>
                                     <th class="action">&nbsp;</th>
                                 </tr>
                             </thead>
@@ -26,14 +25,16 @@
 
                             </tbody>
                     		<!-- <tfoot>
+                                <br>
                                 <tr>
                                     <td colspan="3" class="text-left"><a href="/" class="btn btn-secondary btn--small cart-continue">Tiếp Tục Mua Sắm</a></td>
                                     <td colspan="3" class="text-right">
 	                                    <button type="submit" name="clear" class="btn btn-secondary btn--small  small--hide">Xóa Tất Cả</button>
-                                    	<button type="submit" name="update" class="btn btn-secondary btn--small cart-continue ml-2">Cập Nhật</button>
+                                    	<button type="submit" href="/cart" name="update" class="btn btn-secondary btn--small cart-continue ml-2">Cập Nhật</button>
                                     </td>
                                 </tr>
                             </tfoot> -->
+                            
                     </table>
                     
                     <!-- <div class="currencymsg">We processes all orders in USD. While the content of your cart is currently displayed in USD, the checkout will use USD at the most current exchange rate.</div> -->
@@ -310,7 +311,7 @@
                       <div class="row">
                       	<span class="col-12 col-sm-6 cart__subtotal-title"><strong>Tổng Cộng</strong></span>
                         <br>
-                        <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="money">$735.00</span></span>
+                        <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right totalMoney"><span>0</span><span> VND</span></span>
                       </div>
                       <!-- <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
                       <p class="cart_tearm">

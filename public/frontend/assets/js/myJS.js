@@ -83,28 +83,8 @@ $(document).ready(function () {
     saveStorage(local, items);
     return items;
   };
-  let totalPrice = (id, price, unit, discount, quantity) =>{
-    let total
-    let quantityObjById = quantity.find(item=> item.id == id)
-    let quantityValueById = quantityObjById.quantity
-    if(!price || !unit) return
-    if(!discount){
-      return formatPrice(quantityValueById*price, unit)
-    } else {
-      if(discount.discountValue.unit == 'money'){
-        let newPriceMoney = price - discount.discountValue.value
-        money= newPriceMoney
-      } else{
-        let newPricePercent = price - discount.discountValue.value*price/100
-        money = parseInt(newPricePercent/1000)*1000
-      }
-    }
-    total= quantityValueById*money
-    return formatPrice(total, unit)
-  }
 
   let showListLove = (data, link, unit) => {
-    console.log(data);
     let html = "";
     data.forEach((item, index) => {
       html += `
@@ -123,8 +103,6 @@ $(document).ready(function () {
     return html;
   };
   let showListCart = (data,quantity) => {
-    console.log(data);
-    console.log(quantity);
     let getValueQuantity = (quantitybyid) =>{
       if(quantitybyid == undefined) return 
       let data = quantity.find(obj=>{
@@ -144,15 +122,10 @@ $(document).ready(function () {
               <a href="#">${item.name}</a>
           </div>
       </td>
-      <td class="cart__price-wrapper cart-flex-item">
-          <span class="money">${item.price.toLocaleString() + " " + "VND"}</span>
-      </td>
       <td class="cart__update-wrapper cart-flex-item text-right">
           <div class="cart__qty text-center">
               <div class="qtyField">
-                  <a class="qtyBtn minus" href="javascript:void(0);"><i class="icon icon-minus"></i></a>
-                  <input class="cart__qty-input qty" type="text" name="updates[]" id="qty" data-product="product-${item._id}" value="${getValueQuantity(item._id)}" pattern="[0-9]*">
-                  <a class="qtyBtn plus" href="javascript:void(0);"><i class="icon icon-plus"></i></a>
+                  <input class="cart__qty-input qty" type="number" href="javascript:void(0); name="updates[]" id="qty" data-product="product-${item._id}" value="${getValueQuantity(item._id)}" pattern="[0-9]*">
               </div>
           </div>
       </td>
@@ -165,6 +138,9 @@ $(document).ready(function () {
     });
     return html;
   };
+  $("#qty").change(function(){
+    alert($(this).val())
+  })
 
   // thêm
   $(document).on("click", "form a", function (e) {
@@ -195,7 +171,7 @@ $(document).ready(function () {
   });
   // xóa sản phẩm trong yêu thích
   $(document).on('click', 'a[data-product*="product-"]', function(e) {
-      console.log($(e.target).attr("data-product"))
+      // console.log($(e.target).attr("data-product"))
       let dataProduct = $(e.target).attr('data-product').split("-")
       let idCurrent   = dataProduct[1]
       let items = deleteItem(idCurrent, localLOVE)
@@ -207,12 +183,13 @@ $(document).ready(function () {
     });
       // xóa sản phẩm trong giỏ hàng
   $(document).on('click', 'a[data-product*="product-"]', function(e) {
-    console.log($(e.target).attr("data-product"))
+    // console.log($(e.target).attr("data-product"))
     let dataProduct = $(e.target).attr('data-product').split("-")
     let idCurrent   = dataProduct[1]
     let items = deleteItem(idCurrent, localCART)
     $("#CartCount").text(items.length)
     $(`td[data-product="product-${idCurrent}"]`).remove()
+    cartTotal();
     toastr["warning"]('Xóa Thành Công')
 
 
@@ -267,18 +244,16 @@ $(document).ready(function () {
       success: async function (response) {
   
         if (response.success == true) {
-          console.log(response.data);
           let html = "";
           if (response.data.length == 0) {
             html = ``;
             $("div.tbody#CartList").html(html);
-            console.log(html)
           } else {
              html = await showListCart(response.data,items);
-            console.log(html)
             $("tbody#CartList").html(html);
           }
         }
+        cartTotal();
       },
     });
   }
@@ -296,5 +271,29 @@ $(document).ready(function () {
     $("#CartCount").text(items.length);
   };
   showCartCount();
+
+  let cartTotal=()=>{
+    let cartItem=document.querySelectorAll("tbody tr")
+    let totalPrice=0;
+    for (let i = 0; i < cartItem.length; i++) {
+      let inputValue=cartItem[i].querySelector("input").value
+      let productPrice=cartItem[i].querySelector("span").innerHTML
+      total=inputValue*parseInt(productPrice)*1000
+      totalPrice=totalPrice+total
+    }
+    let totalPriceCart=document.querySelector(".totalMoney span")
+    totalPriceCart.innerHTML=totalPrice.toLocaleString('de-DE')
+    inputChange();
+  }
+  let inputChange=()=>{
+    let cartItem=document.querySelectorAll("tbody tr")
+    for (let i = 0; i < cartItem.length; i++) {
+      let inputValue=cartItem[i].querySelector("input")
+      inputValue.addEventListener("change",function(){
+        cartTotal();
+      })
+    }
+
+  }
 
 });
