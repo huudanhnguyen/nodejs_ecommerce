@@ -125,7 +125,7 @@ $(document).ready(function () {
       <td class="cart__update-wrapper cart-flex-item text-right">
           <div class="cart__qty text-center">
               <div class="qtyField">
-                  <input class="cart__qty-input qty" type="number" href="javascript:void(0); name="updates[]" id="qty" data-product="product-${item._id}" value="${getValueQuantity(item._id)}" pattern="[0-9]*">
+                  <input type="number" href="javascript:void(0); id="qty" data-product="product-${item._id}" value="${getValueQuantity(item._id)}" min="1" max="10"">
               </div>
           </div>
       </td>
