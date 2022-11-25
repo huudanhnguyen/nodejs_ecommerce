@@ -1,0 +1,136 @@
+<%- include('./../../helpers/status'); -%>
+<%- include('./../../helpers/pagination'); -%>
+<%- include('./../../helpers/highlight'); -%>
+<%- include('./../../helpers/showsucess'); -%>
+<%- include('./../../helpers/formattime'); -%>
+
+
+<% 
+	const collection = "order";
+	const linkPrefix = "/" + systemConfig.prefixAdmin + `/${collection}/`;
+	const linkThumb = "/" + "uploads" + `/${collection}/`;
+
+	let showStatusOrder = (currentStatus, listStatus) =>{
+		let html =''
+		for (const [key, value] of Object.entries(listStatus)) {
+			let isSelected = (key == currentStatus) ? 'selected="selected"' : ''
+			html += `<option ${isSelected} value="${key}" data-select2-id="14" >${value}</option>`
+		}
+		return html
+	}
+
+	let disabledSelect = (status) =>{
+		return (status > 2) ? 'disabled' : ''
+	} 
+%>
+
+<%- showSucess(inform.success) %>
+<div class="row mb-2">
+    <div class="col-sm-6">
+        <h1 class="m-0"><%= pageTitle %></h1>
+    </div>
+</div>
+<div class="card card-info card-outline">
+	<div class="card-header">
+		<h6 class="card-title">Search & Filter</h6>
+		<div class="card-tools">
+						<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
+		</div>
+	</div>
+	<div class="card-body">
+		<div class="row justify-content-between">
+			<div class="mb-1">
+				<div class="btn-search">
+					<% statusFilter.forEach( (item, index) => { %>
+						<button type="button" class="btn btn-<%= item.class %>" onClick="location.href='<%= linkPrefix %>status/<%= item.value %>'" id="count-items-<%= item.value %>"><%= item.name %> (<span><%= item.count %></span>)</button>
+					<% }) %>
+				</div>
+			</div>
+			
+			<div class="mb-1">
+				<form action="<%= linkPrefix %>" method="get">
+					<div class="input-group">
+						<input type="text" class="form-control form-control-sm" name="keyword" value="" placeholder="Search for phonenumber" style="min-width: 300px">
+						<div class="input-group-append">
+							<a type="button" class="btn btn-sm btn-danger"  href="">Clear</a>
+							<button type="submit" class="btn btn-sm btn-info" id="btn-search">Search</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="card card-info card-outline">
+	<div class="card-header">
+		<h4 class="card-title">List</h4>
+		<div class="card-tools">
+		</div>
+	</div>
+	<div class="card-body">
+		<!-- Control -->
+		<form action="" method="post" class="table-responsive" id="zt-form">
+
+			<!-- List Content -->
+		
+			<table class="table table-bordered table-hover text-nowrap btn-table mb-0">
+				<thead>
+					<tr>
+						<th class="text-center">
+							<div class="custom-control custom-checkbox">
+								<input class="custom-control-input cbAll" type="checkbox" id="check-all">
+								<label for="check-all" class="custom-control-label"></label>
+							</div>
+						</th>
+						<th class="text-center">#</a></th>
+						<th class="text-center">Tracking Code</a></th>
+						<th class="text-center">Name</a></th>
+						<th class="text-center">Phone Numbers</a></th>
+						<th class="text-center">Process Status</a></th>
+						<th class="text-center">Total Money</a></th>
+						<th class="text-center">Time Order</a></th>
+						<th class="text-center">Detail Order</a></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% items.forEach( (item, index) => { %>
+					<tr id="area-<%= item.id %>">
+						<td class="text-center">
+							<div class="custom-control custom-checkbox">
+								<input class="custom-control-input" data-status="<%= item.status %>" type="checkbox" id="<%= item.id %>" name="cid" value="<%= item.id %>">
+								<label for="<%= item.id %>" class="custom-control-label"></label>
+							</div>
+						
+						</td>
+						<td class="text-center"><%= index+1 %></td>
+						<td class="text-center" id="code-item-<%= item.id%>"><%= item.trackingCode %></td>
+						<td class="text-center" id="name-item-<%= item.id%>"><%= item.name %></td>
+						<td class="text-center" id="phone-item-<%= item.id%>"><%- highlightHelper(item.phoneNumber, keyword) %></td>
+						<td class="text-center position-relative"">
+							<div class="form-group" data-select2-id="65">
+								<select <%- disabledSelect(item.status)%> data-id="orders-<%= item.id %>" class="form-control select2 select2-danger select2-hidden-accessible" data-dropdown-css-class="select2-primary"
+									style="width: 100%;" data-select2-id="12" tabindex="-1" aria-hidden="true">
+									<%- showStatusOrder(item.status, statusOrder) %>
+								</select>
+							</div>
+						</td>
+						<td class="text-center" id="totalmoney-item-<%= item.id%>"><%= item.totalMoney.toLocaleString() + " VND" %></td>
+						<td class="text-center">
+							<%- formatTime(item.createdAt) %>
+						</td>
+						<td class="text-center" id="views-<%= item.id %>">
+							<a href="<%=linkPrefix %>view-order/?id=<%= item.id%>" data-product="product-<%= item.id%>" class="simple-ajax-popup d-block"><i class="fa-solid fa-circle-info"></i></a>
+						</td>
+					</tr>
+					<% }) %>
+				</tbody>
+			</table>
+		</form>
+	</div>
+	<div class="card-footer clearfix">
+	</div>
+	<div class="col-lg-12">
+		<%- paginationHelper(pagination, collection, currentStatus, keyword) %>
+	</div>
+</div>

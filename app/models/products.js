@@ -116,5 +116,9 @@ module.exports = {
 	},
 	findById(id) {
 		return Model.findById(id);
-	}
+	},
+	getProductByIdForOrder: async(data)=>{
+        let result = await Model.findOne({ '_id': data, status: 'active'}).select('name _id price')
+        return result
+    },
 }

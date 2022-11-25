@@ -1,14 +1,20 @@
 const express = require('express');
 const router = express.Router();
 var fs = require('fs');
-const Cart = require('../../models/frontend/cart');
+const { body, validationResult } = require('express-validator');
+const notify = require(__path_configs + 'notify');
+var util = require('util')
+
 
 
 const {col_products,col_menu,col_settings,col_categories} = require(__path_configs + 'database');
 const productsModel 		= require(__path_schemas + col_products);
+const FrontEndHelpers = require(__path_helpers + 'frontend');
 const ParamsHelpers = require(__path_helpers + "params");
 const settingsModel 		= require(__path_schemas + col_settings);
 const categoryModel 		= require(__path_schemas + col_categories);
+const TimeInRangeHelpers 	= require(__path_helpers + 'checktimeinrange');
+
 
 const Model 		= require(__path_models + 'products');
 const menuModel 		= require(__path_schemas + col_menu);
@@ -76,6 +82,73 @@ router.post('/',async (req, res, next) => {
     console.log(error)
     res.send({success: false, data: null})
   }
+});
+router.post('/ma-giam-gia', 
+    body('couponCode')
+     .isLength({min: 4 , max: 20})
+     .withMessage('Mã Khuyến Mãi Không Hợp Lệ'),
+    async function(req, res, next) {
+    try {
+        let {couponCode} = req.body
+        let errors = validationResult(req)
+        if(!errors.isEmpty()){
+            res.send({success:false, data: null});
+            return     
+        }
+        let findCode = await FrontEndHelpers.getCodeCoupon({status:"active", name: couponCode})
+        if(findCode._doc) 
+        {
+            if(TimeInRangeHelpers.checkTimeInRange(findCode._doc.dates)){
+                res.send({success:true, data: findCode._doc});     
+                return 
+            }
+
+        }
+        res.send({success:false, data: null});     
+    } catch (error) {
+        console.log(error)
+        res.send({success:false, data: null});     
+    }
+});
+
+router.post('/dat-hang', 
+    // body('name')
+    //     .isLength({min: 2, max: 30})
+    //     .withMessage(util.format(notify.ERROR_PROFILE_NAME,2,30)),
+    // body('infoAddress')
+    //     .isLength({min: 10, max: 60})
+    //     .withMessage(util.format(notify.ERROR_PROFILE_ADDRESS,10,60)),
+    // body('notes')
+    //     .isLength({min: 0, max: 300})
+    //     .withMessage(util.format(notify.ERROR_PROFILE_NOTES,0,300)),
+    // body('phoneNumber')
+    //     .isMobilePhone()
+    //     .withMessage(notify.ERROR_PHONENUMBER_INVALID),
+    async function(req, res, next) {
+        try {
+          
+            let errors = validationResult(req)
+            if(req.isAuthenticated() || true) {
+                if(!errors.isEmpty()){
+                    res.send({success: false, errors: errors.errors})
+                    return
+                } else{
+                    // req.body.userId = req.user.id
+                    // req.body.email = req.user.email
+                    let processOrder = await FrontEndHelpers.addOrder(req.body)
+                    res.send(processOrder)
+                }
+            }else{
+                res.send({success: false, errors:[{
+                    msg:notify.PRESS_F5
+                }]})
+            }
+        } catch (error) {
+            console.log(error)
+            res.send({success: false,errors:[{
+                msg: notify.PRESS_F5
+            }]})
+        }
 });
 
 

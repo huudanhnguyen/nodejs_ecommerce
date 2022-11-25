@@ -19,4 +19,5 @@ module.exports = {
     col_newsletter: 'newsletter',
     col_discount: 'discount',
     col_coupons: 'coupons',
+    col_orders: 'orders',
 };

@@ -30,5 +30,13 @@ module.exports = {
 	},
 	findById(id) {
 		return Model.findById(id);
-	}
+	},
+	getListCoupon: async () =>{
+        let data = await Model.find({status: 'active'}).sort({ updatedAt : 'desc'})
+        return data
+    },
+    getCodeCoupon: async (obj) =>{
+        let data = await Model.findOne(obj)
+        return data
+    },
 }

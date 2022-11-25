@@ -155,52 +155,32 @@
     }
 </style>
 <div id="page-content">
-        	<!--Page Title-->
-            <div class="page section-header text-center">
-                <div class="page-title">
-                    <div class="wrapper"><h1 class="page-width">Đơn Mua</h1></div>
-                  </div>
-            </div>
-            <!--End Page Title-->
-    <div class="container">
-        <article class="card">
-            <!-- <header class="card-header"> My Orders / Tracking </header> -->
-            <div class="card-body">
-                <h6>Order ID: OD45345345435</h6>
-                <article class="card">
-                    <div class="card-body row">
-                        <div class="col"> <strong>Ước Tính Thời Gian Giao:</strong> <br>29 nov 2019 </div>
-                        <div class="col"> <strong>Vận Chuyển Bởi:</strong> <br> BLUEDART, | <i class="fa fa-phone"></i>
-                            +1598675986 </div>
-                        <div class="col"> <strong>Trạng Thái:</strong> <br> Picked by the courier </div>
-                        <div class="col"> <strong>Mã Theo Dõi:</strong> <br> BD045903594059 </div>
-                    </div>
-                </article>
-                <div class="track">
-                    <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span
-                            class="text">Đơn Hàng Đã Xác Nhận</span> </div>
-                    <div class="step active"> <span class="icon"> <i class="fa fa-user"></i> </span> <span class="text">
-                            Đã Lấy Hàng</span> </div>
-                    <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">
-                            Đang Vận Chuyển </span> </div>
-                    <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">
-                            Chuẩn Bị Nhận Hàng</span> </div>
+            	<!--Page Title-->
+                <div class="page section-header text-center">
+                    <div class="page-title">
+                        <div class="wrapper"><h1 class="page-width">Tra Cứu Đơn Hàng</h1></div>
+                      </div>
                 </div>
-                <hr>
-                <ul class="row">
-                    <li class="col-md-4">
-                        <figure class="itemside mb-3">
-                            <div class="aside"><img src="https://i.imgur.com/iDwDQ4o.png" class="img-sm border"></div>
-                            <figcaption class="info align-self-center">
-                                <p class="title">Dell Laptop with 500GB HDD <br> 8GB RAM</p> <span class="text-muted">$950
-                                </span>
-                            </figcaption>
-                        </figure>
-                    </li>
-                </ul>
-                <hr>
-                <a href="/" class="btn btn-warning" data-abc="true"> <i class="fa fa-chevron-left"></i> Về Trang Chủ</a>
+                <!--End Page Title-->
+    <div class="row">
+        <div class="col-12 registerSec">
+            <div class="card" style="border-radius: 15px; margin-top: 2px;">
+                <div class="card-body p-5 trackingForm">
+                    <form id="formFindOrder">
+                      <div class="form-outline mb-2">
+                        <input type="text"  name="codeOrder" class="form-control form-control-lg" required/>
+                        <label class="form-label" for="form3Example4cdg">Nhập mã đơn hàng</label>
+                      </div>
+                      <div class="d-flex justify-content-center spinner">
+                        <button type="submit"
+                          class="btn btn-success btn-block btn-lg gradient-custom-4 ">Tra Cứu</button>
+                      </div>
+                    </form>
+                </div>
+  
             </div>
-        </article>
+        </div>
+    </div>
+    <div class="container">
     </div>
 </div>

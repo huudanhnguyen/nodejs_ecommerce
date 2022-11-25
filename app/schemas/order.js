@@ -7,24 +7,21 @@ var schema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, 
     ref: databaseConfig.col_users
   },
-  customer: { type: String, required: true },
-  phone: { type: String, required: true },
-  address: { type: String, required: true },
-  status: { type: String, default: "pending" },
-  notes: { type: String, required: true },
-  products: [
-    {
-      productId: {
-        type: String,
-      },
-      quantity: {
-        type: Number,
-        default: 1,
-      },
-      price: { type: Number, required: true },
-    },
-  ],
-  totalPrice:Number,
-});
-
+  name: String,
+  trackingCode: String,
+  phoneNumber: String,
+  couponCode: String,
+  status: {
+      type: Number,
+      default: 0
+  },
+  productList: String,
+  couponValue: Number,
+  costShip: Number,
+  priceProduct: Number,
+  totalMoney: Number,
+  notes: String,
+},
+{ timestamps: true }
+);
 module.exports = mongoose.model(databaseConfig.col_orders, schema );

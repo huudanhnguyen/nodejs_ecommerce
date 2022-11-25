@@ -3,7 +3,7 @@ var router = express.Router();
 const middleAuthenticationAdmin = require(__path_middleware + 'authAdmin');
 const middlewareGetUser    = require(__path_middleware + 'get-user-info')
 
-router.use('/' ,middleAuthenticationAdmin,middlewareGetUser,require('./dashboard'));
+router.use('/' ,middlewareGetUser,require('./dashboard'));
 // router.use('/' ,require('./dashboard'));
 router.use('/dashboard', require('./dashboard'));
 router.use('/products', require('./products'));
@@ -20,5 +20,6 @@ router.use('/settings', require('./settings'));
 router.use('/blogArticle', require('./blogArticle'));
 router.use('/blogCategory', require('./blogCategory'));
 router.use('/coupons', require('./coupons'));
+router.use('/order', require('./order'));
 
 module.exports = router;

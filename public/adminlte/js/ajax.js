@@ -28,6 +28,14 @@ const handleAjax = (link,field,id,evt) => {
             return;
          } 
          break;
+         case 'quantity':
+            value = evt.value;
+            if(isNaN(value)) {
+               evt.value = evt.value.replace(/[^0-9]/g,'');
+               ntf(evt,'Please Insert Number','error')
+               return;
+            } 
+            break;
       case 'link':
          value = evt.value;
          var pattern = new RegExp(
@@ -71,6 +79,7 @@ const handleSlug = (link,evt) => {
          $("[name='slug']").val(data);
       });
 }
+
 $("#sendMail").submit(function(e) {
    $('[data-toggle="tooltip"]').tooltip()
    $("form").submit((e)=>{
@@ -201,4 +210,71 @@ $("#formProfile").submit(function(e) {
        }
    });
  });
+
+ var previousOrderSelect
+ // change status order
+$(document)
+ .on('focus',"select[data-id*='orders-']",function (e) {
+   // Store the current value on focus and on change
+   let oldStatus = $(e.target).find(":selected").val()
+   previousOrderSelect = oldStatus
+   console.log(previousOrderSelect)
+ })
+ .on('change',"select[data-id*='orders-']",(e)=>{
+   let elmNumberPrevious = $(`#count-items-${previousOrderSelect} span`)
+   let numberPrevious = parseInt(elmNumberPrevious.text()) - 1
+
+   let newStatus = $(e.target).find(":selected").val()
+   let id        = $(e.target).attr('data-id').split('-')[1]
+   if(newStatus > 2){
+       if (confirm("Are you sure change? Note: Status 'Deliveried, Cancel, Return' can't be changed") == false) {
+         $(`select[data-id='orders-${id}'] option[value='${previousOrderSelect}']`).prop('selected', true)
+         return
+       } 
+   }
+   $.ajax({
+     type: "post",
+     url: `/adminCCC/order/change-status/`,
+     data: `status=${newStatus}&id=${id}`,
+     dataType: "json",
+     success: function (response) {
+      toastr.options = {
+        "closeButton": true,
+        "debug": false,
+        "newestOnTop": true,
+        "progressBar": true,
+        "positionClass": "toast-top-right",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "1000",
+        "hideDuration": "200",
+        "timeOut": "2000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+      }
+       if (response.success == true) {
+         let data = response.data
+         toastr["success"]('Đổi trạng thái thành công')
+         if(data.status > 2){
+           $(e.target).prop('disabled', true)
+         }
+         let elmNumberNew = $(`#count-items-${data.status} span`)
+         let numberNew = parseInt(elmNumberNew.text()) + 1
+         elmNumberNew.text(numberNew)
+         elmNumberPrevious.text(numberPrevious)
+       } else {
+         let msg = response.errors[0].msg
+         toastr["error"](msg)
+         $(`select[data-id='orders-${id}'] option[value='${previousOrderSelect}']`).prop('selected', true)
+       }
+     }
+   })
+   .fail(function() {
+     alert( "Have error, Please press F5." );
+     $(`select[data-id='orders-${id}'] option[value='${previousOrderSelect}']`).prop('selected', true)
+   })
+ })
  

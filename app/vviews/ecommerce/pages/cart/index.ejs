@@ -39,43 +39,74 @@
                     
                     <!-- <div class="currencymsg">We processes all orders in USD. While the content of your cart is currently displayed in USD, the checkout will use USD at the most current exchange rate.</div> -->
                     <hr>
-                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-4">
-                        <h5>Mã Giảm Giá</h5>
-                                <form action="#" method="post">
-                                    <div class="form-group">
-                                        <label for="address_zip">Nhập Mã Giảm Giá Vào Đây</label>
-                                        <input type="text" name="coupon">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-12">
+                        <div class="create-ac-content bg-light-gray padding-20px-all">
+                            <form>
+                                <fieldset>
+                                    <h2 class="login-title mb-3">Nhập Thông Tin</h2>
+                                    <div class="row">
+                                        <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                            <label for="name">Tên <span class="required-f">*</span></label>
+                                            <input name="name" value="" id="input-name" type="text">
+                                        </div>
+                                        <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
+                                            <label for="input-telephone">Điện Thoại <span class="required-f">*</span></label>
+                                            <input name="phoneNumber" value="" id="input-telephone" type="tel">
+                                        </div>
                                     </div>
-                                    <div class="actionRow">
-                                        <div><input type="button" class="btn btn-secondary btn--small" value="Áp Dụng"></div>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-lg-12 col-xl-12 required">
+                                            <label for="input-email">E-Mail <span class="required-f">*</span></label>
+                                            <input name="email" value="" id="input-email" type="email">
+                                        </div>
+                                        <div class="form-group col-md-12 col-lg-12 col-xl-12 required">
+                                            <label for="input-address-1">Địa Chỉ <span class="required-f">*</span></label>
+                                            <input name="address" value="" id="input-address-1" type="text">
+                                        </div>
                                     </div>
-                                </form>
-                        </form>                   
+                                </fieldset>
+                                <fieldset>
+                                    <div class="row">
+                                        <div class="form-group col-md-12 col-lg-12 col-xl-12">
+                                            <label for="input-company">Ghi Chú <span class="required-f">*</span></label>
+                                            <textarea name="notes" class="form-control resize-both" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </form>
+                        </div>
+
+                </form>                 
                     </div>
+
                	</div>
+                
                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 cart__footer">
-                    <!-- <h5>Mã Giảm Giá</h5>
-                    <form action="#" method="post">
-                        <div class="form-group">
-                            <label for="address_zip">Nhập Mã Giảm Giá Của Bạn Ở Đây (Nếu Có)</label>
-                            <input type="text" name="coupon">
-                        </div>
-                        <div class="actionRow">
-                            <div><input type="button" class="btn btn-secondary btn--small" value="Áp Dụng"></div>
-                        </div>
-                    </form>
-                    <br>
-                	<div class="cart-note">
-                    	<div class="solid-border">
-							<h5><label for="CartSpecialInstructions" class="cart-note__label small--text-center">Ghi Chú Cho Đơn Hàng Của Bạn</label></h5>
-							<textarea name="note" id="CartSpecialInstructions" class="cart-note__input"></textarea>
-						</div>
-                    </div> -->
                     <div class="solid-border">
-                      <div class="row">
-                      	<span class="col-12 col-sm-6 cart__subtotal-title"><strong>Tổng Cộng</strong></span>
+                        <h5>Mã Giảm Giá</h5>
+                        <form action="#" method="post">
+                            <div class="form-group">
+                                <label for="address_zip">Nhập Mã Giảm Giá Vào Đây</label>
+                                <input type="text" name="couponCode">
+                            </div>
+                            <div class="actionRow">
+                                <div><input  onClick="submitCoupon();" type="button" class="btn btn-secondary btn--small submitCodeCoupon" value="Áp Dụng"></div>
+                            </div>
+                            <div class="couponSuccess">   
+                            </div>
+                        </form>
                         <br>
-                        <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right totalMoney"><span>0</span><span> VND</span></span>
+                      <div class="row">
+                        <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Tổng Tiền</strong></span>
+                        <br>
+                        <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right totalMoney"><span class="priceCheckOut">0</span><span> VND</span></span>
+                        <span class="col-12 col-sm-6 cart__subtotal-title"><strong>Phí Vận Chuyển</strong></span>
+                        <br>
+                        <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="costShip">25.000</span><span>  VND</span></span>
+
+                      	<span class="col-12 col-sm-6 cart__subtotal-title"><strong>Tổng Thanh Toán</strong></span>
+                        <br>
+                        <span class="col-12 col-sm-6 cart__subtotal-title cart__subtotal text-right"><span class="totalCheckout">0</span><span> VND</span></span>
                       </div>
                       <!-- <div class="cart__shipping">Shipping &amp; taxes calculated at checkout</div>
                       <p class="cart_tearm">
@@ -84,8 +115,8 @@
                            I agree with the terms and conditions</label>
                       </p> -->
                       <br>
-                      <td colspan="3" class="text-right"><a href="/thanh-toan" class="btn btn--small-wide">Thanh Toán</a></td>
-
+                      <!-- <td colspan="3" class="text-right"><button onClick="checkOut();"  class="btn btn--small-wide">Thanh Toán</button></td> -->
+                      <input onclick="checkOut();" type="button" class="btn btn-secondary btn--small submitCodeCoupon" value="Thanh Toán">
                       <!-- <button src="/checkout" src="/frontend/assets/images/payment-img.jpg" type="submit" name="checkout" id="cartCheckout" class="btn btn--small-wide checkout" value="Thanh Toán"> -->
                       <!-- <div class="paymnet-img"><img src="/frontend/assets/images/payment-img.jpg" alt="Payment"></div> -->
                     </div>
