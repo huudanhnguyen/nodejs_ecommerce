@@ -77,33 +77,17 @@
 			<table class="table table-bordered table-hover text-nowrap btn-table mb-0">
 				<thead>
 					<tr>
-						<th class="text-center">
-							<div class="custom-control custom-checkbox">
-								<input class="custom-control-input cbAll" type="checkbox" id="check-all">
-								<label for="check-all" class="custom-control-label"></label>
-							</div>
-						</th>
-						<th class="text-center">#</a></th>
-						<th class="text-center">Tracking Code</a></th>
-						<th class="text-center">Name</a></th>
-						<th class="text-center">Phone Numbers</a></th>
-						<th class="text-center">Process Status</a></th>
-						<th class="text-center">Total Money</a></th>
-						<th class="text-center">Time Order</a></th>
-						<th class="text-center">Detail Order</a></th>
+						<th class="text-center">Mã Đơn Hàng</a></th>
+						<th class="text-center">Họ Tên</a></th>
+						<th class="text-center">Số Điện Thoại</a></th>
+						<th class="text-center">Trạng Thái Đơn Hàng</a></th>
+						<th class="text-center">Tổng Tiền</a></th>
+						<th class="text-center">Thời Gian Đặt Hàng</a></th>
 					</tr>
 				</thead>
 				<tbody>
 					<% items.forEach( (item, index) => { %>
 					<tr id="area-<%= item.id %>">
-						<td class="text-center">
-							<div class="custom-control custom-checkbox">
-								<input class="custom-control-input" data-status="<%= item.status %>" type="checkbox" id="<%= item.id %>" name="cid" value="<%= item.id %>">
-								<label for="<%= item.id %>" class="custom-control-label"></label>
-							</div>
-						
-						</td>
-						<td class="text-center"><%= index+1 %></td>
 						<td class="text-center" id="code-item-<%= item.id%>"><%= item.trackingCode %></td>
 						<td class="text-center" id="name-item-<%= item.id%>"><%= item.name %></td>
 						<td class="text-center" id="phone-item-<%= item.id%>"><%- highlightHelper(item.phoneNumber, keyword) %></td>
@@ -118,9 +102,6 @@
 						<td class="text-center" id="totalmoney-item-<%= item.id%>"><%= item.totalMoney.toLocaleString() + " VND" %></td>
 						<td class="text-center">
 							<%- formatTime(item.createdAt) %>
-						</td>
-						<td class="text-center" id="views-<%= item.id %>">
-							<a href="<%=linkPrefix %>view-order/?id=<%= item.id%>" data-product="product-<%= item.id%>" class="simple-ajax-popup d-block"><i class="fa-solid fa-circle-info"></i></a>
 						</td>
 					</tr>
 					<% }) %>
