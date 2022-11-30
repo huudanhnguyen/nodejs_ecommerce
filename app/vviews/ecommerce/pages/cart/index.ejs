@@ -47,21 +47,21 @@
                                     <div class="row">
                                         <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                                             <label for="name">Tên <span class="required-f">*</span></label>
-                                            <input name="name" value="" id="input-name" type="text">
+                                            <input name="name" value="<%= userInfo.username%>" id="input-name" type="text">
                                         </div>
                                         <div class="form-group col-md-6 col-lg-6 col-xl-6 required">
                                             <label for="input-telephone">Điện Thoại <span class="required-f">*</span></label>
-                                            <input name="phoneNumber" value="" id="input-telephone" type="tel">
+                                            <input name="phoneNumber" value="<%= userInfo.phone%>" id="input-telephone" type="tel">
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-md-12 col-lg-12 col-xl-12 required">
                                             <label for="input-email">E-Mail <span class="required-f">*</span></label>
-                                            <input name="email" value="" id="input-email" type="email">
+                                            <input name="email" id="input-email" disabled type="email" value="<%= userInfo.email%>">
                                         </div>
                                         <div class="form-group col-md-12 col-lg-12 col-xl-12 required">
                                             <label for="input-address-1">Địa Chỉ <span class="required-f">*</span></label>
-                                            <input name="address" value="" id="input-address-1" type="text">
+                                            <input name="address" value="<%= userInfo.address%>" id="input-address-1" type="text">
                                         </div>
                                     </div>
                                 </fieldset>
