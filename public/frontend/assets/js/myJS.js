@@ -1,3 +1,5 @@
+
+
 let getListProductOrder = () =>{
   let list = []
   console.log('asdsa');
@@ -59,11 +61,8 @@ console.log(productOrder);
             let html = `
             <div class="orderSuccess">
             <div class="row">
-               <div class="col-md-6 mx-auto mt-5">
+               <div class="col-md-8 mx-auto mt-5">
                   <div class="payment">
-                     <div class="payment_header">
-                        <div class="check"><i class="fa fa-check" aria-hidden="true"></i></div>
-                     </div>
                      <div class="content">
                         <h1>Đặt Hàng Thành Công !</h1>
                         <p>Cảm ơn bạn đã đặt hàng của chúng tôi. Mã kiểm tra đơn hàng của bạn là: 
@@ -422,7 +421,7 @@ $(document).ready(function () {
   let showSumPrice = () =>{
     let price = parseInt($("span.priceCheckOut").text().replaceAll(/[^0-9]/g, ""))
     let ship = parseInt($("span.costShip").text().replaceAll(/[^0-9]/g, ""))
-    let coupon=parseInt($("strong.couponValue").text().replaceAll(/[^0-9]/g, ""))
+    let coupon=parseInt($("span.couponValue").text().replaceAll(/[^0-9]/g, ""))
     let total = 0
     if(coupon > 0) {
       total = price + 25000 - coupon
@@ -434,6 +433,7 @@ $(document).ready(function () {
   let removeCoupon = () =>{
     $("div.couponSuccess").html('')
     $("div.priceCoupon").remove()
+    $("span.priceCoupon").remove()
   }
   $( "input[name='couponCode']" ).keyup(function(e) {
     removeCoupon();
@@ -496,9 +496,11 @@ $(document).ready(function () {
             $(".couponSuccess").append(html)
             let priceAfterCoupon = totalPrice - data.values
             let xhtml = `
-            <div class="d-flex justify-content-between priceCoupon">
-                <strong class="txt fwEbold text-uppercase mb-1">Số Tiền Được Giảm</strong>
-                <strong class="price fwEbold text-uppercase mb-1 couponValue">-${data.values.toLocaleString() + " VND"}</strong>
+            <div class="d-flex priceCoupon">
+            <span class="col-12 col-sm-6"><strong>Số Tiền Được Giảm</strong></span>
+            <br>
+            <span class="col-12 col-sm-6 text-right couponValue"><span> -${data.values.toLocaleString() + " VND"}</span></span>
+
             </div>
             `
             $("span.cart__subtotal-title:nth-child(4)").before(xhtml)
@@ -511,6 +513,7 @@ $(document).ready(function () {
           }
           dataCode.prop("disabled", false)
           cartTotal()
+          showSumPrice();
       }
   });
     
@@ -534,7 +537,6 @@ $(document).ready(function () {
                      <figcaption class="info align-self-center">
                          <p class="title">${element.name}</p> <span class="text-muted">${moneyVND(element.price)} x ${element.quantity}
                          </span>
-
                      </figcaption>
                  </figure>
              </li>
@@ -566,7 +568,7 @@ $(document).ready(function () {
                      Đã Lấy Hàng</span> </div>
              <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">
                      Đang Vận Chuyển </span> </div>
-             <div class="step"> <span class="icon"> <i class="fa fa-box"></i> </span> <span class="text">
+             <div class="step"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">
                      Chuẩn Bị Nhận Hàng</span> </div>
          </div>
          <hr>
@@ -610,5 +612,3 @@ $(document).ready(function () {
   });
   });
 });
-
-;
