@@ -24,15 +24,9 @@
 	} 
 %>
 
-<%- showSucess(inform.success) %>
-<div class="row mb-2">
-    <div class="col-sm-6">
-        <h1 class="m-0"><%= pageTitle %></h1>
-    </div>
-</div>
 <div class="card card-info card-outline">
 	<div class="card-header">
-		<h6 class="card-title">Search & Filter</h6>
+		<h6 class="card-title">Tìm Kiếm Và Lọc</h6>
 		<div class="card-tools">
 						<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
 		</div>
@@ -50,10 +44,9 @@
 			<div class="mb-1">
 				<form action="<%= linkPrefix %>" method="get">
 					<div class="input-group">
-						<input type="text" class="form-control form-control-sm" name="keyword" value="" placeholder="Search for phonenumber" style="min-width: 300px">
+						<input type="text" class="form-control form-control-sm" name="keyword" value="" placeholder="Tìm Kiếm Bằng Số Điện Thoại" style="min-width: 300px">
 						<div class="input-group-append">
-							<a type="button" class="btn btn-sm btn-danger"  href="">Clear</a>
-							<button type="submit" class="btn btn-sm btn-info" id="btn-search">Search</button>
+							<button type="submit" class="btn btn-sm btn-info" id="btn-search">Tìm Kiếm</button>
 						</div>
 					</div>
 				</form>

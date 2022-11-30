@@ -1,10 +1,10 @@
 module.exports ={
   statusOrder: {
-    0: "Order Comfirmed",
-    1: "Picked By Courier",
-    2: "On The Way",
-    3: "Deliveried",
-    4: "Cancel ",
-    5: "Return",
+    0: "Xác Nhận",
+    1: "Lấy Hàng",
+    2: "Vận Chuyển",
+    3: "Đã Giao",
+    4: "Hủy",
+    5: "Trả Hàng",
   }
 }

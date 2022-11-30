@@ -16,7 +16,7 @@ const FileHelpers = require(__path_helpers + 'file');
 
 
 const linkIndex		 = '/' + systemConfig.prefixAdmin + `/${Collection}/`;
-const pageTitleIndex = UtilsHelpers.firstLetterUppercase(Collection) + ' Management';
+const pageTitleIndex = 'Quản Lý Đơn Hàng';
 const pageTitleAdd   = pageTitleIndex + ' - Add';
 const pageTitleEdit  = pageTitleIndex + ' - Edit';
 const folderView	 = __path_view_admin + `pages/${Collection}/`;

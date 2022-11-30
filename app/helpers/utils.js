@@ -32,12 +32,12 @@ let createFilterStatusOrder =  async (currentStatus, collection) => {
 	let ItemsModel = require(__path_schemas +  collection);
     let statusFilter = [
 		{name: 'All', value: 'all', count: 0, class: 'default'},
-		{name: 'Order Comfirmed', value: 0,  count: 0, class: 'default'},
-		{name: 'Picked By Courier', value:1 ,  count: 0, class: 'default'},
-		{name: 'On The Way', value: 2,  count: 0, class: 'default'},
-		{name: 'Delivered', value: 3 ,  count: 0, class: 'default'},
-		{name: 'Cancel', value: 4 ,  count: 0, class: 'default'},
-		{name: 'Return', value: 5 ,  count: 0, class: 'default'},
+		{name: 'Xác Nhận', value: 0,  count: 0, class: 'default'},
+		{name: 'Lấy Hàng', value:1 ,  count: 0, class: 'default'},
+		{name: 'Vận Chuyển', value: 2,  count: 0, class: 'default'},
+		{name: 'Đã Giao', value: 3 ,  count: 0, class: 'default'},
+		{name: 'Hủy', value: 4 ,  count: 0, class: 'default'},
+		{name: 'Trả Hàng', value: 5 ,  count: 0, class: 'default'},
 	];
 
 	for(let index = 0; index < statusFilter.length; index++) {
