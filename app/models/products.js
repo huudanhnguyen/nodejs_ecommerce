@@ -80,7 +80,11 @@ module.exports = {
         if(options == null) {
             return Model.findOne({id: id})                 
         } 
-    },	
+    },
+	countItem: async (objWhere) =>{
+        let data = await Model.count(objWhere)
+        return data
+    },
 	getItemFrontend: (id, options = null) => {
         return Model.findById(id)
             .select('name slug image images price shortDes description ');

@@ -44,7 +44,7 @@
                             <li class="">French</li>
                         </ul>
                     </div> -->
-        <p class="phone-no"><i class="anm anm-phone-s"></i>   <%= item.phoneHeader %> </p>
+        <a href="tel:036223433" target="_blank" class="phone-no"><i class="anm anm-phone-s"></i>   <%= item.phoneHeader %> </a>
       </div>
       <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-none d-md-block d-lg-block">
         <div class="text-center">
@@ -57,7 +57,7 @@
           <% if(login){ %>
             <% if(userInfo.email){ %>
                   <% if(userInfo.email == "admin@gmail.com"){ %>
-                    <li><a href="/adminCCC">Trang Quản Trị</a></li>
+                    <li><a href="/adminCCC" target="_blank">Trang Quản Trị</a></li>
                     <% } %>
             <% } %>						
             <li><a href="/user/profile">Tài Khoản</a></li>

@@ -12,6 +12,7 @@ const menuModel 		= require(__path_schemas + col_menu);
 const folderView	 = __path_view_ecommerce + 'pages/listProduct/';
 const layout	     = __path_view_ecommerce+ 'frontend';
 const UtilsHelpers 	= require(__path_helpers + 'utils');
+const FrontEndHelpers = require(__path_helpers + 'frontend');
 /* GET home page. */
 router.get('/(:slug)?',async (req, res, next) => {
 
@@ -32,6 +33,14 @@ router.get('/(:slug)?',async (req, res, next) => {
 	item.phoneHeader = phoneHeader;
 	item.notification = notification;
 	item.logoHeader = logoHeader;
+  
+  let pagination = {
+    totalItems: 1,
+    totalItemsPerPage: 4,
+    currentPage: parseInt(ParamsHelpers.getParam(req.query, 'page', 1)),
+    pageRanges: 3
+};
+
   let filterPrice       = (req.query.minPrice && req.query.maxPrice) ?[
     {price: {$gte: req.query.minPrice}},
     {price: {$lte: req.query.maxPrice}}
@@ -52,6 +61,8 @@ router.get('/(:slug)?',async (req, res, next) => {
   if(filterPrice){
     objWhere.$and= filterPrice
   }
+  pagination.totalItems = await FrontEndHelpers.countProduct(objWhere);
+
   const listProducts = await productsModel.find(objWhere).limit().sort(sortPrice);
   res.render(`${folderView}index`, { 
     layout,
@@ -62,6 +73,7 @@ router.get('/(:slug)?',async (req, res, next) => {
     listProductNewArrivals,
     listCategory,
     queryPrice,
+    pagination,
     slider:false
   });
 });

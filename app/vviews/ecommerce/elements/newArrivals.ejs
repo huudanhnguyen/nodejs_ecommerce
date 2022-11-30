@@ -3,119 +3,73 @@
 	const collection = "products";
 	const folderUpload 	= `uploads/${collection}/`;
 %>
-<div class="product-rows section">
+<div class="section">
     <div class="container">
         <div class="row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="section-header text-center">
                     <h2 class="h2">MẪU MỚI VỀ</h2>
                     <p>Số Lượng Có Hạn</p>
-                </div>
-            </div>
-        </div>
-        <div class="grid-products">
-            <div class="row">
-                <% listProductNewArrivals.slice(0,4).forEach((items)=> { %>
-                    <div class="col-6 col-sm-2 col-md-3 col-lg-3 item">
-                        <div class="product-image">
+                </div>>
+                <div class="productSlider grid-products">
+                    <% listProductNewArrivals.forEach((items)=> { %>
+                        <div class="col-12 item">
                             <!-- start product image -->
-                            <a href="san-pham/<%= items.id %>" class="grid-view-item__link">
-                                <%- imageMulti(items.images, folderUpload) %>  
-
-                            </a>
-                            <!-- end product image -->
-                            <!-- Start product button -->
-                            <form class="variants add" action="#"method="post">
-                                <a href="javascript:void(0);" class="addtocart" ><button data-product="product-<%= items.id %>" class="btn addtocart"  type="button" tabindex="0">THÊM GIỎ HÀNG</button></a>
-                                <a href="javascript:void(0);" class="addtolove" ><button data-product="product-<%= items.id %>" class="btn addtolove"  type="button" tabindex="0">YÊU THÍCH</button></a>
-
-                            </form>
-                            <!-- <div class="button-set">
-                                <div class="wishlist-btn">
-                                    <a class="wishlist add-to-wishlist" data-product="product-<%= items.id %>" href="javascript:void(0);" title="Add to Love">
-                                        <i class="icon anm anm-heart-l" data-product="product-<%= items.id %>"></i>
-                                    </a>
-                                </div>
-                            </div> -->
-                            <!-- End product button -->
-                         </div>
-                         <!--End start product image -->
-                        <!--start product details -->
-                        <div class="product-details text-center">
-                            <!-- product name -->
-                            <div class="product-name">
-                                <a href="/san-pham/<%= items.id %>"><%= items.name %> </a>
-                            </div>
-                            <!-- End product name -->
-                            <!-- product price -->
-                            <div class="product-price">
-                                <span class="price"><%= items.price.toLocaleString() %> VND</span>
-                            </div>
-                            <!-- End product price -->
-                        </div>
-                        <!-- End product details -->
-                        
-                    </div>
-                <%})%>
-            </div>
-            <div class="row">
-                <% listProductNewArrivals.slice(4,8).forEach((items)=> { %>
-                    <div class="col-6 col-sm-2 col-md-3 col-lg-3 item">
-                        <div class="product-image">
-                            <!-- start product image -->
-                            <a href="san-pham/<%= items.id %>" class="grid-view-item__link">
-                                <%- imageMulti(items.images, folderUpload) %>  
-
-                            </a>
-                            <!-- end product image -->
-                            <!-- Start product button -->
-                            <!-- <button src="/add/<%= items.id %>" class="btn btn-addto-cart" type="button" tabindex="0">Add To Cart</button> -->
-
-                            <form class="variants add" action="#"method="post">
-                                <a href="javascript:void(0);"data-product="product-<%= items.id %>"><button class="btn btn-addto-cart"  type="button" tabindex="0">THÊM GIỎ HÀNG</button></a>
-                            </form>
-                            <div class="button-set">
-                                <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view" data-toggle="modal" data-target="#content_quickview">
-                                    <i class="icon anm anm-search-plus-r"></i>
+                            <div class="product-image">
+                                <a href="san-pham/<%= items.id %>" class="grid-view-item__link">
+                                    <%- imageMulti(items.images, folderUpload) %>  
                                 </a>
-                                <div class="wishlist-btn">
-                                    <a class="wishlist add-to-wishlist" href="#" title="Add to Wishlist">
-                                        <i class="icon anm anm-heart-l"></i>
-                                    </a>
+                                <!-- Start product button -->
+                                <form class="variants add" action="#"method="post">
+                                    <a href="javascript:void(0);" class="addtocart" ><button data-product="product-<%= items.id %>" class="btn addtocart"  type="button" tabindex="0">THÊM GIỎ HÀNG</button></a>
+                                    <a href="javascript:void(0);" class="addtolove" ><button data-product="product-<%= items.id %>" class="btn addtolove"  type="button" tabindex="0">YÊU THÍCH</button></a>
+
+                                </form>
+                                <div class="button-set">
+                                    <!-- <a href="javascript:void(0)" title="Quick View" class="quick-view-popup quick-view"
+                                        data-toggle="modal" data-target="#content_quickview">
+                                        <i class="icon anm anm-search-plus-r"></i>
+                                    </a> -->
+                                    <!-- <div class="wishlist-btn">
+                                        <a class="wishlist add-to-wishlist" data-product="product-<%= items.id %>" href="javascript:void(0);" title="Add to Love">
+                                            <i class="icon anm anm-heart-l" data-product="product-<%= items.id %>"disabled></i>
+                                        </a>
+                                    </div> -->
                                 </div>
-                                <!-- <div class="compare-btn">
-                                    <a class="compare add-to-compare" href="compare.html" title="Add to Compare">
-                                        <i class="icon anm anm-random-r"></i>
-                                    </a>
-                                </div> -->
+                                <!-- end product button -->
                             </div>
-                            <!-- End product button -->
-                         </div>
-                         <!--End start product image -->
-                        <!--start product details -->
-                        <div class="product-details text-center">
-                            <!-- product name -->
-                            <div class="product-name">
-                                <a href="/san-pham/<%= items.id %>"><%= items.name %> </a>
+                            <!-- end product image -->
+    
+                            <!--start product details -->
+                            <div class="product-details text-center">
+                                <!-- product name -->
+                                <div class="product-name">
+                                    <a href="/san-pham/<%= items.id %>"><%= items.name %> </a>
+                                </div>
+                                <!-- End product name -->
+                                <!-- product price -->
+                                <div class="product-price">
+                                    <span class="price"><%= items.price.toLocaleString() %> VND</span>
+                                </div>
+                                <!-- End product price -->
+                                <!-- Color Variant -->
+                                <!-- <ul class="swatches">
+                                    <li class="swatch small rounded black"
+                                        rel="frontend//frontend/assets/images/product-images/product-image2.jpg"></li>
+                                    <li class="swatch small rounded navy"
+                                        rel="frontend//frontend/assets/images/product-images/product-image-swt2.jpg"></li>
+                                    <li class="swatch small rounded purple"
+                                        rel="frontend//frontend/assets/images/product-images/product-image-swt2-1.jpg"></li>
+                                    <li class="swatch small rounded teal"
+                                        rel="frontend//frontend/assets/images/product-images/product-image-swt2-2.jpg"></li>
+                                </ul> -->
+                                <!-- End Variant -->
                             </div>
-                            <!-- End product name -->
-                            <!-- product price -->
-                            <div class="product-price">
-                                <span class="price"><%= items.price.toLocaleString() %> VND</span>
-                            </div>
-                            <!-- End product price -->
+                            <!-- End product details -->
                         </div>
-                        <!-- End product details -->
-                        
-                    </div>
-                <%})%>
-            </div>
-            <div class="row">
-                <div class="col-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                    <a href="/tat-ca-san-pham" class="btn">XEM THÊM</a>
+                    <%})%>
                 </div>
             </div>
         </div>
-   </div>
-</div>	
-<!--End Featured Product-->
+    </div>
+</div>

@@ -3,6 +3,7 @@ const NewsletterModel  = require(__path_models + 'newsletter');
 const UserModel  = require(__path_models + 'users');
 const CouponsModel  = require(__path_models + 'coupons');
 const OrderModel  = require(__path_models + 'order');
+const ProductModel  = require(__path_models + 'products');
 
 let sendMailLetter  = async (item) =>{
   let data = await NewsletterModel.sendMailLetter(item)
@@ -41,6 +42,10 @@ let getOrderByTrackingCode = async (code) =>{
   let result = await OrderModel.getOrderByTrackingCode(code)
   return result
 }
+let countProduct = async (objWhere)=>{
+  let result = await ProductModel.countItem(objWhere)
+  return result
+}
 
 
 module.exports = {
@@ -52,4 +57,5 @@ module.exports = {
   getCodeCoupon,
   getOrderByTrackingCode,
   addOrder,
+  countProduct
 }
