@@ -76,6 +76,7 @@ app.use(function(req,res,next){
   next();
 })
 
+
 // Local variable
 app.locals.systemConfig = systemConfig;
 app.locals.dayjs = dayjs;
