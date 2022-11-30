@@ -541,8 +541,7 @@ $(document).ready(function () {
         html+=`
         <li class="col-md-4">
                  <figure class="itemside mb-3">
-                     <div class="aside"><img src="https://i.imgur.com/iDwDQ4o.png" class="img-sm border"></div>
-                     <figcaption class="info align-self-center">
+                     <figcaption class="info align-self-center align-items-center">
                          <p class="title">${element.name}</p> <span class="text-muted">${moneyVND(element.price)} x ${element.quantity}
                          </span>
                      </figcaption>
@@ -550,6 +549,8 @@ $(document).ready(function () {
              </li>
         `
       });
+      // <div class="aside"><img src="https://i.imgur.com/iDwDQ4o.png" class="img-sm border"></div>
+
       return html;
     }
     let coupon = (data.couponValue)
@@ -613,7 +614,7 @@ $(document).ready(function () {
               $('div.trackingForm').after(html)
               showStatusTracking(response.data.status)
           } else{
-             toastr["error"]('asd')
+             toastr["error"]('Không Tìm Thấy Mã Đơn Hàng')
           }
           $(e.target).children('.d-flex.justify-content-center.spinner').html(`<button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 ">Tra Cứu</button>`)
       }
