@@ -12,6 +12,12 @@ let getListProductOrder = () =>{
   })
   return list
 }
+
+let enabledBtnOrder = () =>{
+  let btn = $("button.checkout")
+  btn.removeClass("disabled")
+}
+
 function checkOut() {
   let name = $('input[name="name"]').val();
   let address = $('input[name="address"]').val();
@@ -23,7 +29,6 @@ function checkOut() {
   let productOrder = JSON.stringify(getListProductOrder())
   let notes = $('textarea[name="notes"]').val();
 
-console.log(productOrder);
   let data = {
     name: name,
     address: address,
@@ -65,8 +70,8 @@ console.log(productOrder);
                   <div class="payment">
                      <div class="content">
                         <h1>Đặt Hàng Thành Công !</h1>
-                        <p>Cảm ơn bạn đã đặt hàng của chúng tôi. Mã kiểm tra đơn hàng của bạn là: 
-                        <span class="trackingCode">${response.trackingCode}</span>
+                        <p>Cảm ơn bạn đã đặt hàng của chúng tôi. Vui Lòng Lưu Mã Để Tra Cứu Đơn Hàng. Mã kiểm tra đơn hàng của bạn là: 
+                        <span class="trackingCode">${response.trackingCode}</span>                       
                         </p>
                         <a href="/">Trờ Về Trang Chủ</a>
                      </div>
@@ -274,6 +279,7 @@ $(document).ready(function () {
       $(e.target).addClass("active");
       $("#CartCount").text(items.length);
       toastr["success"]("Thêm Thành Công");
+      enabledBtnOrder()
     }
     if ($(e.target).hasClass("addtolove")) {
       if ($(e.target).hasClass("active")) {
@@ -366,6 +372,7 @@ $(document).ready(function () {
       data: `data=${JSON.stringify(items)}`, // serializes the form's elements.
       success: async function (response) {
         if (response.success == true) {
+          
           let html = "";
           if (response.data.length == 0) {
             html = ``;
@@ -374,6 +381,7 @@ $(document).ready(function () {
             html = await showListCart(response.data, items);
             $("tbody#CartList").html(html);
           }
+          enabledBtnOrder()
         }
         cartTotal();
       },
@@ -569,7 +577,7 @@ $(document).ready(function () {
              <div class="step"> <span class="icon"> <i class="fa fa-truck"></i> </span> <span class="text">
                      Đang Vận Chuyển </span> </div>
              <div class="step"> <span class="icon"> <i class="fa fa-check"></i> </span> <span class="text">
-                     Chuẩn Bị Nhận Hàng</span> </div>
+                     Đã Nhận Hàng</span> </div>
          </div>
          <hr>
          <ul class="row">

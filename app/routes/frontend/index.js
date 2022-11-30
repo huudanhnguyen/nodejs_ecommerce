@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 const Cart = require('../../models/frontend/cart');
-const middleAuthentication = require(__path_middleware + 'authAdmin');
+const middleAuthentication = require(__path_middleware + 'auth');
 const middlewareGetUser    = require(__path_middleware + 'get-user-info')
 
 
@@ -17,10 +17,10 @@ router.use('/search', require('./search'));
 router.use('/bai-viet', require('./listBlog'));
 router.use('/chi-tiet-bai-viet', require('./blogArticle'));
 router.use('/wishlist', require('./wishlist'));
-router.use('/cart',require('./cart'));
 router.use('/thanh-toan', require('./checkout'));
 router.use('/don-mua', require('./order'));
 router.use('/theo-doi-don-hang', require('./orderTracking'));
+router.use('/cart',middleAuthentication,require('./cart'));
 
 
 

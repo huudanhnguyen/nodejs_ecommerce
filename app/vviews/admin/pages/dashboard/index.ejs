@@ -1,3 +1,4 @@
+<%- include('./../../helpers/formattime'); -%>
 <%  
     let arrBox = [
         {name: 'Sản Phẩm', icon: 'ion-bag', link: `${systemConfig.prefixAdmin}/products`, background: 'bg-info'},
@@ -7,6 +8,7 @@
         {name: 'Menu', icon: 'ion-android-menu', link: `${systemConfig.prefixAdmin}/menu`, background: 'bg-dark'},
         {name: 'Tài Khoản', icon: 'ion ion-person-add', link: `${systemConfig.prefixAdmin}/users`, background: 'bg-secondary'},
         {name: 'Tin Nhắn', icon: 'ion-email', link: `${systemConfig.prefixAdmin}/contact`, background: 'bg-warning'},
+        {name: 'Đơn Hàng', icon: 'ion-ios-cart-outline', link: `${systemConfig.prefixAdmin}/order`, background: 'bg-info'},
         // {name: 'Rss', icon: 'ion-social-rss', link: `${systemConfig.prefixAdmin}/rss`, background: 'bg-info'},
     ];
     
@@ -26,7 +28,31 @@
                         </div>
                     </div>`;
     });
-    xhtmlBox += '</div>';   
+    xhtmlBox += '</div>'; 
+    const backgroundOrderBtn = {
+            '0': 'primary',
+            '1': 'secondary',
+            '2': 'warning',
+            '3': 'success',
+            '4': 'danger',
+            '5': 'dark',
+        }
+        const collection = "order";
+	const linkPrefix = "/" + systemConfig.prefixAdmin + `/${collection}/`;
+	const linkThumb = "/" + "uploads" + `/${collection}/`;
+
+	let showStatusOrder = (currentStatus, listStatus) =>{
+		let html =''
+		for (const [key, value] of Object.entries(listStatus)) {
+			let isSelected = (key == currentStatus) ? 'selected="selected"' : ''
+			html += `<option ${isSelected} value="${key}" data-select2-id="14" >${value}</option>`
+		}
+		return html
+	}
+
+	let disabledSelect = (status) =>{
+		return (status > 2) ? 'disabled' : ''
+	} 
 %>
 <% include ./../../helpers/TimeInfo %>
 <%- xhtmlBox %>
@@ -44,24 +70,30 @@
                         </button>
                     </div>
                 </div>
-        
                 <div class="card-body p-0">
                     <div class="table-responsive">
                         <table class="table m-0">
                             <thead>
                                 <tr>
                                     <th>Mã Đơn Hàng</th>
-                                    <th>Sản Phẩm</th>
-                                    <th>Trạng Thái</th>
+                                    <th>Họ Tên</th>
+                                    <th>Số Điện Thoại</th>
+                                    <th>Tổng Tiền</th>
+                                    <th>Ngày Đặt Hàng</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><a href="">OR9842</a></td>
-                                    <td>Call of Duty IV</td>
-                                    <td><span class="badge badge-success">Shipped</span></td>
+                                <% orderModel.slice(0,4).forEach((items)=> { %>
+                                    <tr>
+                                        <td><a href="javascript:void(0)"><%= items.trackingCode %> </a></td>
+                                        <td><%= items.name %></td>
+                                        <td><%= items.phoneNumber %></td>
+                                        <td><%= items.totalMoney.toLocaleString() + " VND" %></td>
+                                        <td><span class="badge badge-success"><%- formatTime(items.createdAt) %> </span></td>
+    
+                                    </tr>
+                                <%})%>
 
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -69,8 +101,8 @@
                 </div>
         
                 <div class="card-footer clearfix">
-                    <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a>
-                    <a href="javascript:void(0)" class="btn btn-sm btn-secondary float-right">View All Orders</a>
+                    <!-- <a href="javascript:void(0)" class="btn btn-sm btn-info float-left">Place New Order</a> -->
+                    <a href="adminCCC/order"class="btn btn-sm btn-secondary float-right">Xem Tất Cả</a>
                 </div>
         
             </div>

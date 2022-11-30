@@ -137,13 +137,13 @@ router.post(
   async function (req, res, next) {
     try {
       let errors = validationResult(req);
-      if (req.isAuthenticated() || true) {
+      if (req.isAuthenticated()) {
         if (!errors.isEmpty()) {
           res.send({ success: false, errors: errors.errors });
           return;
         } else {
-          // req.body.userId = req.user.id
-          // req.body.email = req.user.email
+          req.body.userId = req.user.id
+          req.body.email = req.user.email
           let processOrder = await FrontEndHelpers.addOrder(req.body);
           res.send(processOrder);
         }
