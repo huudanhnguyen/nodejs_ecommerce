@@ -75,48 +75,8 @@
               <li><a href="/user/signup">Đăng Ký</a></li> 
           <% } %> -->
           </ul>
-<<<<<<< HEAD
         </div>
       </div>
-=======
-        </nav>
-        <!--End Desktop Menu-->
-      </div>
-      <!--Mobile Logo-->
-      <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
-        <div class="logo">
-          <a href="/">
-            <img src="frontend/assets/images/logo.svg" alt=""
-              title="" />
-          </a>
-        </div>
-      </div>
-      <!--Mobile Logo-->
-      
-
-        <div class="col-4 col-sm-3 col-md-3 col-lg-2">
-          <div class="site-cart">
-            <a href="/cart" class="" title="Cart">
-              <i class="icon anm anm-bag-l cart-icon"></i>
-              <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">
-
-
-              </span>
-            </a>
-          </div>
-          <div class="site-cart">
-            <a href="/wishlist" class="" title="Wishlist">
-              <i class="icon anm anm-heart-l cart-icon"></i>
-              <span id="LoveCount" class="site-header__cart-count" data-cart-render="item_count">
-
-              </span>
-            </a>
-          </div>
-          <div class="site-header__search">
-            <button type="button" class="search-trigger"><i class="icon anm anm-search-l"></i></button>
-          </div>
-        </div>
->>>>>>> 32ae85bf057f8c396c011fc840f17e7b444216c5
     </div>
   </div>
   <!--End Top Header-->
@@ -176,7 +136,6 @@
         </div>
         <!--Mobile Logo-->
 
-<<<<<<< HEAD
         <div class="col-4 col-sm-3 col-md-3 col-lg-2">
           <div class="site-cart">
             <a href="/cart" class="" title="Cart">
@@ -230,27 +189,3 @@
     </ul>
   </div>
   <!--End Mobile Menu-->
-=======
-<!--Mobile Menu-->
-<div class="mobile-nav-wrapper" role="navigation">
-  <div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i>Đóng Menu</div>
-  <ul id="MobileNav" class="mobile-nav">
-    <li class="lvl1 parent megamenu"><a href="/">Trang Chủ <i></i></a>
-    </li>
-    </li>
-    <li class="lvl1 parent megamenu"><a href="/tat-ca-san-pham">Sản Phẩm <i></i></a>
-    </li>
-    <li class="lvl1 parent dropdown"><a href="#">Danh Mục<i class="anm anm-angle-down-l"></i></a>
-      <ul class="dropdown">
-        <% listCategory.forEach((category)=> { %>
-          <li><a href="/danh-muc/<%= category.id %> " class="site-nav"><%= category.name %></a></li>
-        <%})%>
-      </ul>
-    </li>
-    <% listMenu.forEach((Menu)=> { %>
-      <li class="lvl1 parent megamenu"><a href="/<%= Menu.slug %>"><%= Menu.name %><i></i></a>
-      <%})%>
-  </ul>
-</div>
-<!--End Mobile Menu-->
->>>>>>> 32ae85bf057f8c396c011fc840f17e7b444216c5
