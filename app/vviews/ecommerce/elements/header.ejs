@@ -1,31 +1,30 @@
-<% 
-	const collection = "settings";
-	const folderUpload 	= `uploads/${collection}/`;
-%>
-<div class="notification-bar mobilehide">
-  <span class="notification-bar__message"><%= item.notification %></span>
-  <!-- <a href="#" class="notification-bar__message"><%= item.notification %> </a> -->
-  <span class="close-announcement">×</span>
-</div>
-<!--End Promotion Bar-->
-<!--Search Form Drawer-->
-<div class="search">
-  <div class="search__form">
-    <form class="search-bar__form" action="/search">
-      <button class="go-btn search__button" type="submit"><i class="icon anm anm-search-l"></i></button>
-      <input class="search__input" type="search" name="keyword" value="" placeholder="Tìm Kiếm"
-        aria-label="Search" autocomplete="off">
-    </form>
-    <button type="button" class="search-trigger close-btn"><i class="anm anm-times-l"></i></button>
+<% const collection="settings" ; const folderUpload=`uploads/${collection}/`; %>
+  <div class="notification-bar mobilehide">
+    <span class="notification-bar__message">
+      <%= item.notification %>
+    </span>
+    <!-- <a href="#" class="notification-bar__message"><%= item.notification %> </a> -->
+    <span class="close-announcement">×</span>
   </div>
-</div>
-<!--End Search Form Drawer-->
-<!--Top Header-->
-<div class="top-header">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-10 col-sm-8 col-md-5 col-lg-4">
-        <!-- <div class="currency-picker">
+  <!--End Promotion Bar-->
+  <!--Search Form Drawer-->
+  <div class="search">
+    <div class="search__form">
+      <form class="search-bar__form" action="/search">
+        <button class="go-btn search__button" type="submit"><i class="icon anm anm-search-l"></i></button>
+        <input class="search__input" type="search" name="keyword" value="" placeholder="Tìm Kiếm" aria-label="Search"
+          autocomplete="off">
+      </form>
+      <button type="button" class="search-trigger close-btn"><i class="anm anm-times-l"></i></button>
+    </div>
+  </div>
+  <!--End Search Form Drawer-->
+  <!--Top Header-->
+  <div class="top-header">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-10 col-sm-8 col-md-5 col-lg-4">
+          <!-- <div class="currency-picker">
                         <span class="selected-currency">USD</span>
                         <ul id="currencies">
                             <li data-currency="INR" class="">INR</li>
@@ -44,131 +43,149 @@
                             <li class="">French</li>
                         </ul>
                     </div> -->
-        <a href="tel:036223433" target="_blank" class="phone-no"><i class="anm anm-phone-s"></i>   <%= item.phoneHeader %> </a>
-      </div>
-      <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-none d-md-block d-lg-block">
-        <div class="text-center">
-          <p class="top-header_middle-text"> Giao Hàng Tốc Hành Trong Thành Phố</p>
+          <a href="tel:036223433" target="_blank" class="phone-no"><i class="anm anm-phone-s"></i>
+            <%= item.phoneHeader %>
+          </a>
         </div>
-      </div>
-      <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
-        <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
-        <ul class="customer-links list-inline">
-          <% if(login){ %>
-            <% if(userInfo.email){ %>
-                  <% if(userInfo.email == "admin@gmail.com"){ %>
-                    <li><a href="/adminCCC" target="_blank">Trang Quản Trị</a></li>
+        <div class="col-sm-4 col-md-4 col-lg-4 d-none d-lg-none d-md-block d-lg-block">
+          <div class="text-center">
+            <p class="top-header_middle-text"> Giao Hàng Tốc Hành Trong Thành Phố</p>
+          </div>
+        </div>
+        <div class="col-2 col-sm-4 col-md-3 col-lg-4 text-right">
+          <span class="user-menu d-block d-lg-none"><i class="anm anm-user-al" aria-hidden="true"></i></span>
+          <ul class="customer-links list-inline">
+            <% if(login){ %>
+              <% if(userInfo.email){ %>
+                <% if(userInfo.email=="admin@gmail.com" ){ %>
+                  <li><a href="/adminCCC" target="_blank">Trang Quản Trị</a></li>
+                  <% } %>
                     <% } %>
-            <% } %>						
-            <li><a href="/user/profile">Tài Khoản</a></li>
-            <li><a href="/user/logout">Đăng Xuất</a></li>
-            <% }else{ %>
-              <li><a href="/user/signin">Đăng Nhập</a></li>
-              <li><a href="/user/signup">Đăng Ký</a></li> 
-          <% } %>          
-          <!-- <% if (login) { %>
+                      <li><a href="/user/profile">Tài Khoản</a></li>
+                      <li><a href="/user/logout">Đăng Xuất</a></li>
+                      <% }else{ %>
+                        <li><a href="/user/signin">Đăng Nhập</a></li>
+                        <li><a href="/user/signup">Đăng Ký</a></li>
+                        <% } %>
+                          <!-- <% if (login) { %>
             <li><a href="/user/profile">Tài Khoản</a></li>
             <li><a href="/user/logout">Đăng Xuất</a></li>
             <% } else { %>
               <li><a href="/user/signin">Đăng Nhập</a></li>
               <li><a href="/user/signup">Đăng Ký</a></li> 
           <% } %> -->
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<!--End Top Header-->
-<!--Header-->
-<div class="header-wrap animated d-flex border-bottom">
-  <div class="container-fluid">
-    <div class="row align-items-center">
-      <!--Desktop Logo-->
-      <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
-        <a href="/">
-          <img src="/frontend/assets/images/logo.svg" alt="Belle"
-            title="Belle" />
-        </a>
-      </div>
-      <!--End Desktop Logo-->
-      <div class="col-2 col-sm-3 col-md-3 col-lg-8">
-        <div class="d-block d-lg-none">
-          <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
-            <i class="icon anm anm-times-l"></i>
-            <i class="anm anm-bars-r"></i>
-          </button>
-        </div>
-        <!--Desktop Menu-->
-        <nav class="grid__item" id="AccessibleNav">
-          <!-- for mobile -->
-          <ul id="siteNav" class="site-nav medium center hidearrow">
-            <li class="lvl1 parent megamenu"><a href="/">Trang Chủ <i class="anm anm-angle-down-l"></i></a>
-            </li>
-            </li>
-            <li class="lvl1 parent megamenu"><a href="/tat-ca-san-pham">Sản Phẩm <i class="anm anm-angle-down-l"></i></a>
-            </li>
-            <li class="lvl1 parent dropdown"><a href="#">Danh Mục<i class="anm anm-angle-down-l"></i></a>
-              <ul class="dropdown">
-                <% listCategory.forEach((category)=> { %>
-                  <li><a href="/danh-muc/<%= category.id %> " class="site-nav"><%= category.name %></a></li>
-                <%})%>
-              </ul>
-            </li>
-            <% listMenu.forEach((Menu)=> { %>
-              <li class="lvl1 parent megamenu"><a href="/<%= Menu.slug %>"><%= Menu.name %><i class="anm anm-angle-down-l"></i></a>
-              <%})%>
           </ul>
-        </nav>
-        <!--End Desktop Menu-->
-      </div>
-      <!--Mobile Logo-->
-      <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
-        <div class="logo">
-          <a href="/">
-            <img src="frontend/assets/images/logo.svg" alt=""
-              title="" />
-          </a>
-        </div>
-      </div>
-      <!--Mobile Logo-->
-      
-      <div class="col-4 col-sm-3 col-md-3 col-lg-2">
-        <div class="site-cart">
-          <a href="/cart" class="" title="Cart">
-            <i class="icon anm anm-bag-l cart-icon"></i>
-            <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">
-   
-               
-            </span>
-          </a>
-        </div>
-          <button type="button" class="search-trigger"><i class="icon anm anm-search-l"></i></button>
         </div>
       </div>
     </div>
   </div>
-</div>
-<!--End Header-->
+  <!--End Top Header-->
+  <!--Header-->
+  <div class="header-wrap animated d-flex border-bottom">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <!--Desktop Logo-->
+        <div class="logo col-md-2 col-lg-2 d-none d-lg-block">
+          <a href="/">
+            <img src="/frontend/assets/images/logo.svg" alt="Belle" title="Belle" />
+          </a>
+        </div>
+        <!--End Desktop Logo-->
+        <div class="col-2 col-sm-3 col-md-3 col-lg-8">
+          <div class="d-block d-lg-none">
+            <button type="button" class="btn--link site-header__menu js-mobile-nav-toggle mobile-nav--open">
+              <i class="icon anm anm-times-l"></i>
+              <i class="anm anm-bars-r"></i>
+            </button>
+          </div>
+          <!--Desktop Menu-->
+          <nav class="grid__item" id="AccessibleNav">
+            <!-- for mobile -->
+            <ul id="siteNav" class="site-nav medium center hidearrow">
+              <li class="lvl1 parent megamenu"><a href="/">Trang Chủ <i class="anm anm-angle-down-l"></i></a>
+              </li>
+              </li>
+              <li class="lvl1 parent megamenu"><a href="/tat-ca-san-pham">Sản Phẩm <i
+                    class="anm anm-angle-down-l"></i></a>
+              </li>
+              <li class="lvl1 parent dropdown"><a href="#">Danh Mục<i class="anm anm-angle-down-l"></i></a>
+                <ul class="dropdown">
+                  <% listCategory.forEach((category)=> { %>
+                    <li><a href="/danh-muc/<%= category.id %> " class="site-nav">
+                        <%= category.name %>
+                      </a></li>
+                    <%})%>
+                </ul>
+              </li>
+              <% listMenu.forEach((Menu)=> { %>
+                <li class="lvl1 parent megamenu"><a href="/<%= Menu.slug %>">
+                    <%= Menu.name %><i class="anm anm-angle-down-l"></i>
+                  </a>
+                  <%})%>
+            </ul>
+          </nav>
+          <!--End Desktop Menu-->
+        </div>
+        <!--Mobile Logo-->
+        <div class="col-6 col-sm-6 col-md-6 col-lg-2 d-block d-lg-none mobile-logo">
+          <div class="logo">
+            <a href="/">
+              <img src="frontend/assets/images/logo.svg" alt="" title="" />
+            </a>
+          </div>
+        </div>
+        <!--Mobile Logo-->
 
-<!--Mobile Menu-->
-<div class="mobile-nav-wrapper" role="navigation">
-  <div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i>Đóng Menu</div>
-  <ul id="MobileNav" class="mobile-nav">
-    <li class="lvl1 parent megamenu"><a href="/">Trang Chủ <i></i></a>
-    </li>
-    </li>
-    <li class="lvl1 parent megamenu"><a href="/tat-ca-san-pham">Sản Phẩm <i></i></a>
-    </li>
-    <li class="lvl1 parent dropdown"><a href="#">Danh Mục<i class="anm anm-angle-down-l"></i></a>
-      <ul class="dropdown">
-        <% listCategory.forEach((category)=> { %>
-          <li><a href="/danh-muc/<%= category.id %> " class="site-nav"><%= category.name %></a></li>
-        <%})%>
-      </ul>
-    </li>
-    <% listMenu.forEach((Menu)=> { %>
-      <li class="lvl1 parent megamenu"><a href="/<%= Menu.slug %>"><%= Menu.name %><i></i></a>
-      <%})%>
-  </ul>
-</div>
-<!--End Mobile Menu-->
+        <div class="col-4 col-sm-3 col-md-3 col-lg-2">
+          <div class="site-cart">
+            <a href="/cart" class="" title="Cart">
+              <i class="icon anm anm-bag-l cart-icon"></i>
+              <span id="CartCount" class="site-header__cart-count" data-cart-render="item_count">
+
+
+              </span>
+            </a>
+          </div>
+          <div class="site-cart">
+            <a href="/wishlist" class="" title="Wishlist">
+              <i class="icon anm anm-heart-l cart-icon"></i>
+              <span id="LoveCount" class="site-header__cart-count" data-cart-render="item_count">
+
+              </span>
+            </a>
+          </div>
+          <div class="site-header__search">
+            <button type="button" class="search-trigger"><i class="icon anm anm-search-l"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--End Header-->
+
+  <!--Mobile Menu-->
+  <div class="mobile-nav-wrapper" role="navigation">
+    <div class="closemobileMenu"><i class="icon anm anm-times-l pull-right"></i>Đóng Menu</div>
+    <ul id="MobileNav" class="mobile-nav">
+      <li class="lvl1 parent megamenu"><a href="/">Trang Chủ <i></i></a>
+      </li>
+      </li>
+      <li class="lvl1 parent megamenu"><a href="/tat-ca-san-pham">Sản Phẩm <i></i></a>
+      </li>
+      <li class="lvl1 parent dropdown"><a href="#">Danh Mục<i class="anm anm-angle-down-l"></i></a>
+        <ul class="dropdown">
+          <% listCategory.forEach((category)=> { %>
+            <li><a href="/danh-muc/<%= category.id %> " class="site-nav">
+                <%= category.name %>
+              </a></li>
+            <%})%>
+        </ul>
+      </li>
+      <% listMenu.forEach((Menu)=> { %>
+        <li class="lvl1 parent megamenu"><a href="/<%= Menu.slug %>">
+            <%= Menu.name %><i></i>
+          </a>
+          <%})%>
+    </ul>
+  </div>
+  <!--End Mobile Menu-->
