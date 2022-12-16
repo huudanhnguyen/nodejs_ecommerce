@@ -105,13 +105,13 @@ router.post('/doi-mat-khau',
             if (!password) {
                 return Promise.reject('Vui Lòng Nhập Mật Khẩu')
             }
-            // if((confirmpassword.length<5 || confirmpassword.length>20)|| (password.length<5 || password.length>20)
-            // ){
-            //     return Promise.reject('Độ Dài Phải Từ 5 đến 20')
-            // }
-            // if(password != confirmpassword){
-            //     return Promise.reject('Mật Khẩu Không Trùng')
-            // }
+            if((confirmpassword.length<5 || confirmpassword.length>20)|| (password.length<5 || password.length>20)
+            ){
+                return Promise.reject('Độ Dài Phải Từ 5 đến 20')
+            }
+            if(password != confirmpassword){
+                return Promise.reject('Mật Khẩu Không Trùng')
+            }
             return Promise.resolve()
         }),
         async function(req, res, next) {

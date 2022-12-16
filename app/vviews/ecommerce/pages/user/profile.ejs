@@ -14,8 +14,9 @@
         <div class="card">
           <div class="card-body">
             <div class="d-flex flex-column align-items-center text-center">
-              <img src="/uploads/users/<%= userInfo.avatar%>"onerror="this.onerror=null; this.src='https://vyshnevyi-partners.com/wp-content/uploads/2016/12/no-avatar.png'"
-              class="rounded-circle p-1 bg-primary" width="110"/>
+              <img src="/uploads/users/<%= userInfo.avatar%>"
+                onerror="this.onerror=null; this.src='https://vyshnevyi-partners.com/wp-content/uploads/2016/12/no-avatar.png'"
+                class="rounded-circle p-1 bg-primary" width="110" />
               <div class="mt-3">
                 <h4>
                   <%= userInfo.username %>
@@ -30,8 +31,24 @@
             </div>
             <hr class="my-4">
             <div class="row">
-
-          </div>
+              <div class="card-body p-5">
+                <h4 class="text-uppercase text-center mb-5">Thay Đổi Mật Khẩu</h4>
+                <form id="formChangePassword" action="" method="post">
+                  <div class="form-outline mb-2">
+                    <input type="password" name="password" class="form-control form-control-lg" required="">
+                    <label class="form-label" for="form3Example4cg">Mật khẩu</label>
+                  </div>
+      
+                  <div class="form-outline mb-2">
+                    <input type="password" name="confirmpassword" class="form-control form-control-lg" required="">
+                    <label class="form-label" for="form3Example4cdg">Nhập lại mật khẩu</label>
+                  </div>
+                  <div class="d-flex justify-content-center spinner">
+                    <button type="submit" class="btn btn-success btn-block btn-lg gradient-custom-4 submitButton">Đổi</button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -81,22 +98,6 @@
             </div>
           </form>
         </div>
-        <!-- <form id="formChangePassword" action="" method="post">
-          <div class="form-outline mb-2">
-            <input type="password"  name="password" class="form-control form-control-lg" required/>
-            <label class="form-label" for="form3Example4cg">Mật khẩu Cũ</label>
-          </div>
-          <div class="form-outline mb-2">
-            <input type="password"  name="password" class="form-control form-control-lg" required/>
-            <label class="form-label" for="form3Example4cg">Mật khẩu Mới</label>
-          </div>
-
-
-          <div class="d-flex justify-content-center spinner">
-            <button type="submit"
-              class="btn btn-success btn-block btn-lg gradient-custom-4 ">Đổi</button>
-          </div>
-        </form> -->
+      </div>
     </div>
   </div>
-</div>
