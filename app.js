@@ -98,8 +98,8 @@ app.use(function(err, req, res, next) {
     if(req._parsedOriginalUrl._raw.split("/")[1] == "adminCCC"){
       res.render(__path_view_admin +  'pages/error', {pageTitle   : 'Page Not Found ' });
     } else{
-      // res.redirect("/error")
-      res.render(__path_view_admin +  'pages/error', { layout:false ,pageTitle   : 'Page Not Found ' });
+      res.redirect("/error");
+      // res.render(__path_view_admin +  'pages/error', { layout:false ,pageTitle   : 'Page Not Found ' });
 
     }
 
