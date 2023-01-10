@@ -11,7 +11,7 @@
 		<div class="card-body">
 		
 			<div class="form-group row">
-				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Name</label>
+				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Mã</label>
 				<div class="col-xs-12 col-sm-8">
 					<input type="text" name="name" value="<%= item.name %>" class="form-control form-control-sm <%= errors.name && 'is-invalid' %>" onKeyUp="handleSlug(
 						'<%= linkPrefix %>',
@@ -25,7 +25,7 @@
 			</div>
 
 			<div class="form-group row" style="display:flex;align-items:center">
-				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Values</label>
+				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Loại</label>
 				<div class="col-xs-12 col-sm-6">
 					<input type="text" name="values" value="<%= item.values ?? 1 %>" class="form-control form-control-sm <%= errors.values && 'is-invalid' %>">
 					<%- `<span class="error invalid-feedback">${errors.values}</span>` %>
@@ -33,20 +33,20 @@
 				
 				<div class="form-check mr-3">
 					<input class="form-check-input" type="radio" name="type" value="percent" id="percent" checked <%= item.type == 'percent' ? 'checked' : '' %> >
-					<label class="form-check-label" for="percent">Percent</label>
+					<label class="form-check-label" for="percent">%</label>
 				</div>
 				<div class="form-check">
 					<input class="form-check-input" type="radio" name="type" value="direct" id="direct" <%= item.type == 'direct' ? 'checked' : '' %>>
-					<label class="form-check-label" for="direct">Direct</label>
+					<label class="form-check-label" for="direct">VNĐ</label>
 				</div>
 				
 			</div>
 
 			<div class="form-group row">
-				<label for="status" class="col-sm-2 col-form-label text-sm-right required">Status</label>
+				<label for="status" class="col-sm-2 col-form-label text-sm-right required">Trạng Thái</label>
 				<div class="col-xs-12 col-sm-8">
 					<select id="form[status]" name="status" class="custom-select custom-select-sm <%= errors.status && 'is-invalid' %>">
-						<option value="novalue">Choose Status</option>
+						<option value="novalue">Chọn Trạng Thái</option>
 						<option value="active" <%= (item.status == "active") ? 'selected="selected"' : '' %> >Active</option>
 						<option value="inactive" <%= (item.status == "inactive") ? 'selected="selected"' : '' %> >Inactive</option>
 					</select>
@@ -55,7 +55,7 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="status" class="col-sm-2 col-form-label text-sm-right required">Date</label>
+				<label for="status" class="col-sm-2 col-form-label text-sm-right required">Thời Hạn</label>
 				<div class="col-xs-12 col-sm-8">
 					<div class="input-group">
 						<div class="input-group-prepend">
@@ -69,7 +69,7 @@
 			</div>
 
 			<div class="form-group row">
-				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Quantity</label>
+				<label for="name" class="col-sm-2 col-form-label text-sm-right required">Số Lượng</label>
 				<div class="col-xs-12 col-sm-8">
 					<input type="text" name="quantity" value="<%= item.quantity ?? 1 %>" class="form-control form-control-sm <%= errors.quantity && 'is-invalid' %>">
 					<%- `<span class="error invalid-feedback">${errors.quantity}</span>` %>
@@ -81,8 +81,8 @@
 			<div class="col-12 col-sm-8 offset-sm-2">
 				<input name="id" value="<%= item.id %>" type="hidden" >
 				<input name="used" value="<%= item.used ?? 0 %>" type="hidden" >
-				<button type="submit" class="btn btn-sm btn-success mr-1"> Submit</button>
-				<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Cancel</a>
+				<button type="submit" class="btn btn-sm btn-success mr-1"> Lưu</button>
+				<a href="<%= linkPrefix %>" class="btn btn-sm btn-danger mr-1"> Trở Lại</a>
 			</div>
 		</div>
 	</form>

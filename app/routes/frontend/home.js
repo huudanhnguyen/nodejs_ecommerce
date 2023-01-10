@@ -13,23 +13,7 @@ const folderView	 = __path_view_ecommerce + 'pages/home/';
 const layout	     = __path_view_ecommerce+ 'frontend';
 /* GET home page. */
 router.get('/',async (req, res, next) => {
-  // let itemsSpecial 	= [];
-  // await Model.listItemsFrontend(null, {task: 'items-special'} ).then( (items) => { itemsSpecial = items;
-  //   items.map(async i=>{
-  //     let{name}=await categoryModel.findById((i.categoriesId))
-  //       i.categoryName=name;
-  //       return i
-  //     })
-  //     items= itemsSpecial;
-  // });
-  // await Model.listItemsFrontend(null, {task: 'items-ecommerce'} ).then( (items) => { itemsEcommerce = items;
-  //   items.map(async i=>{
-  //     let{name}=await categoryModel.findById((i.categoriesId))
-  //       i.categoryName=name;
-  //       return i
-  //     })
-  //     itemsEcommerce=items; 
-  // });
+
   let item = await settingsModel.findOne({});
 
 	const {copyright, content, logoFooter,phoneFooter,email,address,linkfacebook,linkyoutube} = JSON.parse(item.footer);

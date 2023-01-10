@@ -13,7 +13,7 @@ const ParamsHelpers = require(__path_helpers + 'params');
 const FileHelpers = require(__path_helpers + 'fields');
 
 const linkIndex		 = '/' + systemConfig.prefixAdmin + `/${Collection}/`;
-const pageTitleIndex = UtilsHelpers.firstLetterUppercase(Collection) + ' Management';
+const pageTitleIndex ='Quản Lý Khác';
 const folderView	 = __path_view_admin + `pages/${Collection}/`;
 const uploadAvatar	 = FileHelpers.upload([
 	{name:'logoHeader', maxCount: 1},

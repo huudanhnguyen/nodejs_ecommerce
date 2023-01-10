@@ -15,7 +15,8 @@
 <%- locals.flash %>
 <div class="card card-info card-outline">
 	<div class="card-header">
-		<h6 class="card-title">Search & Filter</h6>
+		<h6 class="card-title">Tìm Kiếm & Lọc
+		</h6>
 		<div class="card-tools">
 			<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
 				<i class="fas fa-minus"></i></button>
@@ -32,8 +33,8 @@
 					<div class="input-group">
 						<input type="text" class="form-control form-control-sm" name="keyword" value="<%= keyword %>" style="min-width: 300px">
 						<div class="input-group-append">
-							<a type="button" class="btn btn-sm btn-danger"  href="<%= linkPrefix %>status/<%= currentStatus %>">Clear</a>
-							<button type="submit" class="btn btn-sm btn-info" id="btn-search">Search</button>
+							<a type="button" class="btn btn-sm btn-danger"  href="<%= linkPrefix %>status/<%= currentStatus %>">Xóa</a>
+							<button type="submit" class="btn btn-sm btn-info" id="btn-search">Tìm Kiếm</button>
 						</div>
 					</div>
 				</form>
@@ -44,7 +45,7 @@
 
 <div class="card card-info card-outline">
 	<div class="card-header">
-		<h4 class="card-title">List</h4>
+		<h4 class="card-title">Danh Sách</h4>
 		<div class="card-tools">
 			<a href="#" class="btn btn-tool"><i class="fas fa-sync"></i></a>
 			<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fas fa-minus"></i></button>
@@ -68,15 +69,15 @@
 						</th>
 						<th class="text-center">#</a></th>
 						<th class="text-center sort">
-							<%- sortField(linkPrefix,'Name','name',sort) %>
+							<%- sortField(linkPrefix,'Tên','name',sort) %>
 						</th>
-						<th class="text-center">Status</a></th>
+						<th class="text-center">Trạng Thái</a></th>
 						<th class="text-center sort">
-							<%- sortField(linkPrefix,'Ordering','ordering',sort) %>
+							<%- sortField(linkPrefix,'Thứ Tự','ordering',sort) %>
 						</th>
-						<th class="text-center">Created</a></th>
-						<th class="text-center">Modified</a></th>
-						<th class="text-center">Action</th>
+						<th class="text-center">Đã Tạo</a></th>
+						<th class="text-center">Chỉnh Sửa</a></th>
+						<th class="text-center">Thao Tác</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -136,7 +137,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Xóa Phần Tử</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -146,7 +147,7 @@
       </div>
       <div class="modal-footer">
         <a href="#" class="btn btn-primary">Ok</a>
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
       </div>
     </div>
   </div>

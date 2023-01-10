@@ -569,7 +569,7 @@ $(document).ready(function () {
      <article class="card containerTracking">
      <!-- <header class="card-header"> My Orders / Tracking </header> -->
      <div class="card-body">
-         <h6>Order ID: ${data.trackingCode}</h6>
+         <h6>Mã Đơn Hàng : ${data.trackingCode}</h6>
          <div class="track">
              <div class="step active"> <span class="icon"> <i class="fa fa-check"></i> </span> <span
                      class="text">Đơn Hàng Đã Xác Nhận</span> </div>

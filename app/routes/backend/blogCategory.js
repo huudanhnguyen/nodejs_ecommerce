@@ -13,9 +13,9 @@ const ParamsHelpers = require(__path_helpers + 'params');
 const FileHelpers = require(__path_helpers + 'file');
 
 const linkIndex		 = '/' + systemConfig.prefixAdmin + `/${Collection}/`;
-const pageTitleIndex = UtilsHelpers.firstLetterUppercase(Collection) + ' Management';
-const pageTitleAdd   = pageTitleIndex + ' - Add';
-const pageTitleEdit  = pageTitleIndex + ' - Edit';
+const pageTitleIndex = 'Quản Lý Danh Mục Bài Viết';
+const pageTitleAdd   = pageTitleIndex + ' - Thêm';
+const pageTitleEdit  = pageTitleIndex + ' - Sửa';
 const folderView	 = __path_view_admin + `pages/${Collection}/`;
 
 router.get('(/status/:status)?', async (req, res, next) => {
